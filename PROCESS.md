@@ -19,6 +19,13 @@ cover every deliverable.
 One paragraph: the thing, and the idea behind it.
 
 ## How I got here
+Initially, I derived my ideation from a list of _Improbable Research_ IgNobel prizes. Several topics caught my eyes, and I came up with several topics of my own, including: Domestic Entomology, Ancient Aerial Anthropology, Capsicum Anatomy, and Ethanol Economics. In the end I decided to focus on Domestic Entomology, which resulted in the first prototype (cite first prompt, first commit).
+
+
+
+
+
+
 
 The account of the process: how the work actually went, and how you knew the
 result was right. Tell it in whatever order makes it clear. A weekly prototype
