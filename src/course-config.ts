@@ -47,17 +47,17 @@ export const slopCourseMetaSchema = z
 // provisioned, and no other course in the cohort has them. Change the first
 // digit to your course's level (and `level` to match); keep the other three.
 export const courseMeta = slopCourseMetaSchema.parse({
-  code: "SLOP2230",
-  title: "The Interspecies Residence",
+  code: "SLOP4230",
+  title: "Retail Ethanol Economics",
   session: "Semester 1",
   year: 2027,
-  level: 2,
+  level: 4,
   startDate: "2027-02-22",
   endDate: "2027-05-28",
   description:
-    "A twelve-week study in cohabitating with the arthropods that already " +
-    "share your home, treating every crumb trail, corner web, and wall " +
-    "void as evidence of a residence built, all along, for more than one " +
-    "species.",
-  tags: ["interspecies ethics", "urban ecology", "cohabitation design"],
+    "A rigorous quantitative analysis of alcohol-by-volume-to-price " +
+    "ratios, volumetric taxation loopholes, and retail spatial " +
+    "optimisation within the Australian supermarket landscape, treating " +
+    "every shelf tag as a dataset.",
+  tags: ["retail economics", "excise policy", "price optimisation"],
 }) satisfies CourseMetaInput;

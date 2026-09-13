@@ -1,39 +1,43 @@
-# Working method: SLOP2230, The Interspecies Residence
+# Working method: SLOP4230, Retail Ethanol Economics
 
 This course is a sincere, deadpan academic treatment of an absurd premise:
-peaceful cohabitation with the arthropods that already share your home, as a
-rigorous scientific and ethical discipline. The comedy lives entirely in the
-gap between the premise and the register — never in the register itself.
-Every rule below exists to protect that gap.
+optimising alcohol purchasing decisions as a rigorous quantitative economics
+and data-science discipline. The comedy lives entirely in the gap between
+the premise and the register — never in the register itself. Every rule
+below exists to protect that gap.
 
 ## Persona rules
 
 - **Never wink.** No jokes, no self-aware asides, no "obviously this is
   satire" framing, in any content a reader sees — homepage, lectures,
-  sessions, assessments, decks, people. Write it exactly as a real urban
-  ecology course would write about itself.
+  sessions, assessments, decks, people. Write it exactly as a real
+  quantitative retail-economics course would write about itself.
 - **The premise is load-bearing, not decorative.** Every argument about
-  boundaries, ethics, or method must follow from the fictional literature
-  cited, not from an assumed reaction of "this is funny." Treat *Nocturnal
-  Hydration in Urban Blattodea* the way a real course treats its set texts:
-  as a source of claims to be applied, not a punchline.
-- **Cohabitation is not the same as tolerance.** The premise is a
-  negotiated, reciprocal relationship with named terms — a lease, a mapped
-  territory, a stated boundary — not passive acceptance of whatever a
-  resident does. A rule or argument that amounts to "just let it happen" has
-  missed the premise.
+  taxation, pricing, or method must follow from the fictional literature
+  cited, not from an assumed reaction of "this is funny." Treat *Ad
+  Valorem Design and the Wine Equalisation Tax* the way a real course
+  treats its set texts: as a source of claims to be applied, not a
+  punchline.
+- **Optimisation is analysis, not endorsement.** The course models the
+  alcohol-by-volume-to-price ratio as a rigorous quantitative object; it
+  does not read as encouragement to maximise alcohol purchasing or
+  consumption. Week 11's ethical-implications framework is the semester's
+  explicit acknowledgment that the optimisation has public-health costs —
+  keep that acknowledgment honest rather than letting it collapse into
+  either "optimise responsibly" hand-waving or a joke about drinking.
 - **Citation style is fixed:** *Paper Title* (Journal Name, Year), italicised
   title, journal and year in parentheses. Every substantive claim in a
   lecture or deck should trace to one of the semester's 12 named readings —
   invent a new one only if the curriculum genuinely needs it, and give it
   the same shape (a plausible fictional journal, a plausible year).
-- **One idea per semester.** The curriculum's arc — territory, archival
-  behaviour, arachnid tenancy, decay economics, architecture, foraging,
-  social space, sleep, soundscape, boundary-setting, conflict resolution,
-  future design — is fixed. A new week or reading should extend that arc,
-  not introduce an unrelated one. Week 11's conflict-resolution framework is
-  the semester's one deliberate acknowledgment that cohabitation has
-  limits; don't add a second without a specific reason.
+- **One idea per semester.** The curriculum's arc — fermentation cost,
+  the standard-drink metric, cask-wine margins, ad valorem tax, price
+  elasticity, volumetric tax, retail layout, merchandising psychology,
+  data scraping, algorithmic optimisation, ethics, capstone synthesis — is
+  fixed. A new week or reading should extend that arc, not introduce an
+  unrelated one. Week 11's externality framework is the semester's one
+  deliberate acknowledgment that the optimisation has limits; don't add a
+  second without a specific reason.
 - **Frontmatter `description` stays short** (1–2 sentences): it feeds page
   `<meta>` tags and the listing-grid card teaser, both of which look broken
   if it runs long. Put the fuller, ~150-word treatment in the page body,
