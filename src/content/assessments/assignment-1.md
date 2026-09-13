@@ -1,57 +1,55 @@
 ---
-title: Observational Ethnography
+title: Data Scraping Exercise
 description:
-  A five-day, non-interfering field study of one identified household
-  insect, and what its territory reveals about the home's ecosystem
-week: 6
-due: 2027-03-29T12:00:00+10:00
+  Scrape and map local supermarket alcohol volumes against retail
+  prices to calculate an ABV-to-dollar ratio for 100+ SKUs
+week: 9
+due: 2027-04-26T12:00:00+10:00
 weight: 30
 marking:
   mode: weighted
   criteria:
-    - name: Non-interference and observational rigor
-      weight: 35
-    - name: Territory mapping accuracy
+    - name: Completeness of the scraped dataset
       weight: 30
-    - name: Analysis of ecosystem contribution
-      weight: 35
+    - name: Accuracy of ABV-to-dollar ratio calculations
+      weight: 40
+    - name: Data organisation and reproducibility of method
+      weight: 30
 spec:
-  - one specific, identified resident, tracked across five consecutive days
-  - no interference, relocation, or deterrent introduced during the observation window
-  - territory mapped against the dwelling's actual floor plan, not a sketch
-  - analysis grounded in at least one reading from weeks 1 through 6
+  - a dataset of at least 100 distinct SKUs from at least one named supermarket retailer
+  - every row carries product name, volume, ABV, price, and computed standard-drink count
+  - the ABV-to-dollar ratio uses week 2's standard-drink conversion, applied consistently
+  - the scraping method is documented well enough that another student could reproduce it
 related:
   - lectures/week-02
-  - lectures/week-03
-  - interspecies-lease-agreement
+  - lectures/week-09
 ---
 
 ## The brief
 
-> Identify one household insect, then track it for five days without
-> touching, moving, deterring, or otherwise intervening in its routine.
+> Scrape a real supermarket's online liquor catalogue, normalise it, and
+> calculate the exact alcohol-by-volume-to-price ratio for at least 100
+> SKUs.
 
-The instruction to not interfere is the assignment, not a constraint on it.
-A tracked resident whose routine has been disturbed by its own observer
-produces a record of the disturbance, not of the resident, which is why the
-mark for non-interference is weighted equally with the mapping itself. Using
-the silverfish-archival methods of week 2 or the web-siting analysis of
-week 3 as a model, the study should identify where the subject goes, when,
-and why those locations recur — airflow, prey corridor, temperature,
-structural cover — and connect that territory to the resident's measurable
-contribution to the dwelling's wider ecosystem, whether that contribution is
-decomposition, predation of smaller pests, or something the reading you draw
-on identifies that you had not previously considered.
+Week 9 covers the scraping methodology and its failure modes; week 2
+supplies the standard-drink conversion every ratio in the dataset depends
+on. This exercise asks you to combine both without letting either
+weaken the other: a scrape that captures volume, ABV, and price cleanly
+but applies the wrong standard-drink formula produces a dataset that
+looks complete and is quietly wrong throughout, which is exactly the
+silent-failure mode week 9's reading warns about. A dataset under 100
+SKUs is not marked as "smaller but valid" — the reading is explicit that
+below that threshold, a category-wide pattern cannot be distinguished
+from one retailer's current promotions, so the exercise's own claims
+about value-for-money would not be supportable.
 
 ## What you submit
 
-A written ethnography of the five-day observation period: a dated log, a
-territory map overlaid on the dwelling's actual floor plan, and an analysis
-section connecting the mapped territory to the resident's ecosystem
-contribution, citing at least one reading from the first six weeks.
+The scraped and normalised dataset itself (spreadsheet or equivalent
+structured format), sorted by ABV-to-dollar ratio, plus a short written
+account of the scraping method used and any fields that had to be
+excluded or estimated.
 
-The `marking:` block above splits marks evenly between discipline and
-insight: rigor without interference establishes that the record is trustworthy,
-accurate mapping establishes that the territory is real, and the analysis
-is where the study earns the same weight as the other two combined, since a
-territory correctly mapped but never explained has not yet said anything.
+The `marking:` block above weights accuracy of the ratio calculation
+highest, since a complete, well-organised dataset built on an incorrect
+standard-drink conversion has produced 100 wrong answers rather than one.
