@@ -1,36 +1,66 @@
 ---
 title: Getting started
 description:
-  The first session of the semester — what to have working before you arrive,
-  and what happens once you do
+  The first session of the semester — fixing the fiscal-molecule framing of
+  ethanol and the standard-drink metric every calculation this course makes
+  depends on
 week: 1
 date: 2027-02-22
 teachers:
   - marisol-quaye
 spec:
-  - your development environment runs the course's toolchain
-  - you can build and preview the site locally
-  - you have something, however rough, to show the class
+  - you can state the standard-drink content of a product from its volume and ABV
+  - you have picked one supermarket's online liquor catalogue as your working dataset for the semester
+  - you can compute one ungraded ABV-to-dollar index value by hand before you leave
+related:
+  - lectures/week-01
+  - lectures/week-02
 ---
 
-<!-- STARTER_CONTENT: replace this session, then remove this comment. -->
-
-Replace this page. A session brief tells a student three things: what to bring,
-what will happen, and how to tell afterwards whether it went well.
+A session brief tells a student three things: what to bring, what will
+happen, and how to tell afterwards whether it went well. This one exists to
+fix the shared vocabulary the rest of the semester is denominated in, before
+week 1's fermentation lecture and week 2's standard-drink lecture ask you to
+put it to use.
 
 ## Before the session
 
-The `spec` above is the contract. Write each line so a reader can tell whether
-it has been met without asking you --- that is the difference between a spec and
-a wish.
+The `spec` above is the contract. Arrive with a specific supermarket's
+online liquor catalogue picked out — the one you will keep returning to for
+week 9's scraping exercise — and a calculator or spreadsheet you are willing
+to do arithmetic in during the session.
 
 ## In the session
 
-Say how the time is actually spent, in the order it happens. If the session runs
-to a repeating shape --- a demo, then feedback, then work time --- name the
-parts and say roughly how long each takes. Students plan against it.
+**The fiscal molecule.** Ethanol (C₂H₆O) is not treated biologically in
+this course; it is treated purely as an economic unit. We fix the chemical
+baseline week 1's lecture covers so that a production cost, not an assumed
+retail price, is what every later tax and margin calculation sits on top
+of.
+
+**The standard drink as currency.** In Australia, one standard drink is
+defined as exactly ten grams of pure ethanol. This session fixes that
+figure as the unit every ratio, tax, and comparison for the rest of the
+semester is denominated in — the way week 2's lecture treats it as a unit
+of account, not a serving suggestion.
+
+**A first, ungraded index.** The formula the semester builds toward —
+
+```
+standard_drinks = (volume_mL × ABV% × 0.789) / 1000
+index = standard_drinks / price
+```
+
+— is previewed here only far enough to compute it by hand for two or three
+products from the catalogue you picked. Week 10 formalises the constrained
+version; this session only checks that the unconstrained number comes out
+right.
+
+**Required reading:** *Standard Drink Equivalency Models in High-Volume
+Retail Environments* (Health Economics, 2017)
 
 ## Afterwards
 
-Say what leaves the session: a mark, a piece of feedback, a decision about the
-next week's work.
+You leave with a working catalogue, a correct standard-drink conversion,
+and one hand-computed index value — the three things week 9's scraping
+exercise scales up and week 10's lecture formalises.
