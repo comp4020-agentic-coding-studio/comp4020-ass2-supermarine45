@@ -1,0 +1,128 @@
+---
+title: "Algorithmic Maximization"
+description: The ABV-to-dollar index formula, and greedy versus dynamic-programming approaches under a budget constraint
+---
+
+# Algorithmic Maximization
+
+## Week 10 — The ABV-to-Dollar Index
+
+---
+
+## Where we left off
+
+- Week 9: a scraped, normalised dataset of 100+ SKUs
+- name, volume, ABV, and price, cleaned of the failure modes covered
+- a dataset is not yet an answer — it is only rankable once it is scored
+- this week: the formula that does the scoring, and how to maximise it
+
+---
+
+{/* _class: quote */}
+
+> A greedy ranking is correct until the first constraint is added. After
+> that, it is merely convenient.
+>
+> — *Greedy and Dynamic-Programming Approaches to Retail Index
+> Maximisation* (Operations Research for Retail, 2022)
+
+---
+
+## Learning objectives
+
+By the end of this lecture you should be able to:
+
+- define the ABV-to-dollar index from a normalised SKU record
+- rank a dataset by index with a naive greedy approach
+- explain why a budget cap breaks the greedy approach's optimality
+- apply a dynamic-programming formulation under budget and variety constraints
+
+---
+
+## Defining the index
+
+For a single SKU:
+
+```
+standard_drinks = (volume_ml × abv_percent × 0.789) / 1000
+index = standard_drinks / price_dollars
+```
+
+Every ratio this course has discussed qualitatively since week 2 is this
+one number, computed per SKU, from fields week 9's scrape already
+extracted.
+
+---
+
+## The naive approach: greedy ranking
+
+- sort every SKU in the dataset by `index`, descending
+- for an unconstrained comparison — "which single product is best value"
+  — this is not just adequate, it is the correct answer
+- most of weeks 3 through 8's case studies are, in effect, one-row
+  greedy comparisons done by hand
+
+---
+
+{/* _class: impact */}
+
+# Greedy ranking is optimal until a budget constraint exists
+
+---
+
+## Where greedy fails
+
+Add a fixed budget and a minimum-variety requirement — the shape of both
+the scraping exercise's ranking task and the closing event portfolio —
+and greedy selection stops being optimal:
+
+| Approach | Unconstrained ranking | Fixed budget, min. 3 SKUs |
+| :--- | :--- | :--- |
+| Greedy (top-index first) | Optimal | Frequently suboptimal |
+| Dynamic programming | Optimal (trivially) | Optimal |
+
+Greedy overspends on the single highest-index SKU and has nothing left
+to satisfy the variety constraint efficiently.
+
+---
+
+## The dynamic-programming formulation
+
+- state: (SKUs considered so far, budget remaining, distinct types so far)
+- transition: include the next SKU, or skip it
+- objective: maximise total standard drinks across included SKUs
+- constraints: total price ≤ budget; distinct types ≥ minimum variety
+
+This is a bounded knapsack problem with an added distinctness constraint,
+not a novel algorithm — the reading's contribution is showing that the
+retail case genuinely needs it.
+
+---
+
+## Common errors
+
+- ranking by index without checking whether a budget constraint applies
+- forgetting that `standard_drinks` must use week 2's conversion exactly,
+  or every downstream ranking is silently wrong
+- treating "minimum variety" as a soft preference rather than a hard
+  constraint in the state space
+- optimising for total standard drinks while ignoring week 11's caution
+  that the objective function itself has a cost the model doesn't price
+
+---
+
+## Where this connects
+
+- the data scraping exercise's ranking step uses the unconstrained
+  greedy version directly against week 9's dataset
+- the event portfolio, due at the semester's close, is the fully
+  constrained version — fixed budget, minimum variety, and a guest count
+  that turns this week's per-shopper formulation into next week's
+  harder, event-scale one
+
+---
+
+## Next week
+
+Ethical implications, and why an index that is mathematically optimal is
+not, on its own, a recommendation.

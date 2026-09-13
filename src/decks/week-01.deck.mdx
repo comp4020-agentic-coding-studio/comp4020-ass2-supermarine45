@@ -1,48 +1,128 @@
 ---
-title: Opening lecture
-description: The placeholder deck — replace it with a real deck for your course
+title: "Chemistry of Cheap Fermentation"
+description: Reaction kinetics of a minimum-cost sugar wash, and the production cost every retail price in this course sits on top of
 ---
 
-# Opening lecture
+# Chemistry of Cheap Fermentation
 
-{/* STARTER_CONTENT: replace this deck, then remove this comment. */}
-
-Replace this deck. It is here to show that slides are part of the site, built
-from the same markdown as everything else.
+## Week 1 — The Production Cost Baseline
 
 ---
 
-## Slides are markdown
+## Where the semester starts
 
-A `---` starts a new slide. Everything else is ordinary markdown: headings,
-lists, links, tables, images, fenced code.
+- not with a shelf price, but with the cost of making the thing
+- ethanol here is an economic unit, not a biological one
+- every tax, margin and placement in weeks 2–12 is a layer on top of this number
+- so the number has to come first, or the layers have nothing to sit on
 
-- one idea per slide
-- the fewest words that carry it
-- the deck is a performance artefact, so it can say things a page wouldn't
+---
+
+{/* _class: quote */}
+
+> Substrate cost predicts almost nothing about fermentation rate. The
+> cheapest wash is not reliably the slowest one, and the assumption that
+> it is has quietly distorted a generation of cost models.
+>
+> — *Kinetics of Minimum-Cost Ethanol Fermentation* (Journal of Applied
+> Fermentation Science, 2019)
+
+---
+
+## Learning objectives
+
+By the end of this lecture you should be able to:
+
+- describe fermentation as a rate process governed by substrate, not price
+- explain why substrate cost and fermentation rate decouple
+- identify nitrogen availability and sugar density as the real rate-limiters
+- state what a production cost does and does not tell you about a shelf price
+
+---
+
+## The reaction, stated once
+
+```
+C₆H₁₂O₆  →  2 C₂H₅OH  +  2 CO₂
+glucose      ethanol      carbon dioxide
+```
+
+One mole of glucose yields two of ethanol. The stoichiometry is fixed and
+uninteresting. **What varies is how fast a given wash gets there, and what
+the substrate cost to buy.**
+
+---
+
+## The result that matters
+
+The week's reading fermented a range of low-cost substrates and measured
+time to terminal ethanol concentration:
+
+| Substrate | Relative cost | Time to terminal ABV |
+| :--- | :--- | :--- |
+| Refined sucrose | Mid | Fast |
+| Raw sugar | Low | Fast |
+| Molasses | Lowest | Moderate |
+| Fruit concentrate | Highest | Slowest |
+
+Cost and rate are only **weakly correlated** — and the correlation that
+does exist runs the wrong way from the intuition.
 
 ---
 
 {/* _class: impact */}
 
-# A slide class
-
-`{/* _class: impact */}` fills the slide with the brand colour. `quote`,
-`banner` and `centered` are the others the theme styles.
+# A cheaper wash is not a slower wash
 
 ---
 
-## What else is here
+## What actually limits the rate
 
-```sh
-pnpm dev
-pnpm check
-```
+Two variables, neither of them price:
 
-The second command proves the deck compiles with the rest of the site. Use the
-first to inspect every slide at the desktop and phone marking viewports; slide
-fit and legibility are visual judgements.
+- **available nitrogen** — yeast needs it to build biomass before it can
+  build ethanol; a nitrogen-poor wash stalls regardless of sugar present
+- **initial sugar density** — too low and the yield caps early, too high
+  and osmotic pressure suppresses the culture
 
-The [astromotion](https://github.com/ANUcybernetics/astromotion) README has the
-rest of the syntax: speaker notes, backgrounds, QR codes, fragments, and
-components hydrated per slide.
+Several of the least expensive substrates tested are nitrogen-rich as a
+by-product of how they are refined. That is the whole mechanism.
+
+---
+
+## Why an economics course opens here
+
+- a retail price is production cost **plus** tax **plus** margin **plus**
+  whatever the shelf position is worth
+- three of those four are the rest of this semester
+- you cannot decompose a price into four terms if you have never
+  established the first one
+- week 3 does this properly for cask wine, where the gap is widest
+
+---
+
+## Common errors
+
+- treating the production cost as a floor the retail price stays near —
+  it frequently does not, and weeks 3 and 4 are about why
+- assuming a cheap input implies a cheap process
+- reading this week as a manufacturing lecture; it is a cost-baseline
+  lecture that happens to require the chemistry
+
+---
+
+## Where this connects
+
+- **week 2** converts ethanol volume into the standard-drink unit every
+  later comparison is denominated in
+- **week 3** takes the first real product — cask wine — and shows how
+  little of its shelf price this baseline explains
+- **week 12** returns here, at event scale, to ask the same question about
+  a fifty-person inventory
+
+---
+
+## Next week
+
+The standard drink as a unit of account: fixing the ten-gram ethanol
+metric that every ratio, tax and comparison this semester is measured in.
