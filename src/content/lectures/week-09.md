@@ -8,7 +8,7 @@ date: 2027-04-19
 teachers:
   - marisol-quaye
 related:
-  - assessments/assignment-1
+  - assessments/data-scraping-exercise
 ---
 
 **Core reading:** *Automated Extraction of Supermarket Inventory Data*

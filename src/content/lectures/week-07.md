@@ -1,5 +1,5 @@
 ---
-title: Retail Spatial Optimization
+title: Retail Spatial Optimisation
 description:
   Floor-plan analysis of suburban liquor outlets, and what shelf
   distance actually costs a retailer versus a shopper
@@ -38,7 +38,7 @@ takes to buy.
 
 ## Further reading
 
-- *Spatial Optimization of High-ABV Inventory* (Journal of Retailing,
+- *Spatial Optimisation of High-ABV Inventory* (Journal of Retailing,
   2022) — narrows this week's floor-plan analysis specifically to
   high-ABV categories, and is the more directly useful reading if your
   Event Portfolio pitch turns on shelf placement rather than price alone.

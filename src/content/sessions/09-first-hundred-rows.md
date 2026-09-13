@@ -13,7 +13,7 @@ spec:
   - you can name which of your rows have an inferred rather than a stated ABV, and how many
 related:
   - lectures/week-09
-  - assessments/assignment-1
+  - assessments/data-scraping-exercise
 ---
 
 ## Before the lab

@@ -1,31 +1,31 @@
 ---
 title: First review
 description:
-  The second session, where each student's early standard-drink and index
+  The second lab, where each student's early standard-drink and index
   calculations meet a worked example for the first time
 week: 2
 date: 2027-03-01
 teachers:
   - idris-fenn
 spec:
-  - work from session 1 is running — your standard-drink conversion and one computed index value
+  - work from lab 1 is running — your standard-drink conversion and one computed index value
   - you can name the one decision in that calculation you are least sure about
 related:
-  - assessments/assignment-1
+  - assessments/data-scraping-exercise
   - lectures/week-03
   - lectures/week-04
 ---
 
-## Before the session
+## Before the lab
 
-Bring the standard-drink conversion and index value you computed in session
+Bring the standard-drink conversion and index value you computed in lab
 1, and the one decision behind it you are least confident about — a
 rounding choice, a promotional price you weren't sure whether to use, a
 product you guessed the ABV for.
 
-## In the session
+## In the lab
 
-Short demos of each student's session-1 numbers, then feedback aimed at the
+Short demos of each student's lab-1 numbers, then feedback aimed at the
 decision rather than the arithmetic. Idris works through one live example
 to demonstrate what "showing your working" should look like in practice:
 cask wine against the Wine Equalisation Tax.
@@ -40,7 +40,7 @@ bottle at ten times the wholesale price returns proportionally the same
 rate but a far higher absolute tax per standard drink sold. The example
 produces a genuine price-floor anomaly: an 80-standard-drink cask can
 legally retail for less than a 20-standard-drink case of beer. Weeks 3 and
-4 cover both halves of this in full; the session only uses it to show what
+4 cover both halves of this in full; the lab only uses it to show what
 a defensible worked answer looks like before your own numbers are checked
 against the same standard.
 

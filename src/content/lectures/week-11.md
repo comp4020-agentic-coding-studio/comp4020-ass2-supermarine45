@@ -1,7 +1,7 @@
 ---
 title: Ethical Implications
 description:
-  The public health externalities of optimized discount purchasing, and
+  The public health externalities of optimised discount purchasing, and
   why an optimal index is not the same thing as a recommendation
 week: 11
 date: 2027-05-03
@@ -37,7 +37,7 @@ same calculation.
 
 ## Further reading
 
-- *Public Health Externalities of Optimized Purchasing* (Medical Ethics,
+- *Public Health Externalities of Optimised Purchasing* (Medical Ethics,
   2023) — makes the same argument as this week's core reading from a
   clinical rather than an economic starting point, useful if your Event
   Portfolio's externality statement needs a second discipline behind it.

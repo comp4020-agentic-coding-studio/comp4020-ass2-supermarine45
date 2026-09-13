@@ -8,7 +8,7 @@ date: 2027-03-01
 teachers:
   - idris-fenn
 related:
-  - assessments/assignment-1
+  - assessments/data-scraping-exercise
 ---
 
 **Core reading:** *The Standard Drink as a Unit of Account*

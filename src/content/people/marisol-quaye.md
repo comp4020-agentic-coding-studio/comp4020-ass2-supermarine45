@@ -7,7 +7,7 @@ description:
 affiliation: Slop University School of Retail and Behavioural Economics
 role: convenor
 email: marisol.quaye@slop.university
-contact: Email for course-level questions; use the weekly session for feedback on work.
+contact: Email for course-level questions; use the weekly lab for feedback on work.
 photo: ./marisol-quaye.png
 photoAlt: A portrait of a person in three-quarter view, arms crossed and smiling, against a plain white background
 ---

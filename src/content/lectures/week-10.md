@@ -1,5 +1,5 @@
 ---
-title: Algorithmic Maximization
+title: Algorithmic Maximisation
 description:
   Coding the ABV-to-dollar index formula, and turning nine weeks of
   measurement into a single ranked output
@@ -9,7 +9,7 @@ teachers:
   - idris-fenn
 slides: /decks/week-10/
 related:
-  - assessments/assignment-1
+  - assessments/data-scraping-exercise
   - assessments/event-portfolio
 ---
 
@@ -38,7 +38,7 @@ constrained inventory can be built correctly on the naive version alone.
 
 ## Further reading
 
-- *Algorithmic Maximization of the Intoxication Index* (Quantitative
+- *Algorithmic Maximisation of the Intoxication Index* (Quantitative
   Economics, 2024) — applies this week's formula to a live, updating feed
   rather than a static scrape, and is the reading to check against if your
   data scraping exercise re-ranks its dataset as prices change rather than

@@ -7,7 +7,7 @@ description:
 affiliation: Slop University School of Retail and Behavioural Economics
 role: tutor
 email: idris.fenn@slop.university
-contact: Ask during sessions, or email when a question cannot wait until the next one.
+contact: Ask during labs, or email when a question cannot wait until the next one.
 photo: ./idris-fenn.png
 photoAlt: A portrait of a person facing the viewer, arms crossed and smiling, against a plain blue background
 ---
@@ -39,7 +39,7 @@ Australian Liquor Retailers* (Australasian Journal of Consumer Research,
 2024).
 
 Idris teaches the course's even weeks, from week 2's standard-drink metric
-through to week 12's capstone, and runs the practical review sessions in
+through to week 12's capstone, and runs the practical review labs in
 between — including the first review, which checks each student's early
 standard-drink and index calculations before the semester's assessments
 come to depend on them.
