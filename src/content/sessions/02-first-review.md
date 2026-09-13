@@ -49,8 +49,8 @@ Pricing Anomaly* (Australian Tax Review, 2019)
 
 ## Afterwards
 
-If attendance or participation is worth marks, that rule is stated on the
-[assessment page](/assessments/) rather than repeated here. What leaves the
-session is feedback on the one decision you brought, and a second worked
-example — cask wine and the WET — to check your own method against once
-weeks 3 and 4 cover the same ground in full.
+What leaves the lab is feedback on the one decision you brought, and a
+second worked example — cask wine and the WET — to check your own method
+against once weeks 3 and 4 cover the same ground in full. Nothing in this
+lab is graded, but the conversion it corrects is load-bearing for both the
+scraping exercise and the portfolio.

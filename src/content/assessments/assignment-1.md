@@ -50,6 +50,6 @@ structured format), sorted by ABV-to-dollar ratio, plus a short written
 account of the scraping method used and any fields that had to be
 excluded or estimated.
 
-The `marking:` block above weights accuracy of the ratio calculation
-highest, since a complete, well-organised dataset built on an incorrect
-standard-drink conversion has produced 100 wrong answers rather than one.
+The weighting below puts accuracy of the ratio calculation highest, since
+a complete, well-organised dataset built on an incorrect standard-drink
+conversion has produced 100 wrong answers rather than one.

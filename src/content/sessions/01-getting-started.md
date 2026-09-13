@@ -17,11 +17,10 @@ related:
   - lectures/week-02
 ---
 
-A session brief tells a student three things: what to bring, what will
-happen, and how to tell afterwards whether it went well. This one exists to
-fix the shared vocabulary the rest of the semester is denominated in, before
-week 1's fermentation lecture and week 2's standard-drink lecture ask you to
-put it to use.
+The first lab exists to fix the shared vocabulary the rest of the semester
+is denominated in, before week 1's fermentation lecture and week 2's
+standard-drink lecture ask you to put it to use. Nothing here is graded.
+Everything here is assumed from week 2 onward.
 
 ## Before the session
 

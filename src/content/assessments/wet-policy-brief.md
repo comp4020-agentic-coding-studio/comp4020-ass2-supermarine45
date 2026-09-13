@@ -47,6 +47,6 @@ distinction the marking below is built around.
 A single 1,500-word policy brief, submitted as a PDF, formatted and
 cited in APA style throughout, exclusive of the reference list.
 
-The `marking:` block above weights the impact analysis at half the total
-marks, since an accurate explanation of the tax mechanism is a
-precondition for a strong brief, not the brief itself.
+The weighting below puts half the marks on the impact analysis, since an
+accurate explanation of the tax mechanism is a precondition for a strong
+brief rather than the brief itself.
