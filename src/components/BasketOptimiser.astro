@@ -1,0 +1,117 @@
+---
+// Week 10's argument, executable: the same catalogue and the same budget put
+// through a greedy ranking and through the constrained dynamic program, so the
+// point at which greedy stops being optimal is something a student produces
+// rather than something they are told.
+import { CATALOGUE } from "../lib/index-math";
+---
+
+<section class="tool" id="basket-optimiser" aria-labelledby="basket-optimiser-heading">
+  <h2 id="basket-optimiser-heading">Constrained selection</h2>
+  <p class="tool-lede">
+    A fixed budget and a minimum number of distinct types, over a worked
+    catalogue of {CATALOGUE.length} products. Greedy ranking against the
+    dynamic-programming formulation.
+  </p>
+
+  <div class="tool-body">
+    <fieldset class="tool-fields">
+      <legend>Constraints</legend>
+
+      <div class="field">
+        <label for="bo-budget">Budget (AUD)</label>
+        <input id="bo-budget" type="range" min="40" max="400" step="10" value="200"
+          aria-describedby="bo-budget-value" />
+        <span class="field-value" id="bo-budget-value">$200</span>
+      </div>
+
+      <div class="field">
+        <label for="bo-variety">Minimum distinct types</label>
+        <input id="bo-variety" type="range" min="1" max="4" step="1" value="3"
+          aria-describedby="bo-variety-value" />
+        <span class="field-value" id="bo-variety-value">3</span>
+      </div>
+    </fieldset>
+
+    <output class="tool-out" id="bo-out" aria-live="polite">
+      <table class="tool-table">
+        <caption class="visually-hidden">Result under each method</caption>
+        <thead>
+          <tr>
+            <th scope="col">Method</th><th scope="col">Standard drinks</th>
+            <th scope="col" class="col-spend">Spend</th><th scope="col">Types</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Greedy (top index first)</th><td id="bo-g-d">—</td><td class="col-spend" id="bo-g-s">—</td><td id="bo-g-c">—</td></tr>
+          <tr><th scope="row">Dynamic programming</th><td id="bo-o-d">—</td><td class="col-spend" id="bo-o-s">—</td><td id="bo-o-c">—</td></tr>
+        </tbody>
+      </table>
+      <p class="tool-verdict" id="bo-verdict"></p>
+      <p class="tool-note" id="bo-lines"></p>
+    </output>
+  </div>
+
+  <p class="tool-caution">
+    The objective function here is total standard drinks, because that is the
+    quantity week 10's formulation maximises. It is a description of what the
+    model does, not a recommendation about what to buy; week 11's externality
+    framework is where the cost this objective does not price in is dealt with.
+  </p>
+</section>
+
+<script>
+  import { CATALOGUE, greedySelect, optimalSelect } from "../lib/index-math";
+
+  const $ = (id: string) => document.getElementById(id);
+  const budget = $("bo-budget") as HTMLInputElement | null;
+  const variety = $("bo-variety") as HTMLInputElement | null;
+  if (budget && variety) {
+    const budgetValue = $("bo-budget-value")!;
+    const varietyValue = $("bo-variety-value")!;
+    const verdict = $("bo-verdict")!;
+    const lines = $("bo-lines")!;
+    const cell = (id: string) => $(id)!;
+
+    const render = () => {
+      const b = Number.parseInt(budget.value, 10);
+      const v = Number.parseInt(variety.value, 10);
+      budgetValue.textContent = `$${b}`;
+      varietyValue.textContent = String(v);
+
+      const g = greedySelect(CATALOGUE, b, v);
+      const o = optimalSelect(CATALOGUE, b, v);
+
+      cell("bo-g-d").textContent = g.drinks.toFixed(1);
+      cell("bo-g-s").textContent = `$${g.spend.toFixed(2)}`;
+      cell("bo-g-c").textContent = `${g.categories}${g.feasible ? "" : " — short"}`;
+      cell("bo-o-d").textContent = o.feasible ? o.drinks.toFixed(1) : "—";
+      cell("bo-o-s").textContent = o.feasible ? `$${o.spend.toFixed(2)}` : "—";
+      cell("bo-o-c").textContent = o.feasible ? String(o.categories) : "—";
+
+      if (!o.feasible) {
+        verdict.textContent = `No selection satisfies ${v} distinct types within $${b}. The constraint set is infeasible, which is a result rather than an error — the cheapest product in each type already exceeds the budget.`;
+        lines.textContent = "";
+        return;
+      }
+      if (!g.feasible) {
+        verdict.textContent = `Greedy scores higher (${g.drinks.toFixed(1)} drinks) but only reaches ${g.categories} of the ${v} types required, so its answer is not admissible. It spent the budget on the highest-index product before the variety floor could be met.`;
+      } else if (o.drinks > g.drinks + 0.05) {
+        verdict.textContent = `Both are admissible, but dynamic programming finds ${(o.drinks - g.drinks).toFixed(1)} more standard drinks for the same budget. Greedy's first choice foreclosed a better combination.`;
+      } else {
+        verdict.textContent = `Both methods agree here. Raise the minimum types, or lower the budget, until they do not — that divergence is the point of the exercise.`;
+      }
+      // Spend is stated here as well as in the table because the Spend column
+      // is hidden at the phone viewport, where four numeric columns do not fit.
+      lines.textContent =
+        `Greedy spends $${g.spend.toFixed(2)}; the optimal selection spends $${o.spend.toFixed(2)}. ` +
+        `Optimal selection: ${o.lines.map((l) => `${l.sku.name} × ${l.qty}`).join("; ")}.`;
+    };
+
+    for (const el of [budget, variety]) {
+      el.addEventListener("input", render);
+      el.addEventListener("change", render);
+    }
+    render();
+  }
+</script>

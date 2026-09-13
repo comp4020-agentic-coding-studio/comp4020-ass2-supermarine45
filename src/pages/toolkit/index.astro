@@ -1,0 +1,250 @@
+---
+import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
+import { withBase } from "astro-theme-university/url";
+import BasketOptimiser from "../../components/BasketOptimiser.astro";
+import IndexCalculator from "../../components/IndexCalculator.astro";
+import TaxComparator from "../../components/TaxComparator.astro";
+import { siteConfig } from "../../site-config";
+---
+
+<ContentLayout
+  title="Toolkit"
+  description="Three instruments the course builds and uses: the index calculation, the two tax structures, and the constrained selection."
+  {...siteConfig}
+>
+  <p>
+    Everything below is arithmetic you will do by hand in the labs before you
+    do it at scale. The tools are here so you can check a single row against
+    your own working — a disagreement between your spreadsheet and this page
+    is worth finding in week 9 rather than in a submitted portfolio.
+  </p>
+  <p>
+    They are ordered the way the semester is: the unit first, then what
+    distorts it, then what to do about it under a constraint.
+  </p>
+
+  <IndexCalculator />
+  <TaxComparator />
+  <BasketOptimiser />
+
+  <h2>What these do not do</h2>
+  <p>
+    None of these tools reads a live price. Week 9 is where you build the thing
+    that does, against a catalogue you chose in week 1, under the crawl-delay
+    rules on the <a href={withBase("/policies/")}>policies page</a>. A figure typed into
+    this page is a figure you are responsible for.
+  </p>
+</ContentLayout>
+
+<style is:global>
+  .tool {
+    margin-block: var(--at-spacing-xl);
+    padding: var(--at-spacing-lg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-alt);
+  }
+
+  .tool > h2 {
+    margin-block-start: 0;
+  }
+
+  .tool-lede {
+    color: var(--at-text-secondary);
+    margin-block-end: var(--at-spacing-lg);
+  }
+
+  .tool-body {
+    display: grid;
+    gap: var(--at-spacing-lg);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 46rem) {
+    .tool-body {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+
+  .tool-fields {
+    display: grid;
+    gap: var(--at-spacing-md);
+    margin: 0;
+    padding: var(--at-spacing-md);
+    border: 1px solid var(--at-divider);
+    border-radius: var(--at-border-radius);
+    min-inline-size: 0;
+  }
+
+  .tool-fields legend {
+    padding-inline: var(--at-spacing-xs);
+    font-size: var(--at-font-size-sm);
+    color: var(--at-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .field {
+    display: grid;
+    gap: var(--at-spacing-xs);
+  }
+
+  .field label {
+    font-size: var(--at-font-size-sm);
+    font-weight: 600;
+  }
+
+  .field input,
+  .field select {
+    inline-size: 100%;
+    padding: 0.45rem 0.6rem;
+    font: inherit;
+    font-size: var(--at-font-size-sm);
+    color: var(--at-text);
+    background: var(--at-bg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+  }
+
+  .field input[type="range"] {
+    padding: 0;
+    accent-color: var(--at-primary);
+  }
+
+  .field input:focus-visible,
+  .field select:focus-visible {
+    outline: 2px solid var(--at-primary);
+    outline-offset: 2px;
+  }
+
+  .field-value {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--at-primary);
+  }
+
+  .tool-out {
+    display: block;
+    min-inline-size: 0;
+  }
+
+  .tool-out dl {
+    display: grid;
+    gap: var(--at-spacing-sm);
+    margin: 0;
+  }
+
+  .tool-out dl > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--at-spacing-sm);
+    padding-block-end: var(--at-spacing-sm);
+    border-block-end: 1px solid var(--at-divider);
+  }
+
+  .tool-out dt {
+    font-size: var(--at-font-size-sm);
+    color: var(--at-text-secondary);
+  }
+
+  .tool-out dd {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--at-primary);
+  }
+
+  /* Wide content scrolls inside its own box rather than the page. */
+  .tool-table {
+    inline-size: 100%;
+    display: block;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: var(--at-font-size-sm);
+  }
+
+  .tool-table td,
+  .tool-table th {
+    font-variant-numeric: tabular-nums;
+    text-align: start;
+  }
+
+  /* At 390px a four-column result table needs every pixel. Tightening it to
+     fit beats leaving it to scroll: a clipped table gives no affordance, and
+     the numbers either side of the fold are the whole comparison. */
+  @media (max-width: 30rem) {
+    /* `display: table` with a fixed layout makes the columns share the width
+       evenly and wrap inside themselves, so the table fits instead of
+       scrolling. Scrolling is the safe default at any width but a poor one
+       here: the numbers either side of the fold are the whole comparison, and
+       a clipped table offers no hint that there is more. */
+    .tool-table {
+      display: table;
+      table-layout: fixed;
+      font-size: 0.78rem;
+    }
+
+    .tool-table td,
+    .tool-table th {
+      padding-inline: 0.25rem;
+    }
+
+    /* Numbers must never wrap: "$192.00" broken across two lines reads as
+       "$192.0" and a stray zero, which is worse than any amount of clipping. */
+    .tool-table td {
+      white-space: nowrap;
+    }
+
+    /* Prose cells may break; headers get a smaller step so each label stays
+       on as few lines as possible. */
+    .tool-table th {
+      overflow-wrap: break-word;
+    }
+
+    /* Four numeric columns do not fit 390px without either breaking a number
+       across lines or clipping. Dropping the least load-bearing one — spend,
+       which the reader set as an input and which the verdict below restates in
+       prose — buys the other three enough room to stay legible. */
+    .tool-table .col-spend {
+      display: none;
+    }
+
+    /* The method names are the longest text here, so give that column the
+       slack and split the rest evenly. */
+    .tool-table thead th:first-child {
+      inline-size: 42%;
+    }
+  }
+
+  .tool-note,
+  .tool-verdict {
+    font-size: var(--at-font-size-sm);
+    color: var(--at-text-secondary);
+    margin-block: var(--at-spacing-sm) 0;
+  }
+
+  .tool-verdict {
+    color: var(--at-text);
+    font-weight: 600;
+  }
+
+  .tool-caution {
+    margin-block: var(--at-spacing-lg) 0;
+    padding-inline-start: var(--at-spacing-md);
+    border-inline-start: 3px solid var(--at-primary);
+    font-size: var(--at-font-size-sm);
+    color: var(--at-text-secondary);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>

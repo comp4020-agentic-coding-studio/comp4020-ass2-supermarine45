@@ -1,0 +1,103 @@
+---
+// Weeks 4 and 6 in one control: the same product costed under an ad valorem
+// tax and a volumetric one, both expressed per standard drink, which is the
+// only unit in which the two structures are comparable at all.
+import { EXCISE_PER_LAL, WET_RATE } from "../lib/index-math";
+---
+
+<section class="tool" id="tax-comparator" aria-labelledby="tax-comparator-heading">
+  <h2 id="tax-comparator-heading">Tax regime comparator</h2>
+  <p class="tool-lede">
+    One product, costed under the {Math.round(WET_RATE * 100)}% ad valorem Wine
+    Equalisation Tax and under a volumetric excise per litre of pure alcohol.
+    Week 4 against week 6.
+  </p>
+
+  <div class="tool-body">
+    <fieldset class="tool-fields">
+      <legend>Product and rates</legend>
+
+      <div class="field">
+        <label for="tc-volume">Volume (mL)</label>
+        <input id="tc-volume" type="number" inputmode="decimal" min="1" step="1" value="4000" />
+      </div>
+
+      <div class="field">
+        <label for="tc-abv">Alcohol by volume (%)</label>
+        <input id="tc-abv" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="10.5" />
+      </div>
+
+      <div class="field">
+        <label for="tc-wholesale">Wholesale value (AUD)</label>
+        <input id="tc-wholesale" type="number" inputmode="decimal" min="0.01" step="0.01" value="7.00" />
+      </div>
+
+      <div class="field">
+        <label for="tc-rate">Excise rate (AUD per litre of pure alcohol)</label>
+        <input id="tc-rate" type="number" inputmode="decimal" min="0" step="0.01" value={EXCISE_PER_LAL.toFixed(2)} />
+      </div>
+    </fieldset>
+
+    <output class="tool-out" id="tc-out" aria-live="polite">
+      <table class="tool-table">
+        <caption class="visually-hidden">Tax payable under each regime</caption>
+        <thead>
+          <tr><th scope="col">Regime</th><th scope="col">Tax payable</th><th scope="col">Per standard drink</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Ad valorem (WET)</th><td id="tc-wet">—</td><td id="tc-wet-sd">—</td></tr>
+          <tr><th scope="row">Volumetric excise</th><td id="tc-ex">—</td><td id="tc-ex-sd">—</td></tr>
+        </tbody>
+      </table>
+      <p class="tool-note" id="tc-note"></p>
+    </output>
+  </div>
+</section>
+
+<script>
+  import { excisePayable, litresOfAlcohol, standardDrinks, wetPayable } from "../lib/index-math";
+
+  const $ = (id: string) => document.getElementById(id);
+  const volume = $("tc-volume") as HTMLInputElement | null;
+  const abv = $("tc-abv") as HTMLInputElement | null;
+  const wholesale = $("tc-wholesale") as HTMLInputElement | null;
+  const rate = $("tc-rate") as HTMLInputElement | null;
+  if (volume && abv && wholesale && rate) {
+    const wet = $("tc-wet")!;
+    const wetSd = $("tc-wet-sd")!;
+    const ex = $("tc-ex")!;
+    const exSd = $("tc-ex-sd")!;
+    const note = $("tc-note")!;
+
+    const render = () => {
+      const v = Number.parseFloat(volume.value);
+      const a = Number.parseFloat(abv.value);
+      const w = Number.parseFloat(wholesale.value);
+      const r = Number.parseFloat(rate.value);
+      const drinks = standardDrinks(v, a);
+      if (![v, a, w, r].every(Number.isFinite) || v <= 0 || drinks <= 0) {
+        wet.textContent = wetSd.textContent = ex.textContent = exSd.textContent = "—";
+        note.textContent = "Enter a volume, an ABV above zero, a wholesale value and a rate.";
+        return;
+      }
+      const wetTax = wetPayable(w);
+      const exTax = excisePayable(v, a, r);
+      wet.textContent = `$${wetTax.toFixed(2)}`;
+      wetSd.textContent = `${(100 * (wetTax / drinks)).toFixed(1)}c`;
+      ex.textContent = `$${exTax.toFixed(2)}`;
+      exSd.textContent = `${(100 * (exTax / drinks)).toFixed(1)}c`;
+
+      const lals = litresOfAlcohol(v, a);
+      const ratio = exTax / wetTax;
+      const heavier = exTax > wetTax ? "Volumetric" : "Ad valorem";
+      const factor = (exTax > wetTax ? ratio : 1 / ratio).toFixed(1);
+      note.textContent =
+        `${drinks.toFixed(1)} standard drinks, ${lals.toFixed(3)} litres of pure alcohol. ` +
+        `${heavier} is the heavier burden here, by a factor of ${factor}. ` +
+        `Raising the wholesale value moves only the ad valorem row — that independence is week 4's loophole and week 6's correction.`;
+    };
+
+    for (const el of [volume, abv, wholesale, rate]) el.addEventListener("input", render);
+    render();
+  }
+</script>

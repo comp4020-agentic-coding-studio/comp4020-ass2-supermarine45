@@ -1,0 +1,104 @@
+---
+// The course's central calculation, made operable. Week 2 fixes the unit,
+// week 9 scrapes the inputs, week 10 optimises over the output; this is the
+// single-row version a student checks their own arithmetic against.
+import { CATALOGUE } from "../lib/index-math";
+
+const presets = CATALOGUE.filter((s) =>
+  ["cask-4l", "btl-wine", "beer-6", "spirit-700", "rtd-10"].includes(s.id),
+);
+---
+
+<section class="tool" id="index-calculator" aria-labelledby="index-calculator-heading">
+  <h2 id="index-calculator-heading">Index calculator</h2>
+  <p class="tool-lede">
+    One product in, its standard-drink count and ABV-to-dollar index out. The
+    conversion is week 2's, applied exactly.
+  </p>
+
+  <div class="tool-body">
+    <fieldset class="tool-fields">
+      <legend>Product</legend>
+
+      <div class="field">
+        <label for="ic-volume">Volume (mL)</label>
+        <input id="ic-volume" type="number" inputmode="decimal" min="1" step="1" value="4000" />
+      </div>
+
+      <div class="field">
+        <label for="ic-abv">Alcohol by volume (%)</label>
+        <input id="ic-abv" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="10.5" />
+      </div>
+
+      <div class="field">
+        <label for="ic-price">Shelf price (AUD)</label>
+        <input id="ic-price" type="number" inputmode="decimal" min="0.01" step="0.01" value="14.50" />
+      </div>
+
+      <div class="field">
+        <label for="ic-preset">Load a worked example</label>
+        <select id="ic-preset">
+          <option value="">Choose a product…</option>
+          {
+            presets.map((s) => (
+              <option value={`${s.volumeMl}|${s.abv}|${s.price}`}>{s.name}</option>
+            ))
+          }
+        </select>
+      </div>
+    </fieldset>
+
+    <output class="tool-out" id="ic-out" for="ic-volume ic-abv ic-price" aria-live="polite">
+      <dl>
+        <div><dt>Standard drinks</dt><dd id="ic-sd">—</dd></div>
+        <div><dt>Index (drinks per dollar)</dt><dd id="ic-index">—</dd></div>
+        <div><dt>Price per standard drink</dt><dd id="ic-ppsd">—</dd></div>
+      </dl>
+      <p class="tool-note" id="ic-note"></p>
+    </output>
+  </div>
+</section>
+
+<script>
+  import { standardDrinks, abvToDollarIndex } from "../lib/index-math";
+
+  const $ = (id: string) => document.getElementById(id);
+  const volume = $("ic-volume") as HTMLInputElement | null;
+  const abv = $("ic-abv") as HTMLInputElement | null;
+  const price = $("ic-price") as HTMLInputElement | null;
+  const preset = $("ic-preset") as HTMLSelectElement | null;
+  if (volume && abv && price && preset) {
+    const sd = $("ic-sd")!;
+    const index = $("ic-index")!;
+    const ppsd = $("ic-ppsd")!;
+    const note = $("ic-note")!;
+
+    const render = () => {
+      const v = Number.parseFloat(volume.value);
+      const a = Number.parseFloat(abv.value);
+      const p = Number.parseFloat(price.value);
+      if (!Number.isFinite(v) || !Number.isFinite(a) || !Number.isFinite(p) || v <= 0 || p <= 0) {
+        sd.textContent = index.textContent = ppsd.textContent = "—";
+        note.textContent = "Enter a volume, an ABV and a price above zero.";
+        return;
+      }
+      const drinks = standardDrinks(v, a);
+      const idx = abvToDollarIndex(v, a, p);
+      sd.textContent = drinks.toFixed(1);
+      index.textContent = idx.toFixed(3);
+      ppsd.textContent = `$${(p / drinks).toFixed(2)}`;
+      note.textContent = `${drinks.toFixed(1)} standard drinks at $${p.toFixed(2)}. The index is the reciprocal of the price per standard drink.`;
+    };
+
+    for (const el of [volume, abv, price]) el.addEventListener("input", render);
+    preset.addEventListener("change", () => {
+      if (!preset.value) return;
+      const [v, a, p] = preset.value.split("|");
+      volume.value = v;
+      abv.value = a;
+      price.value = p;
+      render();
+    });
+    render();
+  }
+</script>
