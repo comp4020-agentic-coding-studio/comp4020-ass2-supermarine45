@@ -46,8 +46,8 @@ of account, not a serving suggestion.
 **A first, ungraded index.** The formula the semester builds toward —
 
 ```
-standard_drinks = (volume_mL × ABV% × 0.789) / 1000
-index = standard_drinks / price
+standard_drinks = (volume_ml × abv_percent × 0.789) / 1000
+index = standard_drinks / price_dollars
 ```
 
 — is previewed here only far enough to compute it by hand for two or three
