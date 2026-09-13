@@ -1,8 +1,8 @@
 ---
-title: The Silverfish Archivist
+title: The Standard Drink as Currency
 description:
-  Reconsidering Lepisma saccharinum not as a destroyer of books, but as a
-  consumer of human memory and binding glue
+  Establishing the 10-gram ethanol baseline metric that every ratio,
+  tax, and comparison in this course is denominated in
 week: 2
 date: 2027-03-01
 teachers:
@@ -11,26 +11,26 @@ related:
   - assessments/assignment-1
 ---
 
-**Core reading:** *Cellulose Digestion in Domestic Settings*
-(Archival Studies, 2020)
+**Core reading:** *The Standard Drink as a Unit of Account*
+(Journal of Beverage Economics, 2020)
 
-Where week 1 surveyed the apartment broadly, week 2 takes a single resident
-seriously: the silverfish, previously filed under "book damage." The week's
-reading reframes that filing by tracking exactly what a silverfish digests —
-cellulose and the starch-based glues used in binding — and finds a diet
-that is less "destruction" than a slow, unsupervised archival process,
-consuming the same materials a paper conservator would flag for
-deterioration regardless of any silverfish's presence. This does not make
-the silverfish a librarian, but it does make it a legible one: an organism
-whose activity can be read off a shelf's damage pattern the way an
-archivist reads foxing or spine wear. Students should leave this week able
-to identify silverfish activity by its trace rather than by catching the
-insect itself, since the trace is what the field journal work later in the
-semester will actually depend on.
+A litre of beer and a litre of spirits are not comparable products, and
+week 1's fermentation kinetics do not by themselves fix that. Week 2
+introduces the standard drink — ten grams of pure ethanol — as the unit
+this course prices everything against, the way a real economics course
+would fix a unit of account before discussing exchange rates. The week's
+reading treats the standard drink as exactly that: a currency, not a
+serving suggestion, letting a $12 six-pack and a $40 bottle of spirits be
+converted onto the same scale and genuinely compared for the first time.
+Every alcohol-by-volume-to-price ratio calculated for the rest of the
+semester, including the exercise this week feeds into, depends on this
+conversion being done correctly and consistently — a wrong standard-drink
+count anywhere in the dataset silently corrupts every ratio built on top
+of it.
 
 ## Outline
 
-- what a silverfish actually digests, and why that matters
-- reading damage as trace evidence of an archival process
-- distinguishing silverfish activity from ordinary paper ageing
-- identification by trace, the skill this semester's tracking work needs
+- why raw litres cannot be compared across beverage categories
+- the standard drink as a unit of account, not a serving size
+- converting a shelf price into a price-per-standard-drink figure
+- why one wrong conversion corrupts every ratio built afterward

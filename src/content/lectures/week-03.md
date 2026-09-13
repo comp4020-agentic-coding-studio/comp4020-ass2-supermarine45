@@ -1,35 +1,34 @@
 ---
-title: Arachnid Sub-Tenants
+title: Microeconomics of Cask Wine
 description:
-  The spatial geometry of corner webs, and Huntsman spiders as silent,
-  non-intrusive roommates rather than a threat
+  Margin analysis of bag-in-box distribution, and why cask wine's
+  economics look nothing like bottled wine's
 week: 3
 date: 2027-03-08
 teachers:
   - marisol-quaye
-related:
-  - assessments/assignment-1
 ---
 
-**Core reading:** *Corner Architecture and Web Placement*
-(Arachnology Today, 2019)
+**Core reading:** *Margin Structures in Bag-in-Box Wine Distribution*
+(Retail Economics Review, 2018)
 
-Week 3 introduces the semester's first sub-tenant proper: the Huntsman
-spider, whose corner web is not placed at random but sited according to
-airflow, prey-corridor traffic, and structural corner angle, all of which
-the week's reading measures directly. A web sited in an undisturbed
-ceiling corner is, functionally, a lease taken out on the least contested
-square footage in the room — the Huntsman is not encroaching on human space
-so much as occupying the part of it humans were never using. This
-reframes the usual reaction to a corner web from removal to recognition:
-once a student can read a web's placement as evidence of airflow and prey
-corridors, the spider stops being a startling event and becomes a
-predictable, mappable feature of the room, exactly the kind of single,
-identified resident the ethnography assignment asks you to track.
+Cask wine is this course's first proper case study, chosen because its
+economics genuinely diverge from the bottled product sharing its shelf.
+The week's reading traces bag-in-box distribution margins from bulk
+producer to retail shelf and finds a distribution structure with fewer
+intermediary steps and dramatically lower packaging cost per litre than
+bottled wine, most of which is passed through to the standard-drink price
+rather than absorbed as extra margin. Measured against week 2's
+standard-drink unit, cask wine consistently returns the lowest
+price-per-standard-drink figure of any wine format sold, which the
+reading attributes almost entirely to packaging economics rather than to
+any difference in the wine itself. This is the semester's first clean
+demonstration that a product's shelf reputation and its actual
+cost-efficiency can point in opposite directions.
 
 ## Outline
 
-- what determines where a corner web is actually sited
-- reading web placement as evidence of airflow and prey corridors
-- the Huntsman as an occupant of unused, not contested, space
-- a mappable resident, ready for sustained observation
+- bag-in-box distribution margins from producer to shelf
+- packaging cost per litre against price-per-standard-drink
+- why cask wine returns the lowest ratio of any wine format
+- shelf reputation versus measured cost-efficiency, held apart

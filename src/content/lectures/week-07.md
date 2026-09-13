@@ -1,34 +1,44 @@
 ---
-title: Sociology of the Kitchen Sink
+title: Retail Spatial Optimization
 description:
-  Nighttime hydration patterns of roaches, and the ethics of leaving
-  standing water for nocturnal guests
+  Floor-plan analysis of suburban liquor outlets, and what shelf
+  distance actually costs a retailer versus a shopper
 week: 7
 date: 2027-04-05
 teachers:
   - marisol-quaye
-slides: /decks/week-07/
+related:
+  - assessments/event-portfolio
 ---
 
-**Core reading:** *Nocturnal Hydration in Urban Blattodea*
-(Behavioral Ecology, 2022)
+**Core reading:** *Floor-Plan Determinants of Liquor Outlet Throughput*
+(Journal of Retail Geography, 2017)
 
-Six weeks have covered residents that mostly avoid the kitchen sink itself.
-Week 7 goes to the sink directly, tracking the nighttime hydration patterns
-of urban Blattodea (roaches) against the availability of standing water
-left overnight. The week's reading finds that hydration visits cluster
-tightly around whatever standing water is available and drop off sharply
-once it is removed — meaning the sink's overnight state functions as a
-genuine social contract with the household's nocturnal residents, not an
-incidental mess. This week is the semester's clearest ethical case: a
-resident whose entire nighttime pattern is legible, predictable, and
-governed by one variable a household controls deliberately. The deck
-linked from this page works through the sink as a shared social space in
-the detail the micro-habitat proposal assumes you already have.
+Six weeks have priced the product without asking where it sits in the
+store. Week 7 maps suburban liquor outlet floor plans against
+transaction throughput and finds that category placement — which
+products sit near the entrance, which sit along the back wall, which
+share an aisle with unrelated high-margin items — measurably shifts
+basket composition independent of price. High-elasticity categories
+identified in week 5 are disproportionately placed at entrance-adjacent
+positions, where impulse-driven throughput is highest, while low-margin
+categories like cask wine are pushed to the least-trafficked aisle the
+floor plan allows. The reading treats this as a deliberate spatial
+optimisation on the retailer's side, which means any purchasing strategy
+this course designs has to account for layout, not just price, or it
+will consistently misjudge how much friction a given product actually
+takes to buy.
 
 ## Outline
 
-- nighttime hydration visits as a trackable, predictable pattern
-- standing water availability as the variable that governs visits
-- the sink as a social contract, not an incidental mess
-- what "sociology" means applied to a single kitchen fixture
+- mapping floor plans against transaction throughput
+- entrance-adjacent placement for high-elasticity categories
+- low-margin categories pushed to low-traffic positions
+- why a purchasing strategy has to account for layout, not just price
+
+## Further reading
+
+- *Spatial Optimization of High-ABV Inventory* (Journal of Retailing,
+  2022) — narrows this week's floor-plan analysis specifically to
+  high-ABV categories, and is the more directly useful reading if your
+  Event Portfolio pitch turns on shelf placement rather than price alone.

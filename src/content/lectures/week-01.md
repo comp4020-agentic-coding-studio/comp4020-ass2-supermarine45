@@ -1,34 +1,35 @@
 ---
-title: The Interspecies Residence
+title: Chemistry of Cheap Fermentation
 description:
-  Redefining the human home as a multi-species habitat, and moving the
-  semester's premise from pest control to pest-collaboration
+  The reaction kinetics of a minimum-cost sugar wash, and why the
+  cheapest fermentable substrate is not the slowest one
 week: 1
 date: 2027-02-22
 teachers:
   - marisol-quaye
-related:
-  - assessments/interspecies-lease-agreement
+slides: /decks/week-01/
 ---
 
-**Core reading:** *The Apartment as Ecosystem* (Urban Ecology, 2018)
+**Core reading:** *Kinetics of Minimum-Cost Ethanol Fermentation*
+(Journal of Applied Fermentation Science, 2019)
 
-The course opens by rejecting the premise that a home is a human space into
-which arthropods occasionally intrude. It is, more precisely, an apartment
-already operating as an ecosystem, with load-bearing tenants who arrived
-before the lease was signed and have kept the place running since. Week 1
-maps that ecosystem's residents — corner-web spiders, wall-void travellers,
-kitchen-adjacent foragers — not as a checklist of problems but as an
-existing occupancy the semester's methods are built to understand rather
-than clear. The founding reading treats a rented apartment the way an
-ecologist treats a rock pool: a bounded system whose species composition can
-be surveyed, mapped, and reasoned about. Students are expected to read it as
-a methods paper, not a curiosity, and to leave this week able to name, for
-their own residence, who else is already on the lease.
+The semester opens where the product itself begins: a yeast culture
+converting sugar to ethanol at whatever rate the cheapest available
+substrate allows. The week's reading measures fermentation kinetics
+across a range of low-cost sugar sources and finds that substrate cost
+and fermentation rate are only weakly correlated — a cheaper wash is not
+reliably a slower one, and several of the least expensive substrates
+tested reach terminal ethanol concentration faster than mid-priced
+alternatives, purely as a function of available nitrogen and initial
+sugar density. This matters because every price this course will
+scrutinise for the rest of the semester sits on top of a production cost
+that the retail price only loosely reflects. Before any tax, margin, or
+shelf placement is added, week 1 establishes the number those layers are
+actually layered on top of.
 
 ## Outline
 
-- the home as an occupied ecosystem, not a space awaiting defence
-- surveying an apartment's existing arthropod residents
-- the semester's premise: collaboration, not eradication
-- what a "residence" will mean for the rest of the course
+- fermentation kinetics as a function of substrate, not price
+- why cost and fermentation rate are only weakly correlated
+- nitrogen availability and sugar density as the real rate-limiters
+- the production cost this semester's retail prices sit on top of

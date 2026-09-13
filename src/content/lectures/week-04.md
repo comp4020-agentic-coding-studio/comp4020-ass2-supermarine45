@@ -1,32 +1,37 @@
 ---
-title: The Micro-Economy of Decay
+title: The WET Tax Loophole
 description:
-  Fruit flies and their measured role in accelerating compost efficiency in
-  the modern kitchen
+  The mechanics of the 29% wholesale Wine Equalisation Tax, and why an
+  ad valorem structure rewards cheap wine specifically
 week: 4
 date: 2027-03-15
 teachers:
   - idris-fenn
+related:
+  - assessments/wet-policy-brief
 ---
 
-**Core reading:** *Fermentation and the Diptera Swarm* (Kitchen Biology, 2021)
+**Core reading:** *Ad Valorem Design and the Wine Equalisation Tax*
+(Australian Tax Policy Journal, 2021)
 
-Weeks 2 and 3 dealt with residents that mostly go unnoticed. *Drosophila*,
-the common fruit fly, is this week's case precisely because it is
-noticed, usually with irritation, at exactly the moment it is doing
-useful work. The week's reading tracks a fruit fly swarm's contribution to
-early-stage decomposition in a domestic compost bin, finding measurably
-faster breakdown of soft plant matter in bins with an established swarm
-than in swarm-free controls — the flies are not a symptom of the compost's
-decay so much as a functioning part of its economy. This is the first week
-that asks students to hold two facts at once: that a kitchen visitor is
-genuinely unwanted at the fruit bowl and genuinely useful at the compost
-bin, and that the semester's method is choosing which fact governs a given
-square foot of counter.
+Where week 3 measured cask wine's packaging economics, week 4 measures
+the tax sitting on top of it. The Wine Equalisation Tax is levied at 29%
+of wholesale value rather than per litre of alcohol, which the week's
+reading identifies as the mechanism that makes cheap wine specifically,
+rather than wine in general, the tax's most favourable case: a $2
+wholesale cask returns a few cents of tax per standard drink, while a
+premium bottle at ten times the wholesale price returns tax at the same
+proportional rate but a far higher absolute figure per standard drink
+sold. The reading is careful to call this a structural consequence of an
+ad valorem base, not a drafting error — the tax does exactly what an
+ad-valorem tax does, and the loophole is only visible once week 2's
+standard-drink metric is applied to its outcomes rather than to its
+stated rate.
 
 ## Outline
 
-- fruit flies as measured contributors to compost decomposition
-- swarm presence versus swarm-free controls, by breakdown rate
-- irritation at the fruit bowl versus utility at the compost bin
-- deciding which fact governs a given square foot of kitchen
+- wholesale-value taxation versus per-litre-of-alcohol taxation
+- why an ad valorem base favours cheap wine specifically
+- comparing tax-per-standard-drink across price tiers
+- a structural consequence, not a drafting oversight
+

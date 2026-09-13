@@ -1,35 +1,45 @@
 ---
-title: Non-Verbal Boundary Setting
+title: Algorithmic Maximization
 description:
-  Chemical trail-marking as a negotiated boundary language, and why a
-  chalk line works on ants for reasons that have nothing to do with chalk
+  Coding the ABV-to-dollar index formula, and turning nine weeks of
+  measurement into a single ranked output
 week: 10
 date: 2027-04-26
 teachers:
   - idris-fenn
+slides: /decks/week-10/
+related:
+  - assessments/assignment-1
+  - assessments/event-portfolio
 ---
 
-**Core reading:** *Chemical Boundary Signaling in Shared Territories*
-(Chemical Ecology, 2020)
+**Core reading:** *Greedy and Dynamic-Programming Approaches to Retail
+Index Maximisation* (Operations Research for Retail, 2022)
 
-Every prior week has treated a resident's presence as something to
-observe. Week 10 turns to the harder skill: setting a boundary a resident
-will actually respect, without language, and without simply removing it.
-The week's reading finds that a household's ant trails are held together
-by pheromone concentration rather than the visible path itself, which is
-why an interrupted trail — a wiped bench, a chalk line, a smear of
-citrus — reliably breaks foraging traffic at exactly that point, not
-because the substance is toxic but because it disrupts the chemical
-signal the trail depends on. A boundary, on these terms, is not a wall;
-it is a legible interruption in a channel the resident is already using,
-which is precisely why an effective one can be narrow, temporary, and
-entirely non-violent. The micro-habitat proposal assumes this distinction
-throughout: a boundary that works is not the same thing as a resident that
-has been removed.
+Week 9's dataset is only useful once it can be ranked, and week 10
+provides the formula that does the ranking. The week's reading formalises
+the ABV-to-dollar index — standard drinks per dollar, computed per SKU
+from the fields week 9's scrape extracts — and compares a naive
+greedy selection against a dynamic-programming approach once a budget
+constraint and a minimum-variety constraint are added, finding the
+greedy method adequate for an unconstrained ranking but measurably
+suboptimal the moment a real budget cap is introduced. The deck linked
+from this page works through both approaches in the detail the
+semester's remaining assessments assume you already have, since neither
+the scraping exercise's ranking nor the closing event portfolio's
+constrained inventory can be built correctly on the naive version alone.
 
 ## Outline
 
-- ant trails as chemical signal, not fixed physical path
-- why a chalk line or wiped surface interrupts traffic without toxicity
-- a boundary as a legible interruption, not a wall
-- boundary-setting as compatible with, not opposed to, cohabitation
+- formalising the ABV-to-dollar index from week 9's scraped fields
+- greedy ranking versus dynamic programming under a budget constraint
+- where the naive method is adequate and where it fails
+- why the constrained version is what the rest of the semester needs
+
+## Further reading
+
+- *Algorithmic Maximization of the Intoxication Index* (Quantitative
+  Economics, 2024) — applies this week's formula to a live, updating feed
+  rather than a static scrape, and is the reading to check against if your
+  data scraping exercise re-ranks its dataset as prices change rather than
+  once.

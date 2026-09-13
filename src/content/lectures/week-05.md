@@ -1,34 +1,41 @@
 ---
-title: Wall Voids and Skirting Boards
+title: Discount Spirits Pricing
 description:
-  Mapping the unseen highways behind the plaster, and how ordinary
-  construction unintentionally favours multi-legged mobility
+  The price elasticity of ready-to-drink cans, and why promotional
+  pricing on spirits behaves differently to wine or beer
 week: 5
 date: 2027-03-22
 teachers:
   - marisol-quaye
-related:
-  - assessments/micro-habitat-proposal
 ---
 
-**Core reading:** *Plasterboard Micro-Environments* (Domestic Architecture, 2017)
+**Core reading:** *Price Elasticity of Ready-to-Drink Spirit Cans*
+(Journal of Consumer Retail Studies, 2022)
 
-Every prior week located a resident in visible space — a shelf, a corner, a
-compost bin. Week 5 goes behind the plaster, into the wall voids and
-skirting-board cavities that make up a house's unseen circulation system.
-The week's reading models these voids as genuine architectural
-infrastructure: stable temperature, protected from disturbance, and
-connected room-to-room by gaps that were never designed for arthropod
-transit but function as one regardless, since standard stud spacing and
-skirting-board clearance happen to suit multi-legged mobility far better
-than they suit anything larger. This is not a design flaw to be sealed
-shut on sight; it is the existing infrastructure the micro-habitat
-proposal assignment is asked to work with, extending it deliberately rather
-than discovering it accidentally.
+Ready-to-drink spirit cans are this course's most heavily promoted
+category, and week 5 asks why the promotions look the way they do. The
+week's reading measures demand elasticity for RTD cans against a
+temporary price discount and finds elasticity roughly double that
+measured for wine or packaged beer under the same discount depth —
+consumers shift volume onto discounted RTD cans far more readily than
+onto discounted wine, which the reading attributes to the category's
+weaker existing brand loyalty and its closer substitutability across
+brands at a fixed standard-drink price. This elasticity is precisely why
+retailers can run deeper, more frequent RTD discounts than the WET-taxed
+wine category examined the week before: the volume response more than
+compensates for the lower per-unit margin, a calculation week 4's tax
+structure does not by itself explain.
 
 ## Outline
 
-- wall voids and skirting boards as an unseen circulation system
-- why standard construction tolerances favour multi-legged transit
-- stable, protected space as a resource, not a defect
-- infrastructure to extend, not seal, later in the semester
+- measuring demand elasticity against temporary discount depth
+- why RTD cans show roughly double wine's measured elasticity
+- weak brand loyalty and easy substitution as the underlying cause
+- why deeper, more frequent discounting is rational for this category
+
+## Further reading
+
+- *Price Elasticity of Discount Spirits and RTDs* (Journal of Consumer
+  Policy, 2015) — an earlier measurement of the same elasticity gap, using
+  household expenditure survey data rather than retailer sales data, and
+  reaching the same conclusion by a different method.

@@ -1,33 +1,42 @@
 ---
-title: Crumb Foraging Dynamics
+title: Volumetric Tax Penalties
 description:
-  Ant scouting algorithms, and the human household's role as an erratic,
-  macro-level food distributor
+  Federal excise disparities on distilled spirits, and what a per-litre
+  ethanol tax does that an ad valorem tax cannot
 week: 6
 date: 2027-03-29
 teachers:
   - idris-fenn
+related:
+  - assessments/wet-policy-brief
 ---
 
-**Core reading:** *Predictive Modeling of Floor Crumbs*
-(Myrmecology Review, 2020)
+**Core reading:** *Volumetric Excise and the Distilled Spirits Premium*
+(Australian Tax Policy Journal, 2020)
 
-Week 6 turns to the foragers: household ants, whose scouting behaviour the
-week's reading models as a search algorithm operating against a genuinely
-unpredictable food source — the human household itself. A scout's path
-along a skirting board is not random wandering but an active search
-against a distribution of crumb density that shifts, unannounced, with
-every meal a resident eats standing up. The household, from the colony's
-side, functions as an erratic macro-level food distributor whose output
-the scouting algorithm is well adapted to track, which is why a trail
-appears within hours of a dropped crumb rather than days. Understanding
-foraging as an algorithm responding to a distribution, rather than as
-"ants finding food," reframes a kitchen trail as evidence of a functioning
-information system rather than a hygiene failure.
+Where week 4 examined a tax levied on wholesale value, week 6 examines
+the opposite design: federal excise on spirits, levied per litre of pure
+alcohol regardless of the product's price. The week's reading compares
+the two structures directly and finds that volumetric excise removes the
+cheap-product loophole week 4 identified in the WET, since a discount
+spirit and a premium spirit containing the same ethanol content are taxed
+identically — but at the cost of a flat per-standard-drink tax burden
+markedly higher than wine's, which the reading calls the "spirits
+premium." Retail price alone cannot distinguish which tax regime a
+bottle sits under; only decomposing the shelf price into production
+cost, category-specific tax, and margin, exactly as this course does
+category by category, makes the disparity visible.
 
 ## Outline
 
-- ant scouting as a search algorithm, not random wandering
-- households as an erratic, unannounced food distributor
-- why a trail appears within hours of a single dropped crumb
-- reading a trail as an information system, not a failure
+- volumetric excise as taxation per litre of pure alcohol
+- how volumetric design closes the ad valorem loophole from week 4
+- the spirits premium as the corresponding cost of that design
+- decomposing a shelf price to see which regime applies
+
+## Further reading
+
+- *Federal Excise Disparities in Distillation* (Tax Law Review, 2018) — the
+  legislative history behind the volumetric structure this week measures,
+  for a reader who wants the reasoning behind the rate, not just the rate
+  itself.

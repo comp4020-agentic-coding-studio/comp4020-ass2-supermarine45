@@ -1,33 +1,41 @@
 ---
-title: Sleep Cohabitation
+title: Endcap Psychology
 description:
-  Overlapping circadian rhythms in the bedroom, and what a mattress's
-  overnight warmth and humidity actually offer a shared micro-tenant
+  Visual merchandising used to obfuscate a poor ABV-to-dollar ratio, and
+  how to read past it
 week: 8
 date: 2027-04-12
 teachers:
   - idris-fenn
 ---
 
-**Core reading:** *Nocturnal Overlap in Shared Sleeping Spaces*
-(Chronobiology Quarterly, 2021)
+**Core reading:** *Visual Merchandising and Price-Ratio Concealment*
+(Consumer Behaviour Quarterly, 2021)
 
-Week 8 moves from the kitchen to the bedroom, the one room where a
-resident's schedule and a human's are forced into the closest possible
-overlap. The week's reading tracks the microclimate a sleeping human body
-generates overnight — a sustained rise in warmth and humidity, held for
-seven or eight uninterrupted hours — and how closely dust mite activity
-tracks that window rather than any fixed clock of its own. The overlap is
-not a coincidence to be managed by better laundering habits; it is the
-mattress functioning, for a few hours nightly, as the single most reliable
-microclimate in the entire dwelling, and the mite's schedule is a rational
-response to that reliability. This week asks students to hold their own
-sleep schedule as itself a resource being allocated, nightly, to something
-else's benefit, whether or not they had ever noticed the allocation.
+Week 7 mapped where a category sits in the store; week 8 examines the
+display built around the specific spot a retailer wants attention drawn
+to. The week's reading audits endcap and promotional-bin displays against
+the products' actual price-per-standard-drink and finds a measurable
+negative correlation: the products most aggressively merchandised with
+colour, signage density, and "special" framing tend to return worse
+value on the standard-drink metric than unremarkable mid-shelf
+neighbours, not better. Endcap placement, on this evidence, functions
+less as a genuine discount signal and more as a visual argument against
+doing exactly the unit-price arithmetic this course has spent seven weeks
+building the tools for. Recognising an endcap as a claim to be checked,
+rather than a discount to be trusted, is the whole skill this week
+teaches.
 
 ## Outline
 
-- overnight warmth and humidity as a generated, not ambient, resource
-- why mite activity tracks the sleep window rather than a fixed clock
-- the mattress as the dwelling's most reliable microclimate
-- sleep as an allocation, not merely a personal, private state
+- auditing endcap displays against price-per-standard-drink
+- the negative correlation between merchandising intensity and value
+- endcap framing as an argument against doing the arithmetic
+- treating a "special" display as a claim, not a discount
+
+## Further reading
+
+- *Visual Merchandising and the Intoxication Index* (Behavioral
+  Economics, 2020) — reframes this week's endcap audit around standard
+  drinks per display rather than dollars per display, a useful second lens
+  on the same concealment effect.
