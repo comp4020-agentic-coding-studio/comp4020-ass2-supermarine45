@@ -7,6 +7,7 @@ week: 9
 date: 2027-04-19
 teachers:
   - marisol-quaye
+slides: /decks/week-09/
 related:
   - assessments/data-scraping-exercise
 ---

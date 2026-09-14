@@ -1,0 +1,138 @@
+---
+title: "The Standard Drink as Currency"
+description: Fixing the ten-gram ethanol unit that every ratio, tax and comparison this semester is denominated in
+---
+
+# The Standard Drink as Currency
+
+## Week 2 — Fixing the Unit of Account
+
+---
+
+## Where we left off
+
+- Week 1: a production cost, measured before any tax or margin
+- that cost was in dollars per litre of **wash**
+- but a litre of beer and a litre of spirits are not the same product
+- this week: the unit that makes them comparable
+
+---
+
+{/* _class: quote */}
+
+> Treating the standard drink as a serving suggestion is a public health
+> decision. Treating it as a unit of account is an economic one, and the
+> two have been conflated in the literature for thirty years.
+>
+> — *The Standard Drink as a Unit of Account* (Journal of Beverage
+> Economics, 2020)
+
+---
+
+## Learning objectives
+
+By the end of this lecture you should be able to:
+
+- explain why raw volume cannot be compared across beverage categories
+- convert any shelf price into a price per standard drink
+- state what a standard drink is, precisely, in grams
+- describe how one bad conversion propagates through an entire dataset
+
+---
+
+## The problem with litres
+
+| Product | Volume | ABV | Litres |
+| :--- | ---: | ---: | ---: |
+| Full-strength beer | 375 mL | 4.8% | 0.375 |
+| Bottled wine | 750 mL | 13.5% | 0.750 |
+| Vodka | 700 mL | 40.0% | 0.700 |
+
+Ranked by litres, the wine wins. Ranked by what is actually being bought,
+it does not come close.
+
+---
+
+## The unit
+
+**One Australian standard drink is exactly ten grams of pure ethanol.**
+
+Not a glass. Not a serving. A mass.
+
+```
+standard_drinks = (volume_ml × abv_percent × 0.789) / 1000
+index = standard_drinks / price_dollars
+```
+
+0.789 is the density of ethanol at 20°C. The /1000 collapses the
+percentage and the ten-gram division into one constant.
+
+---
+
+## The same three products, converted
+
+| Product | Standard drinks | Price | Per drink |
+| :--- | ---: | ---: | ---: |
+| Beer, 375 mL | 1.4 | $2.20 | $1.55 |
+| Wine, 750 mL | 8.0 | $11.00 | $1.38 |
+| Vodka, 700 mL | 22.1 | $42.00 | $1.90 |
+
+The ordering has changed, and it will change again once weeks 4 and 6 add
+the tax each of these carries.
+
+---
+
+{/* _class: impact */}
+
+# A currency, not a serving suggestion
+
+---
+
+## Why the distinction is load-bearing
+
+- a **serving** is advice about consumption
+- a **unit of account** is a denominator for comparison
+- this course only ever uses the second sense
+- week 11 is where the first sense is dealt with properly, and it is
+  dealt with as economics rather than as advice
+
+---
+
+## One wrong conversion, one hundred wrong answers
+
+The scraping exercise asks for 100+ SKUs. If the conversion is wrong:
+
+- every index in the dataset is wrong by the same factor
+- the **ranking** may still look plausible, which is the danger
+- nothing downstream will announce the error
+- week 10's optimiser will happily return a confident wrong answer
+
+Check the conversion on three products by hand before trusting it on a
+hundred.
+
+---
+
+## Common errors
+
+- multiplying by ABV as a decimal and by 100 in the same step
+- using 0.789 as though it converted millilitres to grams directly
+- reading a multipack's total volume as a single container's
+- rounding standard drinks before dividing, rather than after
+
+---
+
+## Where this connects
+
+- **week 3** applies this unit to cask wine, where the result is furthest
+  from what the shelf suggests
+- **weeks 4 and 6** express two different taxes in it, which is the only
+  way those two structures can be compared at all
+- the **Data Scraping Exercise** is marked hardest on getting exactly
+  this conversion right across every row
+
+---
+
+## Next week
+
+Cask wine: the first product whose measured cost-efficiency and shelf
+reputation point in opposite directions.

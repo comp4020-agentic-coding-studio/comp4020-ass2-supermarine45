@@ -7,6 +7,7 @@ week: 8
 date: 2027-04-12
 teachers:
   - idris-fenn
+slides: /decks/week-08/
 ---
 
 **Core reading:** *Visual Merchandising and Price-Ratio Concealment*

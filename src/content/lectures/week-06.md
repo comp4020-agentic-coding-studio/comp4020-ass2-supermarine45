@@ -7,6 +7,7 @@ week: 6
 date: 2027-03-29
 teachers:
   - idris-fenn
+slides: /decks/week-06/
 related:
   - assessments/wet-policy-brief
 ---

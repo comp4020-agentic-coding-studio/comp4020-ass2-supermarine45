@@ -7,6 +7,7 @@ week: 12
 date: 2027-05-10
 teachers:
   - idris-fenn
+slides: /decks/week-12/
 ---
 
 **Core reading:** *Scaling Household Purchasing Algorithms to Event

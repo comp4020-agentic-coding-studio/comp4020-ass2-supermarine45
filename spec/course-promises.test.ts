@@ -144,13 +144,29 @@ describe("assessment adds up and depends only on what has happened", () => {
 });
 
 describe("the slides the course claims exist", () => {
-  it("builds a page for every lecture that links one, and links at least one", () => {
-    const linked = byType("lectures").filter((n) => n.meta?.slides);
-    expect(linked.length, "no lecture carries a deck").toBeGreaterThan(0);
-    for (const node of linked) {
+  it("gives every one of the twelve weeks a deck, linked from its lecture", () => {
+    for (const node of byType("lectures")) {
+      expect(node.meta?.slides, `${node.id} carries no slides link`).toBeTruthy();
+    }
+  });
+
+  it("builds a page for every deck a lecture links", () => {
+    for (const node of byType("lectures").filter((n) => n.meta?.slides)) {
       const route = String(node.meta?.slides).replace(/^\/|\/$/g, "");
       const page = resolve("dist", route, "index.html");
       expect(() => readFileSync(page), `${node.id} links ${route} but no page was built`).not.toThrow();
+    }
+  });
+
+  it("leaves no deck orphaned — every built deck is linked from a lecture", () => {
+    const linked = new Set(
+      byType("lectures").map((n) => String(n.meta?.slides ?? "").replace(/^\/|\/$/g, "")),
+    );
+    const built = readdirSync(resolve("dist/decks"), { withFileTypes: true })
+      .filter((e) => e.isDirectory())
+      .map((e) => `decks/${e.name}`);
+    for (const deck of built) {
+      expect(linked.has(deck), `${deck} is built but nothing links to it`).toBe(true);
     }
   });
 });
@@ -173,6 +189,56 @@ describe("the index formula does not disagree with itself", () => {
     // A 4 L cask at 10.5%: (4000 × 10.5 × 0.789) / 1000 = 33.138
     expect(standardDrinks(4000, 10.5)).toBeCloseTo(33.138, 3);
     expect(abvToDollarIndex(4000, 10.5, 14.5)).toBeCloseTo(2.2854, 4);
+  });
+});
+
+describe("the worked examples on the slides are the arithmetic the toolkit does", () => {
+  // The tax figures are hand-typed into two decks and computed a second time by
+  // the toolkit, and a marker who runs one against the other is the person most
+  // likely to notice they disagree. Nothing in the build compares them — the
+  // decks are prose to it — so this recomputes each printed figure from
+  // src/lib/index-math.ts and asserts the slide still says it.
+  const cents = (dollars: number, drinks: number) => `${((dollars / drinks) * 100).toFixed(1)}c`;
+  const deck = (week: string) => readFileSync(resolve(`src/decks/${week}.deck.mdx`), "utf8");
+
+  it("shows WET falling forty-fold harder on the bottle than the cask (week 4)", async () => {
+    const { standardDrinks, wetPayable } = await import("../src/lib/index-math");
+    const slide = deck("week-04");
+    const cask = cents(wetPayable(2.0), standardDrinks(4000, 10.5));
+    const bottle = cents(wetPayable(20.0), standardDrinks(750, 13.5));
+    expect(slide, `week 4 prints a WET figure that is not ${cask}`).toContain(`**${cask}**`);
+    expect(slide, `week 4 prints a WET figure that is not ${bottle}`).toContain(`**${bottle}**`);
+    // The claim the slide makes in words, not just the two numbers under it.
+    expect(slide).toContain("forty-fold");
+  });
+
+  it("shows one volumetric rate landing identically on all three products (week 6)", async () => {
+    const { standardDrinks, excisePayable, litresOfAlcohol } = await import("../src/lib/index-math");
+    const slide = deck("week-06");
+    const products: [number, number][] = [
+      [700, 40],
+      [375, 4.8],
+      [375, 4.5],
+    ];
+    const perDrink = new Set<string>();
+    for (const [ml, abv] of products) {
+      const excise = excisePayable(ml, abv);
+      perDrink.add(cents(excise, standardDrinks(ml, abv)));
+      expect(slide, `week 6 prints no $${excise.toFixed(2)} row for ${ml} mL at ${abv}%`).toContain(
+        `$${excise.toFixed(2)}`,
+      );
+      expect(slide).toContain(litresOfAlcohol(ml, abv).toFixed(3));
+    }
+    // The point of the slide: the burden is flat, which is why there is one.
+    expect(perDrink.size, "the three products no longer share one per-drink figure").toBe(1);
+    expect(slide).toContain([...perDrink][0]);
+  });
+
+  it("keeps week 6's callback to week 4's numbers true", async () => {
+    const { standardDrinks, wetPayable } = await import("../src/lib/index-math");
+    const cask = cents(wetPayable(2.0), standardDrinks(4000, 10.5));
+    const bottle = cents(wetPayable(20.0), standardDrinks(750, 13.5));
+    expect(deck("week-06"), "week 6 misquotes week 4").toContain(`${cask} against ${bottle}`);
   });
 });
 

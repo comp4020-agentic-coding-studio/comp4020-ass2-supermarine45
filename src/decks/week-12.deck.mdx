@@ -1,0 +1,131 @@
+---
+title: "Capstone Synthesis"
+description: Scaling the constrained optimisation from one basket to a fifty-person event, and what binds differently when it does
+---
+
+# Capstone Synthesis
+
+## Week 12 — Event Scale
+
+---
+
+## Where we left off
+
+- Week 10: a constrained optimiser over a real dataset
+- Week 11: what that optimiser does not price in
+- both were built around one shopper and one basket
+- this week: fifty people, and what that changes
+
+---
+
+{/* _class: quote */}
+
+> Event-scale procurement is not a bigger version of the household
+> problem. The variety constraint, which is nearly always slack for an
+> individual, becomes the binding one, and the optimum moves accordingly.
+>
+> — *Scaling Household Purchasing Algorithms to Event Logistics* (Journal
+> of Applied Consumer Logistics, 2024)
+
+---
+
+## Learning objectives
+
+By the end of this lecture you should be able to:
+
+- apply week 10's formulation at fifty-person scale
+- explain why the variety constraint binds harder here
+- say why a single-SKU-optimal inventory is the wrong answer
+- treat event scale as harder, not merely larger
+
+---
+
+## What carries over unchanged
+
+- the standard-drink conversion from week 2
+- the price decomposition from weeks 1, 3, 4 and 6
+- the dynamic-programming formulation from week 10
+- the externality framework from week 11
+
+The method is the method. Only which constraint binds has moved.
+
+---
+
+{/* _class: impact */}
+
+# Variety stops being slack
+
+---
+
+## Why the constraint moves
+
+For one shopper:
+
+- buying the single best-index product is usually acceptable
+- variety is a preference, rarely a requirement
+- so the constraint is slack, and greedy often coincides with optimal
+
+For fifty people:
+
+- a single-SKU inventory satisfying the budget is **trivial to construct**
+- and reliably the wrong answer for an actual event
+- so variety is a hard requirement, and greedy stops coinciding
+
+---
+
+## The trap in one line
+
+The cheapest defensible answer and the cheapest answer are different
+documents.
+
+A portfolio that maximises standard drinks per dollar and stops there has
+solved week 10's problem, not week 12's — and the room will find the gap
+in the first question.
+
+---
+
+## What does not scale away
+
+Week 11's externality does not disappear at event scale. It is
+**multiplied by the guest count**.
+
+That multiplication is why the reading treats event purchasing as a
+harder problem rather than a bigger one, and why your externality
+statement has a specific quantity available to it that a shopper-scale
+statement does not.
+
+---
+
+## Back to week 1
+
+The semester opened on what the liquid costs to produce, before any tax,
+margin or placement.
+
+Twelve weeks later you are asked what a fifty-person inventory costs —
+and you can now decompose that number into the same four terms, defend
+each one, and say what the answer leaves out.
+
+---
+
+## Common errors
+
+- presenting method for eight minutes and the answer for two
+- a spreadsheet whose totals disagree with the slides, which is the most
+  common defect and undermines everything else
+- an externality statement that forbids no inventory
+- an optimum that cannot physically be carried to the venue
+
+---
+
+## Where this connects
+
+- the **week 12 lab** is the dry run, with the room asking the three
+  standing questions
+- the **Event Portfolio** is due at the close of the teaching period, not
+  the end of this week — deliberately, so the dry run can change it
+
+---
+
+## That is the course
+
+An index you can defend, and an honest account of what it does not say.

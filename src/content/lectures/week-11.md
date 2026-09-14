@@ -7,6 +7,7 @@ week: 11
 date: 2027-05-03
 teachers:
   - marisol-quaye
+slides: /decks/week-11/
 related:
   - assessments/event-portfolio
 ---

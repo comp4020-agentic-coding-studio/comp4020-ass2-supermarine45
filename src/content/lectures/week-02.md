@@ -7,6 +7,7 @@ week: 2
 date: 2027-03-01
 teachers:
   - idris-fenn
+slides: /decks/week-02/
 related:
   - assessments/data-scraping-exercise
 ---

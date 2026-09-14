@@ -7,6 +7,7 @@ week: 5
 date: 2027-03-22
 teachers:
   - marisol-quaye
+slides: /decks/week-05/
 ---
 
 **Core reading:** *Price Elasticity of Ready-to-Drink Spirit Cans*
