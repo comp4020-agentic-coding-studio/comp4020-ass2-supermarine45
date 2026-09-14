@@ -61,15 +61,13 @@ The method is the method. Only which constraint binds has moved.
 
 For one shopper:
 
-- buying the single best-index product is usually acceptable
-- variety is a preference, rarely a requirement
-- so the constraint is slack, and greedy often coincides with optimal
+- the best-index product, bought repeatedly, is usually an acceptable basket
+- so variety is **slack**, and greedy often coincides with optimal
 
 For fifty people:
 
-- a single-SKU inventory satisfying the budget is **trivial to construct**
-- and reliably the wrong answer for an actual event
-- so variety is a hard requirement, and greedy stops coinciding
+- that same single-SKU inventory is trivial to construct and reliably wrong
+- so variety **binds**, and greedy stops coinciding
 
 ---
 

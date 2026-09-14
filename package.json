@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "typecheck": "astro check",
     "check": "pnpm typecheck && pnpm test",
+    "check:decks": "node scripts/deck-check.mjs --all",
     "check:evidence": "node scripts/check-evidence.ts",
     "test": "pnpm build && vitest run spec",
     "test:template": "vitest run scripts"
