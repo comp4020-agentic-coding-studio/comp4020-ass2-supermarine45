@@ -19,6 +19,24 @@ import { sessionLabels, siteConfig } from "../site-config";
     {courseMeta.tags.map((tag) => <li>{tag}</li>)}
   </ul>
 
+  <h2>Welcome</h2>
+  <p class="lede">
+    Welcome to {courseMeta.code}. Over twelve weeks this course takes a
+    single number — the alcohol-by-volume-to-price ratio of a product on a
+    supermarket shelf — and decomposes it until nothing is left unexplained:
+    what the ethanol cost to ferment, which of two incompatible tax
+    structures applies to it, what the retailer's floor plan charges you to
+    reach it, and what the resulting optimum does not account for.
+  </p>
+  <p>
+    Each week is one page, and each page is one sitting: a lecture that makes
+    the week's argument from the literature, a lab that computes the same
+    thing by hand on a product you chose yourself, and the slides. There are
+    three assessments and no exam. Start with <a href={withBase("/lectures/")}
+    >week 1</a>, or with the <a href={withBase("/toolkit/")}>toolkit</a> if
+    you would rather see the arithmetic before reading about it.
+  </p>
+
   <h2>What you will do</h2>
   <p>
     You will treat the bottle shop as a dataset, and you will do so with
