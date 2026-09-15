@@ -1,0 +1,133 @@
+---
+// Decorative only — the real scraper is the week 9 lab's, against a live
+// catalogue. This one runs the same standard-drink and index arithmetic as
+// the rest of the toolkit against the worked CATALOGUE, so what scrolls past
+// is real course numbers rather than invented ones, formatted as if a
+// scraper had just produced them.
+//
+// `.test` is a reserved, non-resolvable TLD (RFC 2606) — it can't be mistaken
+// for a real retailer's domain.
+import { CATALOGUE, standardDrinks, abvToDollarIndex } from "../lib/index-math";
+
+const header = [
+  `$ python scrape.py --retailer demo-liquor.test --min-skus ${CATALOGUE.length}`,
+  `# crawl-delay: 2.0s per request (see /policies/)`,
+];
+
+const rows = CATALOGUE.map((sku) => {
+  const drinks = standardDrinks(sku.volumeMl, sku.abv);
+  const index = abvToDollarIndex(sku.volumeMl, sku.abv, sku.price);
+  return (
+    `GET https://demo-liquor.test/catalogue/${sku.id} -> 200 OK  ` +
+    `${sku.name} | ${sku.volumeMl}mL | ${sku.abv}% ABV | $${sku.price.toFixed(2)} ` +
+    `-> ${drinks.toFixed(1)} std drinks, index ${index.toFixed(3)}`
+  );
+});
+
+const summary = [`Parsed ${CATALOGUE.length} SKUs, 0 failures. Sorted by index, descending.`];
+
+const lines = [...header, ...rows, ...summary];
+const loopedLines = [...lines, ...lines];
+---
+
+<section class="terminal" id="scraper-terminal" aria-labelledby="terminal-heading">
+  <h2 id="terminal-heading">Simulated scraper output</h2>
+  <p class="terminal-lede">
+    Illustrative, not live — the figures scrolling below are the same worked
+    catalogue as the toolkit, run through the same standard-drink and index
+    formulas. Week 9's lab builds the version that requests a real page.
+  </p>
+
+  <div class="terminal-window" aria-hidden="true">
+    <pre class="terminal-log">{loopedLines.map((line) => <span class="terminal-line">{line}</span>)}</pre>
+  </div>
+
+  <details class="terminal-fallback">
+    <summary>View the same output as text</summary>
+    <pre>{lines.join("\n")}</pre>
+  </details>
+</section>
+
+<style define:vars={{ lineCount: lines.length }}>
+  .terminal {
+    margin-block: var(--at-spacing-xl);
+    padding: var(--at-spacing-lg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-alt);
+  }
+
+  .terminal > h2 {
+    margin-block-start: 0;
+  }
+
+  .terminal-lede {
+    color: var(--at-text-secondary);
+    margin-block-end: var(--at-spacing-lg);
+  }
+
+  /* Fixed dark chrome regardless of site theme — a terminal reads as a
+     terminal specifically because it doesn't follow the page around it. */
+  .terminal-window {
+    block-size: 14rem;
+    overflow: hidden;
+    padding: var(--at-spacing-md);
+    border-radius: var(--at-border-radius);
+    background: #0d1117;
+  }
+
+  .terminal-window:hover .terminal-log {
+    animation-play-state: paused;
+  }
+
+  .terminal-log {
+    margin: 0;
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 0.72rem;
+    line-height: 1.7;
+    color: #7ee787;
+    white-space: pre-wrap;
+    word-break: break-word;
+    animation: terminal-scroll calc(var(--lineCount) * 1.8s) linear infinite;
+  }
+
+  .terminal-line {
+    display: block;
+  }
+
+  @keyframes terminal-scroll {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      /* Content is duplicated once in the markup, so a 50% shift lands back
+         on an identical frame — the loop point is invisible. */
+      transform: translateY(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .terminal-log {
+      animation: none;
+    }
+  }
+
+  .terminal-fallback {
+    margin-block-start: var(--at-spacing-lg);
+  }
+
+  .terminal-fallback summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--at-primary);
+  }
+
+  .terminal-fallback pre {
+    margin-block-start: var(--at-spacing-sm);
+    padding: var(--at-spacing-md);
+    overflow-x: auto;
+    font-size: var(--at-font-size-sm);
+    border: 1px solid var(--at-divider);
+    border-radius: var(--at-border-radius);
+  }
+</style>

@@ -1,8 +1,7 @@
 ---
-title: Microeconomics of Cask Wine
+title: "Cardboard Efficiencies: The Microeconomics of Bag-in-Box Wine"
 description:
-  Margin analysis of bag-in-box distribution, and why cask wine's
-  economics look nothing like bottled wine's
+  Packaging economics and logistical payload optimization
 week: 3
 date: 2027-03-08
 teachers:
@@ -10,29 +9,17 @@ teachers:
 slides: /decks/week-03/
 ---
 
-**Core reading:** *Margin Structures in Bag-in-Box Wine Distribution*
-(Retail Economics Review, 2018)
+**Core reading:** *Spatial Geometry and Oxidation Resistance in
+Polyethylene Bladder Distribution* (Supply Chain & Logistics Journal,
+2018)
 
-Cask wine is this course's first proper case study, chosen because its
-economics genuinely diverge from the bottled product sharing its shelf.
-The week's reading traces bag-in-box distribution margins from bulk
-producer to retail shelf and finds a distribution structure with fewer
-intermediary steps and dramatically lower packaging cost per litre than
-bottled wine, most of which is passed through to the standard-drink price
-rather than absorbed as extra margin. Measured against week 2's
-standard-drink unit, cask wine consistently returns the lowest
-price-per-standard-drink figure of any wine format sold, which the
-reading attributes almost entirely to packaging economics rather than to
-any difference in the wine itself. This is the semester's first clean
-demonstration that a product's shelf reputation and its actual
-cost-efficiency can point in opposite directions.
+Bag-in-box distribution eliminates the heavy logistical overhead of glass
+bottling. This lecture calculates the exact margin improvement per liter
+when transporting four-liter casks, factoring in the oxidation resistance
+of the polyethylene bladder and the spatial efficiency of stacking
+rectangular prisms on standard shipping pallets.
 
-## Outline
-
-- bag-in-box distribution margins from producer to shelf
-- packaging cost per litre against price-per-standard-drink
-- why cask wine returns the lowest ratio of any wine format
-- shelf reputation versus measured cost-efficiency, held apart
+*Key Concept:* Packaging economics and logistical payload optimization.
 
 ## Mandatory reading
 

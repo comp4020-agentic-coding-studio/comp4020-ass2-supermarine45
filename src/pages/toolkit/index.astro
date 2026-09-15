@@ -34,6 +34,37 @@ import { siteConfig } from "../../site-config";
     rules on the <a href={withBase("/policies/")}>policies page</a>. A figure typed into
     this page is a figure you are responsible for.
   </p>
+
+  <h2>The toolchain behind them</h2>
+  <p>
+    To successfully complete the quantitative modeling in this course, students must
+    become proficient with the following industry-standard toolkits:
+  </p>
+  <ul>
+    <li>
+      <strong>Python (BeautifulSoup4 &amp; Selenium):</strong> Essential for the
+      automated extraction of supermarket inventories. Students will write scripts to
+      bypass basic DOM obfuscation and compile raw pricing data from regional liquor
+      retailers.
+    </li>
+    <li>
+      <strong>R &amp; ggplot2:</strong> Used for statistical computing and generating
+      visualizations. You will use R to calculate the price elasticity of discount
+      spirits and map standard drink equivalencies across varying tax brackets.
+    </li>
+    <li>
+      <strong>QGIS (Quantum GIS):</strong> An open-source geographic information system
+      used in Week 7 for retail spatial optimization. Students will map the floor plans
+      of suburban liquor outlets to analyze the spatial ergonomics of tax-inefficient
+      stock placement.
+    </li>
+    <li>
+      <strong>The ABV-Index Calculator (Internal Tool):</strong> A proprietary SlopU web
+      widget provided in Week 1. This tool allows for rapid manual verification of your
+      scraped data by calculating the baseline <code>(Volume * ABV * 0.789) / Price</code>
+      formula.
+    </li>
+  </ul>
 </ContentLayout>
 
 <style is:global>

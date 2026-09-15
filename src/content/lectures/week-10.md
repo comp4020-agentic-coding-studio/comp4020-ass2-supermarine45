@@ -1,8 +1,7 @@
 ---
-title: Algorithmic Maximisation
+title: Algorithmic Maximization of the ABV-to-Dollar Index
 description:
-  Coding the ABV-to-dollar index formula, and turning nine weeks of
-  measurement into a single ranked output
+  Algorithmic processing of large-scale retail datasets
 week: 10
 date: 2027-04-26
 teachers:
@@ -13,28 +12,15 @@ related:
   - assessments/event-portfolio
 ---
 
-**Core reading:** *Greedy and Dynamic-Programming Approaches to Retail
-Index Maximisation* (Operations Research for Retail, 2022)
+**Core reading:** *Algorithmic Maximization of the Intoxication Index in
+Real-Time Datasets* (Quantitative Economics, 2024)
 
-Week 9's dataset is only useful once it can be ranked, and week 10
-provides the formula that does the ranking. The week's reading formalises
-the ABV-to-dollar index — standard drinks per dollar, computed per SKU
-from the fields week 9's scrape extracts — and compares a naive
-greedy selection against a dynamic-programming approach once a budget
-constraint and a minimum-variety constraint are added, finding the
-greedy method adequate for an unconstrained ranking but measurably
-suboptimal the moment a real budget cap is introduced. The deck linked
-from this page works through both approaches in the detail the
-semester's remaining assessments assume you already have, since neither
-the scraping exercise's ranking nor the closing event portfolio's
-constrained inventory can be built correctly on the naive version alone.
+Students will script the mathematical models required to process their
+scraped data. By coding the ABV-to-dollar index formula into automated
+functions, we will identify real-time outlier SKUs and historical
+markdown trends hidden deep within discount retail catalogs.
 
-## Outline
-
-- formalising the ABV-to-dollar index from week 9's scraped fields
-- greedy ranking versus dynamic programming under a budget constraint
-- where the naive method is adequate and where it fails
-- why the constrained version is what the rest of the semester needs
+*Key Concept:* Algorithmic processing of large-scale retail datasets.
 
 ## Mandatory reading
 
@@ -47,11 +33,3 @@ constrained inventory can be built correctly on the naive version alone.
   — Kellerer, Pferschy & Pisinger, Springer, 2004. The modern treatment.
   Go here for the multiply-constrained variants, which is what the Event
   Portfolio actually poses once a minimum-variety requirement is added.
-
-## Further reading
-
-- *Algorithmic Maximisation of the Intoxication Index* (Quantitative
-  Economics, 2024) — applies this week's formula to a live, updating feed
-  rather than a static scrape, and is the reading to check against if your
-  data scraping exercise re-ranks its dataset as prices change rather than
-  once.

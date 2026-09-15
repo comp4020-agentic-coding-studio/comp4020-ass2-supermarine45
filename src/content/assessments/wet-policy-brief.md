@@ -9,17 +9,17 @@ weight: 30
 marking:
   mode: weighted
   criteria:
-    - name: Accuracy of the WET mechanism as explained
-      weight: 25
-    - name: Quality of the economic and spatial impact analysis
+    - name: Economic rigor and correct application of tax mechanics
       weight: 50
-    - name: APA formatting and citation discipline
-      weight: 25
+    - name: Structural coherence and argumentation
+      weight: 33
+    - name: Deadpan academic tone and formatting
+      weight: 17
 spec:
-  - 1,500 words, exclusive of references, in APA format
+  - 1,500 words, exclusive of references, strictly conforming to APA academic formatting
   - the WET's ad valorem mechanism explained correctly, per week 4
-  - at least one comparison against the volumetric excise regime from week 6
-  - a specific, evidenced claim about the tax's effect on discount purchasing behaviour
+  - modelling of how the 29% wholesale tax incentivises high-volume, low-quality bag-in-box wine
+  - citations from at least three health-economics or tax-law journals
 related:
   - lectures/week-04
   - lectures/week-06
@@ -27,26 +27,12 @@ related:
 
 ## The brief
 
-> Analyse, in 1,500 APA-formatted words, the economic and spatial impact
-> of the Wine Equalisation Tax on discount alcohol purchasing.
-
-Week 4 established that the WET's ad valorem structure favours cheap wine
-specifically, not wine in general; week 6 established what a volumetric
-alternative would do instead. This brief asks you to put those two
-findings to work: explain the WET's mechanism precisely enough that a
-non-specialist reader could follow it, then argue a specific,
-evidenced position on its effect on discount purchasing — not "the WET
-matters," but a claim precise enough to be checked against the retail
-data this course's other assessments generate. A brief that restates
-week 4's lecture content without extending it into an original claim has
-described the mechanism without analysing its impact, which is the
-distinction the marking below is built around.
+A formal academic policy brief analyzing the economic and spatial impact
+of the Australian Wine Equalisation Tax (WET) on suburban discount
+purchasing behaviors. You must model how the 29% wholesale tax
+incentivizes the production of high-volume, low-quality bag-in-box wine.
 
 ## What you submit
 
-A single 1,500-word policy brief, submitted as a PDF, formatted and
-cited in APA style throughout, exclusive of the reference list.
-
-The weighting below puts half the marks on the impact analysis, since an
-accurate explanation of the tax mechanism is a precondition for a strong
-brief rather than the brief itself.
+A 1,500-word document, strictly conforming to APA academic formatting.
+Must cite at least three health-economics or tax-law journals.

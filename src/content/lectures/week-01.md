@@ -1,8 +1,8 @@
 ---
-title: Chemistry of Cheap Fermentation
+title: Ethanol Fermentation Kinetics & Baseline Costs
 description:
-  The reaction kinetics of a minimum-cost sugar wash, and why the
-  cheapest fermentable substrate is not the slowest one
+  Baseline fermentation margins and the absolute price floor of
+  industrial ethanol
 week: 1
 date: 2027-02-22
 teachers:
@@ -10,29 +10,18 @@ teachers:
 slides: /decks/week-01/
 ---
 
-**Core reading:** *Kinetics of Minimum-Cost Ethanol Fermentation*
-(Journal of Applied Fermentation Science, 2019)
+**Core reading:** *Fermentation Kinetics of Ultra-Low-Cost Sugar Washes
+in High-Volume Beverage Production* (Journal of Industrial Microbiology,
+2020)
 
-The semester opens where the product itself begins: a yeast culture
-converting sugar to ethanol at whatever rate the cheapest available
-substrate allows. The week's reading measures fermentation kinetics
-across a range of low-cost sugar sources and finds that substrate cost
-and fermentation rate are only weakly correlated — a cheaper wash is not
-reliably a slower one, and several of the least expensive substrates
-tested reach terminal ethanol concentration faster than mid-priced
-alternatives, purely as a function of available nitrogen and initial
-sugar density. This matters because every price this course will
-scrutinise for the rest of the semester sits on top of a production cost
-that the retail price only loosely reflects. Before any tax, margin, or
-shelf placement is added, week 1 establishes the number those layers are
-actually layered on top of.
+This week establishes the chemical and economic baseline of the course.
+Ethanol is not viewed biologically; it is viewed purely as a fiscal
+molecule. We examine the molecular efficiency of industrial yeast strains
+(*Saccharomyces cerevisiae*) in high-yield sugar washes to understand the
+absolute minimum cost of production before federal taxation is applied.
 
-## Outline
-
-- fermentation kinetics as a function of substrate, not price
-- why cost and fermentation rate are only weakly correlated
-- nitrogen availability and sugar density as the real rate-limiters
-- the production cost this semester's retail prices sit on top of
+*Key Concept:* Baseline fermentation margins and the absolute price floor
+of industrial ethanol.
 
 ## Mandatory reading
 

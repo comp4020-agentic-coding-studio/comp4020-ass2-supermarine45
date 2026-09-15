@@ -1,0 +1,286 @@
+---
+// Week 10's index, plotted rather than tabulated: the same worked catalogue
+// as the toolkit's other tools, price against standard drinks, so the
+// cask-versus-craft-beer comparison the lecture makes in prose is something a
+// reader can also see as distance between two clusters of points.
+import { CATALOGUE, standardDrinks, abvToDollarIndex } from "../lib/index-math";
+
+const points = CATALOGUE.map((sku) => ({
+  ...sku,
+  drinks: standardDrinks(sku.volumeMl, sku.abv),
+  index: abvToDollarIndex(sku.volumeMl, sku.abv, sku.price),
+}));
+
+const outlier = points.find((p) => p.id === "cask-4l")!;
+const baseline = points.find((p) => p.id === "beer-6")!;
+
+// Plot geometry. Padding leaves room for axis labels on every side.
+const W = 480;
+const H = 320;
+const PAD = { top: 16, right: 16, bottom: 40, left: 52 };
+const maxPrice = Math.max(...points.map((p) => p.price));
+const maxDrinks = Math.max(...points.map((p) => p.drinks));
+
+const x = (price: number) => PAD.left + (price / maxPrice) * (W - PAD.left - PAD.right);
+const y = (drinks: number) => H - PAD.bottom - (drinks / maxDrinks) * (H - PAD.top - PAD.bottom);
+
+const priceTicks = [0, maxPrice / 2, maxPrice];
+const drinksTicks = [0, maxDrinks / 2, maxDrinks];
+---
+
+<section class="scatter" id="price-drinks-scatterplot" aria-labelledby="scatter-heading">
+  <h2 id="scatter-heading">Price against standard drinks</h2>
+  <p class="scatter-lede">
+    The {CATALOGUE.length}-product catalogue from the toolkit, plotted rather
+    than tabulated. Point your cursor at any product for its exact figures;
+    the {outlier.name} is the outlier week 10's lecture keeps returning to.
+  </p>
+
+  <div class="scatter-body">
+    <svg
+      class="scatter-svg"
+      viewBox={`0 0 ${W} ${H}`}
+      role="img"
+      aria-label={`Scatterplot of price against standard drinks for ${CATALOGUE.length} products. An accessible data table follows.`}
+      focusable="false"
+    >
+      <!-- gridlines and axes -->
+      {
+        drinksTicks.map((t) => (
+          <line
+            x1={PAD.left}
+            x2={W - PAD.right}
+            y1={y(t)}
+            y2={y(t)}
+            class="scatter-grid"
+          />
+        ))
+      }
+      <line x1={PAD.left} x2={PAD.left} y1={PAD.top} y2={H - PAD.bottom} class="scatter-axis" />
+      <line
+        x1={PAD.left}
+        x2={W - PAD.right}
+        y1={H - PAD.bottom}
+        y2={H - PAD.bottom}
+        class="scatter-axis"
+      />
+
+      {
+        priceTicks.map((t) => (
+          <text x={x(t)} y={H - PAD.bottom + 16} class="scatter-tick" text-anchor="middle">
+            {`$${t.toFixed(0)}`}
+          </text>
+        ))
+      }
+      {
+        drinksTicks.map((t) => (
+          <text x={PAD.left - 8} y={y(t) + 4} class="scatter-tick" text-anchor="end">
+            {t.toFixed(0)}
+          </text>
+        ))
+      }
+
+      <text
+        x={(PAD.left + (W - PAD.right)) / 2}
+        y={H - 4}
+        class="scatter-axis-label"
+        text-anchor="middle"
+      >
+        Retail price (AUD)
+      </text>
+      <text
+        x={14}
+        y={(PAD.top + (H - PAD.bottom)) / 2}
+        class="scatter-axis-label"
+        text-anchor="middle"
+        transform={`rotate(-90, 14, ${(PAD.top + (H - PAD.bottom)) / 2})`}
+      >
+        Standard drinks
+      </text>
+
+      {
+        points.map((p) => (
+          <circle
+            class:list={["scatter-point", { "scatter-point--outlier": p.id === outlier.id }]}
+            cx={x(p.price)}
+            cy={y(p.drinks)}
+            r={p.id === outlier.id ? 7 : 5}
+            data-name={p.name}
+            data-price={p.price.toFixed(2)}
+            data-drinks={p.drinks.toFixed(1)}
+            data-index={p.index.toFixed(3)}
+            data-outlier={p.id === outlier.id ? "true" : "false"}
+            data-compare={
+              p.id === outlier.id
+                ? `${(outlier.index / baseline.index).toFixed(1)}× the index of ${baseline.name}`
+                : ""
+            }
+          />
+        ))
+      }
+    </svg>
+
+    <div class="scatter-tooltip" id="scatter-tooltip" role="presentation" hidden></div>
+  </div>
+
+  <details class="scatter-table">
+    <summary>View the same data as a table</summary>
+    <table>
+      <caption class="visually-hidden">Price, standard drinks and index for every catalogue product</caption>
+      <thead>
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col">Price (AUD)</th>
+          <th scope="col">Standard drinks</th>
+          <th scope="col">Index (drinks/$)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          points.map((p) => (
+            <tr>
+              <th scope="row">{p.name}</th>
+              <td>{`$${p.price.toFixed(2)}`}</td>
+              <td>{p.drinks.toFixed(1)}</td>
+              <td>{p.index.toFixed(3)}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </details>
+</section>
+
+<script>
+  const svg = document.querySelector<SVGSVGElement>("#price-drinks-scatterplot .scatter-svg");
+  const tooltip = document.getElementById("scatter-tooltip");
+  const wrapper = document.querySelector<HTMLElement>("#price-drinks-scatterplot .scatter-body");
+  if (svg && tooltip && wrapper) {
+    const points = svg.querySelectorAll<SVGCircleElement>(".scatter-point");
+    const show = (point: SVGCircleElement) => {
+      const { name, price, drinks, index, compare } = point.dataset;
+      tooltip.innerHTML = compare
+        ? `<strong>${name}</strong><br>$${price} · ${drinks} standard drinks · index ${index}<br>${compare}`
+        : `<strong>${name}</strong><br>$${price} · ${drinks} standard drinks · index ${index}`;
+      const wrapperBox = wrapper.getBoundingClientRect();
+      const pointBox = point.getBoundingClientRect();
+      tooltip.style.left = `${pointBox.left - wrapperBox.left + pointBox.width / 2}px`;
+      tooltip.style.top = `${pointBox.top - wrapperBox.top}px`;
+      tooltip.hidden = false;
+    };
+    const hide = () => {
+      tooltip.hidden = true;
+    };
+    for (const point of points) {
+      point.addEventListener("pointerenter", () => show(point));
+      point.addEventListener("pointerleave", hide);
+    }
+  }
+</script>
+
+<style>
+  .scatter {
+    margin-block: var(--at-spacing-xl);
+    padding: var(--at-spacing-lg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-alt);
+  }
+
+  .scatter > h2 {
+    margin-block-start: 0;
+  }
+
+  .scatter-lede {
+    color: var(--at-text-secondary);
+    margin-block-end: var(--at-spacing-lg);
+  }
+
+  .scatter-body {
+    position: relative;
+    max-inline-size: 32rem;
+  }
+
+  .scatter-svg {
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  .scatter-grid {
+    stroke: var(--at-divider);
+    stroke-width: 1;
+  }
+
+  .scatter-axis {
+    stroke: var(--at-text-secondary);
+    stroke-width: 1;
+  }
+
+  .scatter-tick,
+  .scatter-axis-label {
+    font-size: 9px;
+    fill: var(--at-text-secondary);
+  }
+
+  .scatter-point {
+    fill: var(--at-primary);
+    fill-opacity: 0.75;
+    stroke: var(--at-bg-alt);
+    stroke-width: 1;
+    cursor: pointer;
+  }
+
+  .scatter-point--outlier {
+    fill: var(--at-accent);
+    fill-opacity: 1;
+  }
+
+  .scatter-tooltip {
+    position: absolute;
+    transform: translate(-50%, -100%) translateY(-8px);
+    inline-size: max-content;
+    max-inline-size: 14rem;
+    padding: 0.4rem 0.6rem;
+    font-size: var(--at-font-size-sm);
+    line-height: 1.4;
+    color: var(--at-bg);
+    background: var(--at-text);
+    border-radius: var(--at-border-radius);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .scatter-table {
+    margin-block-start: var(--at-spacing-lg);
+  }
+
+  .scatter-table summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--at-primary);
+  }
+
+  .scatter-table table {
+    margin-block-start: var(--at-spacing-sm);
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--at-font-size-sm);
+  }
+
+  .scatter-table th,
+  .scatter-table td {
+    text-align: start;
+    padding: 0.35rem 0.5rem;
+    border-block-end: 1px solid var(--at-divider);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>

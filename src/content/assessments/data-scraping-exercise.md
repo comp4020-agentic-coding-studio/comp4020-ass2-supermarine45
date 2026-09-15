@@ -2,21 +2,22 @@
 title: Data Scraping Exercise
 description:
   Scrape and map local supermarket alcohol volumes against retail
-  prices to calculate an ABV-to-dollar ratio for 100+ SKUs
+  prices to calculate an ABV-to-dollar ratio for 150+ SKUs
 week: 9
 due: 2027-04-26T12:00:00+10:00
 weight: 30
 marking:
   mode: weighted
   criteria:
-    - name: Completeness of the scraped dataset
-      weight: 30
-    - name: Accuracy of ABV-to-dollar ratio calculations
-      weight: 40
-    - name: Data organisation and reproducibility of method
-      weight: 30
+    - name: Code functionality and efficiency
+      weight: 34
+    - name: Data cleanliness and statistical validity
+      weight: 33
+    - name: Methodological clarity
+      weight: 33
 spec:
-  - a dataset of at least 100 distinct SKUs from at least one named supermarket retailer
+  - a dataset of at least 150 distinct SKUs from at least one named supermarket retailer
+  - a stratified sample covering cask wine, RTDs, and clear spirits
   - every row carries product name, volume, ABV, price, and computed standard-drink count
   - the ABV-to-dollar ratio uses week 2's standard-drink conversion, applied consistently
   - the scraping method is documented well enough that another student could reproduce it
@@ -27,29 +28,12 @@ related:
 
 ## The brief
 
-> Scrape a real supermarket's online liquor catalogue, normalise it, and
-> calculate the exact alcohol-by-volume-to-price ratio for at least 100
-> SKUs.
-
-Week 9 covers the scraping methodology and its failure modes; week 2
-supplies the standard-drink conversion every ratio in the dataset depends
-on. This exercise asks you to combine both without letting either
-weaken the other: a scrape that captures volume, ABV, and price cleanly
-but applies the wrong standard-drink formula produces a dataset that
-looks complete and is quietly wrong throughout, which is exactly the
-silent-failure mode week 9's reading warns about. A dataset under 100
-SKUs is not marked as "smaller but valid" — the reading is explicit that
-below that threshold, a category-wide pattern cannot be distinguished
-from one retailer's current promotions, so the exercise's own claims
-about value-for-money would not be supportable.
+Students must write a Python script to scrape local supermarket alcohol
+volumes against retail prices, calculating the exact ABV-to-dollar ratio
+for a minimum of 150 distinct SKUs (Stock Keeping Units). The dataset
+must include a stratified sample of cask wine, RTDs, and clear spirits.
 
 ## What you submit
 
-The scraped and normalised dataset itself (spreadsheet or equivalent
-structured format), sorted by ABV-to-dollar ratio, plus a short written
-account of the scraping method used and any fields that had to be
-excluded or estimated.
-
-The weighting below puts accuracy of the ratio calculation highest, since
-a complete, well-organised dataset built on an incorrect standard-drink
-conversion has produced 100 wrong answers rather than one.
+A raw CSV dataset, the original Python script (.py file), and a 500-word
+methodology outlining your scraping parameters and rate-limiting ethics.
