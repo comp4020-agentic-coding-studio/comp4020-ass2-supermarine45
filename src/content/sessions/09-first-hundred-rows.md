@@ -16,13 +16,13 @@ related:
   - assessments/data-scraping-exercise
 ---
 
-## Before the lab
+### Before the lab
 
 Bring a laptop and your chosen retailer's online liquor catalogue. Bring
 whatever scraping code you already have, working or not — a broken
 scraper is a better starting point for this lab than an empty file.
 
-## In the lab
+### In the lab
 
 **Conduct before code.** Check `robots.txt` first, set a crawl delay of at
 least two seconds, and identify your client honestly. This is a course
@@ -48,10 +48,7 @@ stated or inferred. The assessment's reproducibility criterion is
 substantially about whether a reader can tell your measured data from your
 assumed data, and a column is the cheapest way to let them.
 
-**Core reading:** *Automated Extraction of Supermarket Inventory Data*
-(Journal of Computational Retail Analysis, 2023)
-
-## Afterwards
+### Afterwards
 
 You leave with a running scraper, a hundred timestamped rows, and a count
 of how many of them you had to guess at. The Data Scraping Exercise is due

@@ -17,7 +17,7 @@ related:
   - assessments/wet-policy-brief
 ---
 
-## Before the lab
+### Before the lab
 
 Bring wholesale-value estimates for four wine products across the widest
 price range your catalogue carries — the cheapest cask you can find through
@@ -25,7 +25,7 @@ to the most expensive bottle. Retailers do not publish wholesale value, so
 estimate it and be ready to say how. The estimate being rough is fine; the
 method being undocumented is not.
 
-## In the lab
+### In the lab
 
 **The mechanism.** WET is levied at 29% of wholesale value. That is the
 whole rule, and its consequences are entirely in the word *value*. A tax
@@ -48,10 +48,7 @@ is not the same as an inversion in what anyone should buy. Week 11 is
 where that distinction is dealt with properly; for now, note that you are
 measuring a tax, not issuing advice.
 
-**Core reading:** *Ad Valorem Design and the Wine Equalisation Tax*
-(Australian Tax Policy Journal, 2021)
-
-## Afterwards
+### Afterwards
 
 You leave with a calculated tax burden per standard drink across four real
 products and one identified inversion point — which is the spine of the

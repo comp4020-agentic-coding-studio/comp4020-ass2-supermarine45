@@ -16,14 +16,14 @@ related:
   - lectures/week-04
 ---
 
-## Before the lab
+### Before the lab
 
 Bring the standard-drink conversion and index value you computed in lab
 1, and the one decision behind it you are least confident about — a
 rounding choice, a promotional price you weren't sure whether to use, a
 product you guessed the ABV for.
 
-## In the lab
+### In the lab
 
 Short demos of each student's lab-1 numbers, then feedback aimed at the
 decision rather than the arithmetic. Idris works through one live example
@@ -47,7 +47,7 @@ against the same standard.
 **Required reading:** *Volumetric Taxation and the Australian Cask Wine
 Pricing Anomaly* (Australian Tax Review, 2019)
 
-## Afterwards
+### Afterwards
 
 What leaves the lab is feedback on the one decision you brought, and a
 second worked example — cask wine and the WET — to check your own method

@@ -16,13 +16,13 @@ related:
   - assessments/wet-policy-brief
 ---
 
-## Before the lab
+### Before the lab
 
 Bring your week 4 WET calculations and add three products under federal
 excise rather than WET: a spirit, a full-strength beer, and a
 ready-to-drink can. Volume, ABV and shelf price for each.
 
-## In the lab
+### In the lab
 
 **One axis.** The two regimes are not comparable in their own units — 29%
 of wholesale value and dollars per litre of pure alcohol have nothing in
@@ -45,10 +45,7 @@ say which trade-off you think the evidence supports.
 
 **Drafting.** The last half hour is writing. The brief is due next week.
 
-**Core reading:** *Volumetric Excise and the Distilled Spirits Premium*
-(Australian Tax Policy Journal, 2020)
-
-## Afterwards
+### Afterwards
 
 You leave with seven products on one axis, your own spirits-premium
 figure, and a drafted comparison paragraph — the brief's second required

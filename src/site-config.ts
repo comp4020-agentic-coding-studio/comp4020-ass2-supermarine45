@@ -2,11 +2,14 @@ import { defineSiteConfig } from "astro-theme-university/types";
 import { slopBranding } from "astro-theme-slop";
 import { courseMeta } from "./course-config";
 
-// The underlying collection and URL remain `sessions`; these labels are the
-// language students see. Change them to Studios, Tutorials, Expeditions, etc.
-// "Lab" because that is what these are: a catalogue, a calculator and an hour
-// of arithmetic on real shelf prices. The collection key, refs and URL stay
-// `sessions` — only the language students read changes.
+// The underlying collection remains `sessions`; these labels are the language
+// students see. "Lab" because that is what these are: a catalogue, a calculator
+// and an hour of arithmetic on real shelf prices.
+//
+// The labs no longer have pages of their own — each one is rendered on its
+// week's page under /lectures/, which is why there is no longer a `/sessions/`
+// route for the collection key to name. The key, the refs and the API node type
+// are all still `sessions`; only the reader-facing word and the URL changed.
 export const sessionLabels = {
   singular: "Lab",
   plural: "Labs",
@@ -24,8 +27,7 @@ export const siteConfig = defineSiteConfig({
   name: "Slop University",
 
   links: [
-    { text: "Lectures", href: "/lectures/" },
-    { text: sessionLabels.plural, href: "/sessions/" },
+    { text: "Lecture", href: "/lectures/" },
     { text: "Assessment", href: "/assessments/" },
     { text: "Toolkit", href: "/toolkit/" },
     { text: "People", href: "/people/" },

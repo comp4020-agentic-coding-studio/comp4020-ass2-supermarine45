@@ -16,14 +16,14 @@ related:
   - assessments/event-portfolio
 ---
 
-## Before the lab
+### Before the lab
 
 Bring the portfolio as it stands: the deck, the budget spreadsheet, and
 the externality statement drafted in week 11. Unfinished is expected —
 this is a dry run, and a pitch with a known gap in it gets more useful
 questions than a polished one.
 
-## In the lab
+### In the lab
 
 **Ten minutes each.** Pitch the inventory: the budget, the constraint set,
 the selection, and why it is the selection rather than a cheaper one. The
@@ -47,10 +47,7 @@ challenges to the inventory from the room and answer them from their own
 dataset rather than from the literature. "The reading says" is not an
 answer to "your numbers say".
 
-**Core reading:** *Scaling Household Purchasing Algorithms to Event
-Logistics* (Journal of Applied Consumer Logistics, 2024)
-
-## Afterwards
+### Afterwards
 
 You leave with two answered challenges, a reconciled spreadsheet, and a
 list of what is still missing — with the portfolio due at the end of the

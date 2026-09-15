@@ -15,7 +15,7 @@ related:
   - lectures/week-05
 ---
 
-## Before the lab
+### Before the lab
 
 Bring a short price history — three or more observations, taken on
 different dates — for one ready-to-drink product from your catalogue.
@@ -23,7 +23,7 @@ Two weeks of casual checking is enough. If you have not been recording
 prices, bring whatever your retailer's site shows today plus any
 was/now pricing it displays, and say so.
 
-## In the lab
+### In the lab
 
 **What elasticity means with four data points.** Properly estimated
 elasticity needs volume data nobody outside the retailer has. What you
@@ -43,10 +43,7 @@ moves most and where the standard-drink count per unit is smallest, so a
 discount that looks large in percentage terms moves the index less than it
 appears to. Compute both for one promoted product and compare.
 
-**Core reading:** *Price Elasticity of Ready-to-Drink Spirit Cans*
-(Journal of Consumer Retail Studies, 2022)
-
-## Afterwards
+### Afterwards
 
 You leave with one elasticity estimate, a written list of what it assumes,
 and a habit of recording prices with dates attached — which week 9's

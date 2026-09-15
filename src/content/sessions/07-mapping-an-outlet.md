@@ -16,7 +16,7 @@ related:
   - assessments/event-portfolio
 ---
 
-## Before the lab
+### Before the lab
 
 Visit one liquor outlet — the one attached to your catalogue retailer, if
 it has a physical store — and draw its floor plan. Paper is fine. Mark the
@@ -29,7 +29,7 @@ do not photograph staff or other customers, and stop if you are asked to.
 A floor plan sketched from memory in the car park is a perfectly
 acceptable substitute and has been used for published work.
 
-## In the lab
+### In the lab
 
 **The plan as data.** The week's reading treats floor-plan geometry as a
 measurable determinant of throughput rather than a matter of taste.
@@ -48,10 +48,7 @@ small number of layouts, and the reading argues that the convergence is
 throughput optimisation rather than imitation. Decide whether your
 evidence supports that.
 
-**Core reading:** *Floor-Plan Determinants of Liquor Outlet Throughput*
-(Journal of Retail Geography, 2017)
-
-## Afterwards
+### Afterwards
 
 You leave with a measured floor plan and two index values attached to two
 distances. Week 8 asks what the display at the short distance is doing to

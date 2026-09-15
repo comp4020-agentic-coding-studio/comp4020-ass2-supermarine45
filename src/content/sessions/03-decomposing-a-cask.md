@@ -16,7 +16,7 @@ related:
   - lectures/week-03
 ---
 
-## Before the lab
+### Before the lab
 
 Bring current shelf prices for two products from your catalogue: a
 four-litre bag-in-box cask and a 750 mL bottle of the same varietal, or as
@@ -24,7 +24,7 @@ close to the same varietal as your retailer stocks. Bring the volume and
 ABV for both. You do not need to have decomposed anything yet — that is
 what the lab is for.
 
-## In the lab
+### In the lab
 
 **The four terms.** Every price this course examines splits into
 production cost, packaging and freight, category tax, and margin. Week 1
@@ -45,10 +45,7 @@ estimates got wrong, and the point of the exercise is that you cannot yet
 tell those two apart. Write down the number and write down your doubt
 about it; both go in your working.
 
-**Core reading:** *Margin Structures in Bag-in-Box Wine Distribution*
-(Retail Economics Review, 2018)
-
-## Afterwards
+### Afterwards
 
 You leave with two decomposed prices and a residual you can defend as an
 estimate rather than a fact. Week 4 replaces the tax term's placeholder

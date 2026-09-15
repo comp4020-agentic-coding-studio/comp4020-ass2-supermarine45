@@ -1,0 +1,112 @@
+---
+/**
+ * The theme's RelatedContent, with one thing changed: where a related entry
+ * lives now.
+ *
+ * RelatedContent's own doc comment says it "assumes the site's URL convention
+ * `/<collection>/<slug>/`", which was true until the labs moved onto the week
+ * page. `sessions/04-working-the-wet` is still a real node in the graph — the
+ * collection is one of the four the platform fixes, and the lab content lives
+ * in it — but it no longer has a page of its own, so the assumption now
+ * produces a 404 on every lecture and every assessment that touches a lab.
+ *
+ * The alternative was to stop passing `sessions` to getRelatedEntries, which
+ * makes the link checker happy by deleting the relationship. That loses real
+ * information: the WET Policy Brief genuinely does depend on the week 4 lab,
+ * and a reader should be able to follow that. So this resolves a lab to the
+ * week page that now carries it instead, and drops the entry when that page is
+ * the one being rendered — a lecture does not need a "related" link to itself.
+ */
+import { getPublishedCollection, getRelatedEntries } from "astro-course-university/content";
+import type { GraphEntry } from "astro-course-university/content";
+import { withBase } from "astro-theme-university/url";
+import { sessionLabels } from "../site-config";
+
+interface Props {
+  entry: GraphEntry & { data: { links?: { label: string; url: string }[] } };
+  /** Every graph-participating collection key, as passed to courseGraph(). */
+  collections: string[];
+  heading?: string;
+}
+
+const { entry, collections, heading = "Related" } = Astro.props;
+const related = await getRelatedEntries(entry, collections);
+const links = entry.data.links ?? [];
+
+// Labs and lectures pair one-to-one on week, which is what makes the merge
+// possible at all and what makes this mapping total.
+const lectures = await getPublishedCollection("lectures");
+const weekPage = new Map(lectures.map((l) => [Number(l.data.week), `/lectures/${l.id}/`]));
+
+const here = `/${entry.collection}/${entry.id}/`;
+
+// GraphEntry's `data` is the narrow shape every graph collection shares, so it
+// carries no `week` — that is this course's extension to the schema. Read it
+// through a guard rather than asserting the wider type, so a collection that
+// genuinely has no week resolves to undefined instead of NaN.
+function weekOf(e: GraphEntry): number | undefined {
+  const week = (e.data as { week?: unknown }).week;
+  return typeof week === "number" || typeof week === "string" ? Number(week) : undefined;
+}
+
+type Resolved = { href: string; title: string };
+
+const resolved = related.flatMap((e): Resolved[] => {
+  if (e.collection !== "sessions") {
+    return [{ href: `/${e.collection}/${e.id}/`, title: e.data.title }];
+  }
+  const week = weekOf(e);
+  const page = week === undefined ? undefined : weekPage.get(week);
+  // A lab whose week has no lecture would be a content error the spec suite
+  // catches; skipping it here keeps a broken graph from minting a broken link.
+  if (!page || page === here) return [];
+  return [
+    {
+      href: `${page}#lab`,
+      title: `${e.data.title} (week ${week} ${sessionLabels.singular.toLowerCase()})`,
+    },
+  ];
+});
+---
+
+{
+  (resolved.length > 0 || links.length > 0) && (
+    <aside class="related-content" aria-label={heading}>
+      <h2>{heading}</h2>
+      <ul>
+        {resolved.map((r) => (
+          <li>
+            <a href={withBase(r.href)}>{r.title}</a>
+          </li>
+        ))}
+        {links.map((l) => (
+          <li class="external">
+            <a href={l.url}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )
+}
+
+<style>
+  .related-content {
+    margin-block-start: 3rem;
+    padding-block-start: 1rem;
+    border-block-start: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  }
+
+  .related-content h2 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .related-content ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.35rem;
+  }
+</style>

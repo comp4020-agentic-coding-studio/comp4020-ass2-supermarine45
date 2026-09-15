@@ -16,13 +16,13 @@ related:
   - assessments/event-portfolio
 ---
 
-## Before the lab
+### Before the lab
 
 Bring your week 10 solver output — the constrained selection it produced
 for a fifty-person event — and read this week's lecture beforehand. The
 lab is mostly writing, and it goes badly without the reading.
 
-## In the lab
+### In the lab
 
 **What is being asked.** The portfolio requires a stated position on the
 externalities raised in week 11, applied to your event's scale. Not a
@@ -48,10 +48,7 @@ guest count is where an individual heuristic becomes an event-scale
 quantity. That multiplication is the specific claim your statement can
 make that a shopper-scale one cannot.
 
-**Core reading:** *Externalities of Optimised Discount Alcohol Purchasing*
-(Public Health Economics, 2021)
-
-## Afterwards
+### Afterwards
 
 You leave with a drafted statement that has survived both tests, and one
 named consequence at event scale. Week 12 puts it in front of the room.

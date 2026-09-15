@@ -20,6 +20,8 @@ interface ApiNode {
   type: string;
   title: string;
   related: string[];
+  /** The deliverable's contract lines, top-level in the API rather than in meta. */
+  spec?: string[];
   meta?: Record<string, unknown>;
 }
 
@@ -36,6 +38,22 @@ const WEEKS = Array.from({ length: 12 }, (_, i) => i + 1);
 function body(id: string): string {
   const node = JSON.parse(readFileSync(resolve(`dist/api/${id}.json`), "utf8")) as { body?: string };
   return node.body ?? "";
+}
+
+/**
+ * Rendered text, for comparing page content against the strings that produced
+ * it. A spec line reading "one supermarket's online liquor catalogue" ships as
+ * `supermarket&#39;s`, so a raw `toContain` on the HTML fails on a page that is
+ * perfectly correct.
+ */
+function renderedText(html: string): string {
+  return html
+    .replace(/<[^>]+>/g, "")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
 }
 
 function htmlPages(dir = resolve("dist")): string[] {
@@ -86,11 +104,93 @@ describe("every claim traces to the literature", () => {
     }
   });
 
-  it("gives every lab a required or core reading", () => {
-    for (const node of byType("sessions")) {
-      const text = body(node.id);
+  // This used to require a reading on every lab. It now requires one on every
+  // *week*, which is the same promise addressed to the reader rather than to
+  // the file: ten of the twelve labs cited the same paper as the lecture they
+  // sit beneath, and once both are on one page that is the same citation twice.
+  // The two labs that cite something of their own still do.
+  it("never sends a week away without a reading", () => {
+    const labByWeek = new Map(byType("sessions").map((n) => [Number(n.meta?.week), n]));
+    for (const lecture of byType("lectures")) {
+      const lab = labByWeek.get(Number(lecture.meta?.week));
+      const text = body(lecture.id) + (lab ? body(lab.id) : "");
       const cited = /\*\*(?:Required|Core) reading:\*\*/.test(text);
-      expect(cited, `${node.id} sends students away with no reading`).toBe(true);
+      expect(cited, `week ${lecture.meta?.week} sends students away with no reading`).toBe(true);
+    }
+  });
+});
+
+describe("a week is one page", () => {
+  /**
+   * The longest run of the lab's own prose that rendering cannot alter — no
+   * emphasis, no quotes, no dashes, so the source string is the page string.
+   *
+   * This exists because the first version of the test below checked the lab's
+   * heading, title and spec lines, all of which the week page renders itself.
+   * Deleting `<Lab />` from the page — removing every word of the brief — left
+   * all twenty-two tests green. Only a fragment of the body catches that.
+   */
+  function plainFragment(text: string): string {
+    return (
+      text
+        .split(/[.\n]/)
+        .map((line) => line.trim())
+        .filter((line) => /^[A-Za-z0-9 ,]+$/.test(line) && line.length >= 40)
+        .sort((a, b) => b.length - a.length)[0] ?? ""
+    );
+  }
+
+  // Added after the Lecture index shipped with no weeks on it at all: the
+  // rewrite kept the `import LecturesGrid` line and dropped the `<LecturesGrid />`
+  // that used it, so the page built, typechecked, passed axe, passed the link
+  // check and passed every test here, while being a page of prose followed by
+  // nothing. A tab whose whole job is to list the twelve weeks should not be
+  // able to list none of them quietly.
+  it("lists every week, lab and deck on the Lecture index", () => {
+    const html = readFileSync(resolve("dist/lectures/index.html"), "utf8");
+    const page = renderedText(html);
+    const labByWeek = new Map(byType("sessions").map((n) => [Number(n.meta?.week), n]));
+    for (const lecture of byType("lectures")) {
+      // Node ids are `<collection>/<slug>`; the route is `/<collection>/<slug>/`.
+      expect(html, `the index does not link ${lecture.id}`).toContain(`/${lecture.id}/`);
+      expect(page, `the index does not name ${lecture.id}`).toContain(lecture.title);
+      expect(html, `the index does not link week ${lecture.meta?.week}'s slides`).toContain(
+        String(lecture.meta?.slides),
+      );
+      const lab = labByWeek.get(Number(lecture.meta?.week));
+      expect(page, `the index does not name week ${lecture.meta?.week}'s lab`).toContain(lab!.title);
+    }
+  });
+
+  it("renders every lab on its week's page", () => {
+    const labByWeek = new Map(byType("sessions").map((n) => [Number(n.meta?.week), n]));
+    for (const lecture of byType("lectures")) {
+      const lab = labByWeek.get(Number(lecture.meta?.week));
+      expect(lab, `week ${lecture.meta?.week} has no lab to merge`).toBeDefined();
+      const html = readFileSync(resolve(`dist/${lecture.id}/index.html`), "utf8");
+      const page = renderedText(html);
+      expect(html, `${lecture.id} renders no lab section`).toContain('id="lab"');
+      expect(page, `${lecture.id} does not name its lab`).toContain(lab!.title);
+      // The spec lines are the lab's contract; they were on the lab's own page
+      // and have to survive the move, not just the title.
+      for (const line of lab!.spec ?? []) {
+        expect(page, `${lecture.id} drops a spec line from its lab`).toContain(line);
+      }
+      const fragment = plainFragment(body(lab!.id));
+      expect(fragment.length, `${lab!.id} has no fragment plain enough to check for`).toBeGreaterThan(0);
+      expect(page, `${lecture.id} names its lab but renders none of the brief`).toContain(fragment);
+    }
+  });
+
+  it("leaves no lab stranded at an address that shows nothing", () => {
+    // The labs keep their permalinks — the theme requires every content file to
+    // be routed — so each has to land the reader on the week that carries it.
+    for (const lab of byType("sessions")) {
+      const stub = readFileSync(resolve(`dist/${lab.id}/index.html`), "utf8");
+      const target = `/lectures/week-${String(lab.meta?.week).padStart(2, "0")}/#lab`;
+      expect(stub, `${lab.id} does not redirect to its week`).toMatch(
+        new RegExp(`http-equiv="refresh"[^>]*${target.replace(/\//g, "\\/")}`),
+      );
     }
   });
 });

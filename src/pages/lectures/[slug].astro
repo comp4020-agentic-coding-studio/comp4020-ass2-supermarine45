@@ -1,27 +1,106 @@
 ---
+/**
+ * One page per teaching week: the lecture, then the lab that does its work by
+ * hand, then the slides that present it.
+ *
+ * The three used to be three URLs, and the lab briefs are written to follow
+ * directly from the lecture they pair with ("this is the conversion the lab
+ * exists for"), which is a connection a tab boundary was costing the reader.
+ *
+ * Labs are keyed by week rather than by slug — `04-working-the-wet` against
+ * `week-04` — so the join is on `data.week`, which the schema pins to 1–12 and
+ * spec/course-promises.test.ts holds to exactly one of each per week.
+ */
 import { render } from "astro:content";
 import { getPublishedCollection } from "astro-course-university/content";
-import RelatedContent from "astro-course-university/components/RelatedContent.astro";
+import SpecList from "astro-course-university/components/SpecList.astro";
 import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
 import { withBase } from "astro-theme-university/url";
+import RelatedLinks from "../../components/RelatedLinks.astro";
 import TeachingTeam from "../../components/TeachingTeam.astro";
 import { formatCourseDate } from "../../lib/dates";
-import { graphCollections, siteConfig } from "../../site-config";
+import { graphCollections, sessionLabels, siteConfig } from "../../site-config";
 
 export async function getStaticPaths() {
-  const lectures = await getPublishedCollection("lectures");
-  return lectures.map((lecture) => ({ params: { slug: lecture.id }, props: { lecture } }));
+  const [lectures, sessions] = await Promise.all([
+    getPublishedCollection("lectures"),
+    getPublishedCollection("sessions"),
+  ]);
+  return lectures.map((lecture) => ({
+    params: { slug: lecture.id },
+    props: {
+      lecture,
+      lab: sessions.find((s) => Number(s.data.week) === Number(lecture.data.week)),
+    },
+  }));
 }
 
-const { lecture } = Astro.props;
+const { lecture, lab } = Astro.props;
 const { Content } = await render(lecture);
-const title = `Week ${lecture.data.week}: ${lecture.data.title}`;
+const Lab = lab ? (await render(lab)).Content : undefined;
+const week = lecture.data.week;
+const title = `Week ${week}: ${lecture.data.title}`;
+const labWord = sessionLabels.singular.toLowerCase();
+
+// A lecture and its lab are taught by the same person in the common case; the
+// alternation only breaks where a week is co-taught, and then both names belong
+// on the page once each.
+const teachers = [...new Set([...(lecture.data.teachers ?? []), ...(lab?.data.teachers ?? [])].map((t) => t.id))].map(
+  (id) => ({ collection: "people" as const, id }),
+);
 ---
 
 <ContentLayout title={title} description={lecture.data.description} {...siteConfig}>
-  <p><strong>{formatCourseDate(lecture.data.date)}</strong></p>
-  {lecture.data.slides && <p><a href={withBase(lecture.data.slides)}>Open the slides</a></p>}
+  <p class="week-meta">
+    <strong>{formatCourseDate(lecture.data.date)}</strong>
+    {
+      lecture.data.slides && (
+        <>
+          <span aria-hidden="true">·</span>
+          <a class="slides-link" href={withBase(lecture.data.slides)}>
+            Open the week {week} slides
+          </a>
+        </>
+      )
+    }
+  </p>
+
   <Content />
-  <TeachingTeam teachers={lecture.data.teachers} />
-  <RelatedContent entry={lecture} collections={graphCollections} />
+
+  {
+    Lab && lab && (
+      <section class="week-lab" aria-labelledby="lab">
+        <h2 id="lab">The week {week} {labWord}: {lab.data.title}</h2>
+        <Lab />
+        <SpecList spec={lab.data.spec} heading={`What you leave the ${labWord} able to do`}>
+          Written so a reader can tell whether it has been met without asking
+          you. The assessments assume it has.
+        </SpecList>
+      </section>
+    )
+  }
+
+  <TeachingTeam teachers={teachers} />
+  <RelatedLinks entry={lecture} collections={graphCollections} />
 </ContentLayout>
+
+<style>
+  .week-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+  }
+
+  /* The slides are the third thing the week is made of, so they sit in the
+     header line rather than in a paragraph of their own further down. */
+  .slides-link {
+    font-weight: 600;
+  }
+
+  .week-lab {
+    margin-block-start: 3rem;
+    padding-block-start: 1.5rem;
+    border-block-start: 2px solid var(--at-primary);
+  }
+</style>

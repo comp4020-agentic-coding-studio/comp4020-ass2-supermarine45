@@ -1,33 +1,66 @@
 ---
-import { render } from "astro:content";
+/**
+ * A lab's permalink. The lab itself is presented on its week's page.
+ *
+ * The plan was to delete this route outright, since nothing links here any
+ * more. The theme won't allow it: `astro:build:done` throws
+ *
+ *   Found 12 llms.txt entries with no built page in dist (each markdown file
+ *   under src/content or src/pages must be rendered at the URL its path
+ *   implies)
+ *
+ * which is a deliberate invariant — a content file always has an address, so
+ * llms.txt can never advertise a URL that 404s. The two ways to satisfy it were
+ * to delete the twelve lab files (folding their prose into the lecture
+ * markdown, which empties a platform-fixed collection, drops twelve nodes and
+ * fifteen edges from the course API, and costs every lab its own `spec`
+ * contract and teacher) or to keep the address and move only the presentation.
+ * This is the second. The labs stay exactly what they were in the data model;
+ * what changed is that they are read on the week page.
+ *
+ * So: a redirect, not a stub with a link on it. A reader who follows an old
+ * bookmark should land on the lab, not on a page telling them where the lab
+ * went. The visible body is the no-JS, no-refresh fallback, and `noindex` plus
+ * `data-pagefind-ignore` keep twelve near-identical pages out of search.
+ */
 import { getPublishedCollection } from "astro-course-university/content";
-import RelatedContent from "astro-course-university/components/RelatedContent.astro";
-import SpecList from "astro-course-university/components/SpecList.astro";
-import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
-import TeachingTeam from "../../components/TeachingTeam.astro";
-import { formatCourseDate } from "../../lib/dates";
-import { graphCollections, sessionLabels, siteConfig } from "../../site-config";
+import { withBase } from "astro-theme-university/url";
+import { sessionLabels } from "../../site-config";
 
 export async function getStaticPaths() {
-  const sessions = await getPublishedCollection("sessions");
-  return sessions.map((session) => ({ params: { slug: session.id }, props: { session } }));
+  const [sessions, lectures] = await Promise.all([
+    getPublishedCollection("sessions"),
+    getPublishedCollection("lectures"),
+  ]);
+  const weekPage = new Map(lectures.map((l) => [Number(l.data.week), `/lectures/${l.id}/`]));
+  return sessions.map((session) => ({
+    params: { slug: session.id },
+    props: { session, target: `${weekPage.get(Number(session.data.week))}#lab` },
+  }));
 }
 
-const { session } = Astro.props;
-const { Content } = await render(session);
+const { session, target } = Astro.props;
+const href = withBase(target);
+const week = session.data.week;
+const labWord = sessionLabels.singular.toLowerCase();
+const title = `Week ${week} ${labWord}: ${session.data.title}`;
 ---
 
-<ContentLayout
-  title={`Week ${session.data.week} ${sessionLabels.singular}: ${session.data.title}`}
-  description={session.data.description}
-  {...siteConfig}
->
-  <p><strong>{formatCourseDate(session.data.date)}</strong></p>
-  <Content />
-  <SpecList spec={session.data.spec}>
-    What you bring to the session. Written so a reader can tell whether it has
-    been met without asking you.
-  </SpecList>
-  <TeachingTeam teachers={session.data.teachers} />
-  <RelatedContent entry={session} collections={graphCollections} />
-</ContentLayout>
+<html lang="en" data-pagefind-ignore>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <meta http-equiv="refresh" content={`0; url=${href}`} />
+    <link rel="canonical" href={href} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <h1>{title}</h1>
+      <p>
+        This {labWord} is part of week {week}. <a href={href}>Continue to week {week}</a>.
+      </p>
+    </main>
+  </body>
+</html>

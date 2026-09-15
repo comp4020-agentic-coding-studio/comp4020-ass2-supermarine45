@@ -16,14 +16,14 @@ related:
   - assessments/event-portfolio
 ---
 
-## Before the lab
+### Before the lab
 
 Bring your week 9 dataset, cleaned. Bring the [index
 calculator](/toolkit/#index-calculator) open in a browser tab if you want
 to spot-check single rows against your code — a disagreement between the
 two is worth finding now rather than in the portfolio.
 
-## In the lab
+### In the lab
 
 **Ranking, which is easy.** Sort by index descending. For the question
 "which single product is the best value here", this is not an
@@ -46,10 +46,7 @@ conditions under which your method breaks is a result, not a failure.
 or in percent. Standard drinks is the objective function, so it is the
 unit in which "worse" means something.
 
-**Core reading:** *Greedy and Dynamic-Programming Approaches to Retail
-Index Maximisation* (Operations Research for Retail, 2022)
-
-## Afterwards
+### Afterwards
 
 You leave with a ranked dataset, a working constrained solver, and one
 documented case where the easy method loses — which is the case your

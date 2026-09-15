@@ -35,4 +35,3 @@ stated rate.
 - why an ad valorem base favours cheap wine specifically
 - comparing tax-per-standard-drink across price tiers
 - a structural consequence, not a drafting oversight
-

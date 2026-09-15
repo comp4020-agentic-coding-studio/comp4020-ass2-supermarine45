@@ -15,7 +15,7 @@ related:
   - lectures/week-08
 ---
 
-## Before the lab
+### Before the lab
 
 From the outlet you mapped in week 7, record every product on one
 promotional endcap: name, volume, ABV, price, and any promotional framing
@@ -23,7 +23,7 @@ the display carries — a was/now price, a multibuy, a "manager's special"
 flash, a shelf-talker. Then record the equivalent products shelved
 normally in the aisle immediately behind it.
 
-## In the lab
+### In the lab
 
 **The arithmetic first.** Compute the index for both sets before
 discussing either. The week's reading finds endcap placement and genuine
@@ -43,10 +43,7 @@ reading's argument is that this expectation is the product being sold.
 Being wrong here is the normal result and is worth recording honestly in
 your working — it is evidence about the display, not about you.
 
-**Core reading:** *Visual Merchandising and Price-Ratio Concealment*
-(Consumer Behaviour Quarterly, 2021)
-
-## Afterwards
+### Afterwards
 
 You leave with a paired dataset — endcap against aisle — and a written
 note of which framing device moved your judgement. Week 9 stops doing this

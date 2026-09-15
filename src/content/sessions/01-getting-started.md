@@ -22,14 +22,14 @@ is denominated in, before week 1's fermentation lecture and week 2's
 standard-drink lecture ask you to put it to use. Nothing here is graded.
 Everything here is assumed from week 2 onward.
 
-## Before the lab
+### Before the lab
 
 The `spec` above is the contract. Arrive with a specific supermarket's
 online liquor catalogue picked out — the one you will keep returning to for
 week 9's scraping exercise — and a calculator or spreadsheet you are willing
 to do arithmetic in during the lab.
 
-## In the lab
+### In the lab
 
 **The fiscal molecule.** Ethanol (C₂H₆O) is not treated biologically in
 this course; it is treated purely as an economic unit. We fix the chemical
@@ -58,7 +58,7 @@ right.
 **Required reading:** *Standard Drink Equivalency Models in High-Volume
 Retail Environments* (Health Economics, 2017)
 
-## Afterwards
+### Afterwards
 
 You leave with a working catalogue, a correct standard-drink conversion,
 and one hand-computed index value — the three things week 9's scraping
