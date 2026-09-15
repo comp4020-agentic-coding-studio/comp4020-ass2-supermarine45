@@ -35,6 +35,20 @@ category by category, makes the disparity visible.
 - the spirits premium as the corresponding cost of that design
 - decomposing a shelf price to see which regime applies
 
+## Mandatory reading
+
+- [Estimated impacts of alternative Australian alcohol taxation structures on consumption, public health and government revenues](https://doi.org/10.5694/mja13.10605)
+  — Doran, Byrnes, Cobiac, Vandenberg & Vos, *Medical Journal of
+  Australia* 199(9), 2013, 619–622. Models the comparison this week sets
+  up — ad valorem against volumetric — on Australian data, and reports
+  what each structure does to consumption, health and revenue at once.
+- [Australia's Future Tax System: report to the Treasurer](https://treasury.gov.au/review/the-australias-future-tax-system-review)
+  — Commonwealth Treasury, 2010, Recommendation 71. The official
+  recommendation that every alcoholic beverage be taxed volumetrically,
+  converging over time on a single rate. Read what it says about why the
+  present arrangement is "incoherent", and read the government's response
+  alongside it.
+
 ## Further reading
 
 - *Federal Excise Disparities in Distillation* (Tax Law Review, 2018) — the

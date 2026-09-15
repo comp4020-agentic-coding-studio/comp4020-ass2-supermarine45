@@ -37,6 +37,19 @@ takes to buy.
 - low-margin categories pushed to low-traffic positions
 - why a purchasing strategy has to account for layout, not just price
 
+## Mandatory reading
+
+- [Changing the density of alcohol outlets to reduce alcohol-related problems](https://doi.org/10.1080/09595230701499191)
+  — Livingston, Chikritzhs & Room, *Drug and Alcohol Review* 26(5), 2007,
+  557–566. Where outlets sit rather than where stock sits inside one, but
+  the analytical move is this week's exactly: treat position as a
+  measurable variable rather than as background.
+- [Distances to on- and off-premise alcohol outlets and experiences of alcohol-related amenity problems](https://doi.org/10.1111/j.1465-3362.2011.00346.x)
+  — Wilkinson & Livingston, *Drug and Alcohol Review* 31(4), 2012,
+  394–401. Distance measured against reported effects. The lecture's
+  claim that a walk is a cost is not a metaphor, and this is the shape of
+  the evidence for it.
+
 ## Further reading
 
 - *Spatial Optimisation of High-ABV Inventory* (Journal of Retailing,

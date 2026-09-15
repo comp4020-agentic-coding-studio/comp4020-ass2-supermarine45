@@ -36,6 +36,18 @@ constrained inventory can be built correctly on the naive version alone.
 - where the naive method is adequate and where it fails
 - why the constrained version is what the rest of the semester needs
 
+## Mandatory reading
+
+- [Knapsack Problems: Algorithms and Computer Implementations](http://www.or.deis.unibo.it/knapsack.html)
+  — Martello & Toth, Wiley, 1990, made freely available by the authors.
+  Chapters 1 and 2. The formulation the week 10 lab builds is the 0-1
+  knapsack, and this is where it is set out properly — including the
+  proof of why a greedy ranking stops being optimal once a budget binds.
+- [Knapsack Problems](https://link.springer.com/book/10.1007/978-3-540-24777-7)
+  — Kellerer, Pferschy & Pisinger, Springer, 2004. The modern treatment.
+  Go here for the multiply-constrained variants, which is what the Event
+  Portfolio actually poses once a minimum-variety requirement is added.
+
 ## Further reading
 
 - *Algorithmic Maximisation of the Intoxication Index* (Quantitative

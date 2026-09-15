@@ -120,6 +120,63 @@ describe("every claim traces to the literature", () => {
   });
 });
 
+describe("the mandatory reading is real work a reader can go and get", () => {
+  // The course's twelve set texts are the course's own. The mandatory reading
+  // is published literature, and the one thing that tells a reader which is
+  // which is that the real ones carry a link. A "mandatory reading" that is
+  // just another unlinked title would erase that distinction silently, so this
+  // holds the section to being links.
+  const LINK = /\[[^\]]+\]\((https?:\/\/[^)\s]+)\)/g;
+
+  /**
+   * The Mandatory reading block, from its heading to the next `## ` or the end.
+   *
+   * Sliced rather than matched on purpose. The regex for this was
+   * `/^## Mandatory reading$([\s\S]*?)(?=^## |\Z)/m`, and `\Z` is not a
+   * JavaScript anchor — it is the literal letter Z, so the lazy body stopped at
+   * the first capital Z in the text. Week 1 mentions *Zymomonas* in its first
+   * entry, so the section came back truncated mid-sentence and the week looked
+   * like it had one reading instead of two. Nothing about that failure pointed
+   * at the regex.
+   */
+  function mandatorySection(id: string): string {
+    const text = body(id);
+    const start = text.search(/^## Mandatory reading$/m);
+    if (start === -1) return "";
+    const rest = text.slice(start + "## Mandatory reading".length);
+    const end = rest.search(/^## /m);
+    return end === -1 ? rest : rest.slice(0, end);
+  }
+
+  function mandatoryLinks(id: string): string[] {
+    return [...mandatorySection(id).matchAll(LINK)].map((m) => m[1]);
+  }
+
+  it("gives every week at least two, each an absolute link", () => {
+    for (const lecture of byType("lectures")) {
+      const links = mandatoryLinks(lecture.id);
+      expect(links.length, `${lecture.id} lists ${links.length} mandatory readings`).toBeGreaterThanOrEqual(2);
+      for (const url of links) {
+        // A bare host is a homepage, not a reading — it tells a reader where a
+        // publisher lives, not which paper to open.
+        const path = new URL(url).pathname.replace(/^\/+|\/+$/g, "");
+        expect(path.length, `${lecture.id} cites a bare domain: ${url}`).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("does not quietly let a set text pose as one", () => {
+    // The set texts are cited *Title* (Journal, Year) and never linked. If that
+    // shape turns up inside a Mandatory reading block, the two lists have run
+    // together and the reader can no longer tell them apart.
+    const SET_TEXT = /\*[^*\n]+\*\s*\((?:[^()]*,\s*)?(?:19|20)\d{2}\)/;
+    for (const lecture of byType("lectures")) {
+      const section = mandatorySection(lecture.id);
+      expect(SET_TEXT.test(section), `${lecture.id} has a set-text citation under Mandatory reading`).toBe(false);
+    }
+  });
+});
+
 describe("a week is one page", () => {
   /**
    * The longest run of the lab's own prose that rendering cannot alter — no
