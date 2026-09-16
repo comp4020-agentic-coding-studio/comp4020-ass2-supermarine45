@@ -1,0 +1,135 @@
+---
+// Week 2's conversion, seen rather than only computed: a student's own
+// volume-and-ABV pair set against four common reference serves, all through
+// the same standardDrinks() the rest of the site uses.
+import BarChart from "./BarChart.astro";
+import { standardDrinks } from "../lib/index-math";
+
+const REFERENCE_SERVES = [
+  { id: "beer", label: "Beer", detail: "375 mL, 4.8%", volumeMl: 375, abv: 4.8 },
+  { id: "wine", label: "Wine", detail: "150 mL, 13%", volumeMl: 150, abv: 13 },
+  { id: "spirit", label: "Spirit nip", detail: "30 mL, 40%", volumeMl: 30, abv: 40 },
+  { id: "cask", label: "Cask wine", detail: "250 mL, 11%", volumeMl: 250, abv: 11 },
+] as const;
+
+const DEFAULT_VOLUME = 375;
+const DEFAULT_ABV = 4.8;
+
+const bars = [
+  ...REFERENCE_SERVES.map((s) => ({ id: s.id, label: s.label, value: standardDrinks(s.volumeMl, s.abv) })),
+  { id: "custom", label: "Your serve", value: standardDrinks(DEFAULT_VOLUME, DEFAULT_ABV) },
+];
+const max = Math.max(...bars.map((b) => b.value)) * 1.3;
+---
+
+<section class="sdv" id="standard-drink-visualizer" aria-labelledby="sdv-heading">
+  <h2 id="sdv-heading">Standard drinks, by serve</h2>
+  <p class="sdv-lede">
+    Ten grams of pure ethanol, in the units a bottle shop actually sells.
+    Enter a volume and an ABV to add your own serve to four reference
+    serves: {REFERENCE_SERVES.map((s) => `${s.label} (${s.detail})`).join("; ")}.
+  </p>
+
+  <fieldset class="sdv-fields">
+    <legend>Your serve</legend>
+    <div class="field">
+      <label for="sdv-volume">Volume (mL)</label>
+      <input id="sdv-volume" type="number" inputmode="decimal" min="1" step="1" value={DEFAULT_VOLUME} />
+    </div>
+    <div class="field">
+      <label for="sdv-abv">Alcohol by volume (%)</label>
+      <input id="sdv-abv" type="number" inputmode="decimal" min="0" max="100" step="0.1" value={DEFAULT_ABV} />
+    </div>
+  </fieldset>
+
+  <BarChart
+    title="Standard drinks per serve, reference serves against your own"
+    valueLabel="Standard drinks"
+    bars={bars}
+    max={max}
+    formatValue={(v) => v.toFixed(1)}
+  />
+</section>
+
+<script>
+  import { barGeometry } from "../lib/chart-geometry";
+  import { standardDrinks } from "../lib/index-math";
+
+  const $ = (id: string) => document.getElementById(id);
+  const volume = $("sdv-volume") as HTMLInputElement | null;
+  const abv = $("sdv-abv") as HTMLInputElement | null;
+  const wrapper = document.querySelector<HTMLElement>("#standard-drink-visualizer .barchart");
+  const rect = document.querySelector<SVGRectElement>('[data-bar-id="custom"]');
+  const labels = document.querySelectorAll<HTMLElement>('[data-value-for="custom"]');
+
+  if (volume && abv && wrapper && rect) {
+    const scaleMax = Number.parseFloat(wrapper.dataset.max ?? "");
+    const barCount = Number.parseInt(wrapper.dataset.count ?? "", 10);
+    const customIndex = barCount - 1;
+
+    const render = () => {
+      const v = Number.parseFloat(volume.value);
+      const a = Number.parseFloat(abv.value);
+      if (!Number.isFinite(v) || !Number.isFinite(a) || v <= 0) return;
+      const drinks = standardDrinks(v, a);
+      // The chart's max was fixed from the initial values; a custom serve far
+      // outside that range clamps visually but the table and value labels
+      // always show the true figure.
+      const geom = barGeometry(customIndex, barCount, drinks, scaleMax);
+      rect.setAttribute("y", String(geom.y));
+      rect.setAttribute("height", String(geom.height));
+      for (const label of labels) label.textContent = drinks.toFixed(1);
+    };
+
+    volume.addEventListener("input", render);
+    abv.addEventListener("input", render);
+  }
+</script>
+
+<style>
+  .sdv {
+    margin-block: var(--at-spacing-xl);
+    padding: var(--at-spacing-lg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-alt);
+  }
+
+  .sdv > h2 {
+    margin-block-start: 0;
+  }
+
+  .sdv-lede {
+    color: var(--at-text-secondary);
+    margin-block-end: var(--at-spacing-lg);
+  }
+
+  .sdv-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin: 0 0 var(--at-spacing-md);
+    padding: 0;
+    border: 0;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .field label {
+    font-size: var(--at-font-size-sm);
+    color: var(--at-text-secondary);
+  }
+
+  .field input {
+    inline-size: 8rem;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg);
+    color: var(--at-text);
+  }
+</style>

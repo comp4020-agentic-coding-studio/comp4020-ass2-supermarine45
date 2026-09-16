@@ -1,0 +1,121 @@
+---
+// Week 4's mechanism, isolated: a fixed four-litre cask (the CATALOGUE
+// entry's own volume and ABV) costed under the ad valorem Wine Equalisation
+// Tax as its wholesale value is minimized, against the volumetric excise the
+// same litres of pure alcohol would draw if it were taxed like spirits.
+import BarChart from "./BarChart.astro";
+import { CATALOGUE, excisePayable, wetPayable } from "../lib/index-math";
+
+const cask = CATALOGUE.find((s) => s.id === "cask-4l")!;
+const DEFAULT_WHOLESALE = 7;
+const exciseReference = excisePayable(cask.volumeMl, cask.abv);
+const max = exciseReference * 1.25;
+
+const bars = [
+  { id: "wet", label: "Ad valorem (WET)", value: wetPayable(DEFAULT_WHOLESALE) },
+  { id: "excise", label: "Volumetric excise (reference)", value: exciseReference },
+];
+---
+
+<section class="wet" id="wet-loophole-chart" aria-labelledby="wet-heading">
+  <h2 id="wet-heading">WET payable as wholesale value is minimized</h2>
+  <p class="wet-lede">
+    A {cask.volumeMl / 1000} L cask at {cask.abv}% ABV — the catalogue's own
+    figures. Ad valorem tax is levied on wholesale value alone, so it moves
+    with the slider; the volumetric excise the same litres of pure alcohol
+    would draw under spirits' regime does not move at all, because it is
+    levied on alcohol content rather than price.
+  </p>
+
+  <div class="field">
+    <label for="wet-wholesale">Wholesale value (AUD)</label>
+    <input
+      id="wet-wholesale"
+      type="range"
+      min="2"
+      max="20"
+      step="0.5"
+      value={DEFAULT_WHOLESALE}
+      aria-describedby="wet-wholesale-value"
+    />
+    <span class="field-value" id="wet-wholesale-value">{`$${DEFAULT_WHOLESALE.toFixed(2)}`}</span>
+  </div>
+
+  <BarChart
+    title="Tax payable under the ad valorem WET against a volumetric excise reference"
+    valueLabel="Tax payable (AUD)"
+    bars={bars}
+    max={max}
+    formatValue={(v) => `$${v.toFixed(2)}`}
+  />
+</section>
+
+<script>
+  import { barGeometry } from "../lib/chart-geometry";
+  import { wetPayable } from "../lib/index-math";
+
+  const wholesale = document.getElementById("wet-wholesale") as HTMLInputElement | null;
+  const wholesaleValue = document.getElementById("wet-wholesale-value");
+  const wrapper = document.querySelector<HTMLElement>("#wet-loophole-chart .barchart");
+  const rect = document.querySelector<SVGRectElement>('[data-bar-id="wet"]');
+  const labels = document.querySelectorAll<HTMLElement>('[data-value-for="wet"]');
+
+  if (wholesale && wholesaleValue && wrapper && rect) {
+    const max = Number.parseFloat(wrapper.dataset.max ?? "");
+    const count = Number.parseInt(wrapper.dataset.count ?? "", 10);
+
+    const render = () => {
+      const w = Number.parseFloat(wholesale.value);
+      wholesaleValue.textContent = `$${w.toFixed(2)}`;
+      const tax = wetPayable(w);
+      const geom = barGeometry(0, count, tax, max);
+      rect.setAttribute("y", String(geom.y));
+      rect.setAttribute("height", String(geom.height));
+      for (const label of labels) label.textContent = `$${tax.toFixed(2)}`;
+    };
+
+    wholesale.addEventListener("input", render);
+  }
+</script>
+
+<style>
+  .wet {
+    margin-block: var(--at-spacing-xl);
+    padding: var(--at-spacing-lg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-alt);
+  }
+
+  .wet > h2 {
+    margin-block-start: 0;
+  }
+
+  .wet-lede {
+    color: var(--at-text-secondary);
+    margin-block-end: var(--at-spacing-lg);
+  }
+
+  .field {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-block-end: var(--at-spacing-sm);
+  }
+
+  .field label {
+    font-weight: 600;
+    flex: 0 0 auto;
+  }
+
+  .field input[type="range"] {
+    flex: 1 1 auto;
+    max-inline-size: 20rem;
+  }
+
+  .field-value {
+    font-variant-numeric: tabular-nums;
+    min-inline-size: 4rem;
+    text-align: end;
+  }
+</style>

@@ -1,0 +1,347 @@
+---
+// Week 1's baseline, before any tax touches it: ethanol yield and production
+// cost as sugar-wash concentration rises, on the illustrative curve in
+// ../lib/fermentation-data.ts. Nothing downstream in the course prices this
+// week's chemistry directly, so unlike every later chart this one has no
+// worked figure elsewhere in the site to stay consistent with.
+import { FERMENTATION_CURVE, fermentationAt } from "../lib/fermentation-data";
+
+const W = 480;
+const H = 260;
+const PAD = { top: 20, right: 20, bottom: 40, left: 44 };
+const plotW = W - PAD.left - PAD.right;
+const plotH = H - PAD.top - PAD.bottom;
+
+const minC = FERMENTATION_CURVE[0].concentration;
+const maxC = FERMENTATION_CURVE[FERMENTATION_CURVE.length - 1].concentration;
+const YIELD_MIN = 60;
+const YIELD_MAX = 100;
+const COST_MIN = 2.0;
+const COST_MAX = 4.0;
+
+const xFor = (c: number) => PAD.left + ((c - minC) / (maxC - minC)) * plotW;
+const yYield = (v: number) => PAD.top + plotH - ((v - YIELD_MIN) / (YIELD_MAX - YIELD_MIN)) * plotH;
+const yCost = (v: number) => PAD.top + plotH - ((v - COST_MIN) / (COST_MAX - COST_MIN)) * plotH;
+
+const yieldPath = FERMENTATION_CURVE.map(
+  (p, i) => `${i === 0 ? "M" : "L"}${xFor(p.concentration)},${yYield(p.yieldPercent)}`,
+).join(" ");
+const costPath = FERMENTATION_CURVE.map(
+  (p, i) => `${i === 0 ? "M" : "L"}${xFor(p.concentration)},${yCost(p.costPerLal)}`,
+).join(" ");
+
+const DEFAULT_C = 22;
+const initial = fermentationAt(DEFAULT_C);
+---
+
+<section class="ferment" id="fermentation-yield-chart" aria-labelledby="ferment-heading">
+  <h2 id="ferment-heading">Yield and cost against sugar-wash concentration</h2>
+  <p class="ferment-lede">
+    Illustrative teaching figures, not a measured producer curve: ethanol
+    yield and pre-tax production cost per litre of pure alcohol as the
+    sugar-wash concentration rises. Move the slider to see where the ferment
+    stops improving.
+  </p>
+
+  <div class="ferment-body">
+    <svg
+      class="ferment-svg"
+      viewBox={`0 0 ${W} ${H}`}
+      role="img"
+      aria-label="Ethanol yield and production cost per litre of pure alcohol against sugar-wash concentration. An accessible data table follows."
+      focusable="false"
+    >
+      <line x1={PAD.left} x2={W - PAD.right} y1={PAD.top + plotH} y2={PAD.top + plotH} class="ferment-axis" />
+      <line x1={PAD.left} x2={PAD.left} y1={PAD.top} y2={PAD.top + plotH} class="ferment-axis" />
+
+      <text x={PAD.left} y={H - 6} class="ferment-tick" text-anchor="start">{`${minC}% w/v`}</text>
+      <text x={W - PAD.right} y={H - 6} class="ferment-tick" text-anchor="end">{`${maxC}% w/v`}</text>
+
+      <path d={yieldPath} class="ferment-curve ferment-curve--yield" />
+      <path d={costPath} class="ferment-curve ferment-curve--cost" />
+
+      <line
+        id="ferment-guide"
+        x1={xFor(DEFAULT_C)}
+        x2={xFor(DEFAULT_C)}
+        y1={PAD.top}
+        y2={PAD.top + plotH}
+        class="ferment-guide"
+      />
+      <circle id="ferment-dot-yield" cx={xFor(DEFAULT_C)} cy={yYield(initial.yieldPercent)} r="4" class="ferment-dot ferment-dot--yield" />
+      <circle id="ferment-dot-cost" cx={xFor(DEFAULT_C)} cy={yCost(initial.costPerLal)} r="4" class="ferment-dot ferment-dot--cost" />
+    </svg>
+
+    <p class="ferment-legend">
+      <span class="legend-swatch legend-swatch--yield" aria-hidden="true"></span> Ethanol yield (%)
+      <span class="legend-swatch legend-swatch--cost" aria-hidden="true"></span> Production cost ($/LAL)
+    </p>
+  </div>
+
+  <div class="field">
+    <label for="ferment-concentration">Sugar-wash concentration (% w/v)</label>
+    <input
+      id="ferment-concentration"
+      type="range"
+      min={minC}
+      max={maxC}
+      step="1"
+      value={DEFAULT_C}
+      aria-describedby="ferment-concentration-value"
+    />
+    <span class="field-value" id="ferment-concentration-value">{`${DEFAULT_C}%`}</span>
+  </div>
+
+  <output class="ferment-out" id="ferment-out" for="ferment-concentration" aria-live="polite">
+    <dl>
+      <div><dt>Ethanol yield</dt><dd id="ferment-yield-value">{`${initial.yieldPercent.toFixed(1)}%`}</dd></div>
+      <div><dt>Production cost</dt><dd id="ferment-cost-value">{`$${initial.costPerLal.toFixed(2)} / LAL`}</dd></div>
+    </dl>
+  </output>
+
+  <details class="ferment-table">
+    <summary>View the underlying curve as a table</summary>
+    <table>
+      <caption class="visually-hidden">Ethanol yield and production cost at each measured sugar-wash concentration</caption>
+      <thead>
+        <tr>
+          <th scope="col">Concentration</th>
+          <th scope="col">Yield</th>
+          <th scope="col">Cost per LAL</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          FERMENTATION_CURVE.map((p) => (
+            <tr>
+              <th scope="row">{`${p.concentration}% w/v`}</th>
+              <td>{`${p.yieldPercent}%`}</td>
+              <td>{`$${p.costPerLal.toFixed(2)}`}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </details>
+</section>
+
+<script>
+  import { fermentationAt } from "../lib/fermentation-data";
+
+  // Mirrors the frontmatter geometry above — both draw the same fixed axes,
+  // so a slider move has to land on the identical scale it was drawn at.
+  const PAD = { top: 20, right: 20, bottom: 40, left: 44 };
+  const W = 480;
+  const H = 260;
+  const plotW = W - PAD.left - PAD.right;
+  const plotH = H - PAD.top - PAD.bottom;
+  const MIN_C = 10;
+  const MAX_C = 30;
+  const YIELD_MIN = 60;
+  const YIELD_MAX = 100;
+  const COST_MIN = 2.0;
+  const COST_MAX = 4.0;
+
+  const xFor = (c: number) => PAD.left + ((c - MIN_C) / (MAX_C - MIN_C)) * plotW;
+  const yYield = (v: number) => PAD.top + plotH - ((v - YIELD_MIN) / (YIELD_MAX - YIELD_MIN)) * plotH;
+  const yCost = (v: number) => PAD.top + plotH - ((v - COST_MIN) / (COST_MAX - COST_MIN)) * plotH;
+
+  const slider = document.getElementById("ferment-concentration") as HTMLInputElement | null;
+  const guide = document.getElementById("ferment-guide");
+  const dotYield = document.getElementById("ferment-dot-yield");
+  const dotCost = document.getElementById("ferment-dot-cost");
+  const sliderValue = document.getElementById("ferment-concentration-value");
+  const yieldOut = document.getElementById("ferment-yield-value");
+  const costOut = document.getElementById("ferment-cost-value");
+
+  if (slider && guide && dotYield && dotCost && sliderValue && yieldOut && costOut) {
+    const render = () => {
+      const c = Number.parseFloat(slider.value);
+      const { yieldPercent, costPerLal } = fermentationAt(c);
+      const x = xFor(c);
+      guide.setAttribute("x1", String(x));
+      guide.setAttribute("x2", String(x));
+      dotYield.setAttribute("cx", String(x));
+      dotYield.setAttribute("cy", String(yYield(yieldPercent)));
+      dotCost.setAttribute("cx", String(x));
+      dotCost.setAttribute("cy", String(yCost(costPerLal)));
+      sliderValue.textContent = `${c}%`;
+      yieldOut.textContent = `${yieldPercent.toFixed(1)}%`;
+      costOut.textContent = `$${costPerLal.toFixed(2)} / LAL`;
+    };
+    slider.addEventListener("input", render);
+    render();
+  }
+</script>
+
+<style>
+  .ferment {
+    margin-block: var(--at-spacing-xl);
+    padding: var(--at-spacing-lg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-alt);
+  }
+
+  .ferment > h2 {
+    margin-block-start: 0;
+  }
+
+  .ferment-lede {
+    color: var(--at-text-secondary);
+    margin-block-end: var(--at-spacing-lg);
+  }
+
+  .ferment-body {
+    max-inline-size: 32rem;
+  }
+
+  .ferment-svg {
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  .ferment-axis {
+    stroke: var(--at-text-secondary);
+    stroke-width: 1;
+  }
+
+  .ferment-tick {
+    font-size: 9px;
+    fill: var(--at-text-secondary);
+  }
+
+  .ferment-curve {
+    fill: none;
+    stroke-width: 2;
+  }
+
+  .ferment-curve--yield {
+    stroke: var(--at-primary);
+  }
+
+  .ferment-curve--cost {
+    stroke: var(--at-accent);
+  }
+
+  .ferment-guide {
+    stroke: var(--at-divider);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+  }
+
+  .ferment-dot {
+    stroke: var(--at-bg-alt);
+    stroke-width: 1.5;
+  }
+
+  .ferment-dot--yield {
+    fill: var(--at-primary);
+  }
+
+  .ferment-dot--cost {
+    fill: var(--at-accent);
+  }
+
+  .ferment-legend {
+    font-size: var(--at-font-size-sm);
+    color: var(--at-text-secondary);
+  }
+
+  .legend-swatch {
+    display: inline-block;
+    inline-size: 0.75rem;
+    block-size: 0.75rem;
+    border-radius: 2px;
+    margin-inline: 0.35rem 0.25rem;
+    vertical-align: middle;
+  }
+
+  .legend-swatch--yield {
+    background: var(--at-primary);
+  }
+
+  .legend-swatch--cost {
+    background: var(--at-accent);
+  }
+
+  .field {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-block-start: var(--at-spacing-md);
+  }
+
+  .field label {
+    font-weight: 600;
+    flex: 0 0 auto;
+  }
+
+  .field input[type="range"] {
+    flex: 1 1 auto;
+    max-inline-size: 20rem;
+  }
+
+  .field-value {
+    font-variant-numeric: tabular-nums;
+    min-inline-size: 3.5rem;
+    text-align: end;
+  }
+
+  .ferment-out {
+    display: block;
+    margin-block-start: var(--at-spacing-md);
+  }
+
+  .ferment-out dl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 0;
+  }
+
+  .ferment-out dt {
+    font-size: var(--at-font-size-sm);
+    color: var(--at-text-secondary);
+  }
+
+  .ferment-out dd {
+    margin: 0;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ferment-table {
+    margin-block-start: var(--at-spacing-lg);
+  }
+
+  .ferment-table summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--at-primary);
+  }
+
+  .ferment-table table {
+    margin-block-start: var(--at-spacing-sm);
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--at-font-size-sm);
+  }
+
+  .ferment-table th,
+  .ferment-table td {
+    text-align: start;
+    padding: 0.35rem 0.5rem;
+    border-block-end: 1px solid var(--at-divider);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>

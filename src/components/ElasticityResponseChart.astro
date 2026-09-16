@@ -1,0 +1,140 @@
+---
+// Week 5's discount cycle, run through the elasticities this week's own
+// Mandatory reading cites (Wagenaar, Salois & Komro, 2009): a linear
+// %ΔQ = elasticity × %ΔP applied to a chosen discount, per category. RTDs
+// are spirit-based and are not one of the paper's three headline estimates,
+// so the lede places them near the spirits figure rather than asserting a
+// number the source doesn't give.
+import BarChart from "./BarChart.astro";
+
+const ELASTICITIES = [
+  { id: "beer", label: "Beer", elasticity: -0.46 },
+  { id: "wine", label: "Wine", elasticity: -0.69 },
+  { id: "spirits", label: "Spirits (RTD proxy)", elasticity: -0.8 },
+] as const;
+
+const DEFAULT_DISCOUNT = 10;
+const MAX_DISCOUNT = 30;
+
+const responseAt = (elasticity: number, discountPercent: number) => -elasticity * discountPercent;
+
+const bars = ELASTICITIES.map((e) => ({
+  id: e.id,
+  label: e.label,
+  value: responseAt(e.elasticity, DEFAULT_DISCOUNT),
+}));
+const max = responseAt(Math.min(...ELASTICITIES.map((e) => e.elasticity)), MAX_DISCOUNT) * 1.15;
+---
+
+<section class="elastic" id="elasticity-response-chart" aria-labelledby="elastic-heading">
+  <h2 id="elastic-heading">Predicted demand response to a discount</h2>
+  <p class="elastic-lede">
+    A linear approximation, valid only for the moderate discounts a retail
+    markdown cycle actually uses: percentage change in quantity equals
+    elasticity times percentage change in price, at the beer, wine and
+    spirits estimates Wagenaar, Salois & Komro (2009) report from 1,003
+    estimates across 112 studies.
+  </p>
+
+  <div class="field">
+    <label for="elastic-discount">Price discount (%)</label>
+    <input
+      id="elastic-discount"
+      type="range"
+      min="0"
+      max={MAX_DISCOUNT}
+      step="1"
+      value={DEFAULT_DISCOUNT}
+      aria-describedby="elastic-discount-value"
+    />
+    <span class="field-value" id="elastic-discount-value">{`${DEFAULT_DISCOUNT}%`}</span>
+  </div>
+
+  <BarChart
+    title="Predicted percentage change in quantity demanded, by category"
+    valueLabel="Predicted change in quantity (%)"
+    bars={bars}
+    max={max}
+    formatValue={(v) => `${v.toFixed(1)}%`}
+  />
+</section>
+
+<script>
+  import { barGeometry } from "../lib/chart-geometry";
+
+  // Mirrors the frontmatter's ELASTICITIES above; both cite the same
+  // Wagenaar, Salois & Komro (2009) estimates.
+  const ELASTICITIES = [
+    { id: "beer", elasticity: -0.46 },
+    { id: "wine", elasticity: -0.69 },
+    { id: "spirits", elasticity: -0.8 },
+  ];
+
+  const discount = document.getElementById("elastic-discount") as HTMLInputElement | null;
+  const discountValue = document.getElementById("elastic-discount-value");
+  const wrapper = document.querySelector<HTMLElement>("#elasticity-response-chart .barchart");
+
+  if (discount && discountValue && wrapper) {
+    const max = Number.parseFloat(wrapper.dataset.max ?? "");
+    const count = Number.parseInt(wrapper.dataset.count ?? "", 10);
+
+    const render = () => {
+      const d = Number.parseFloat(discount.value);
+      discountValue.textContent = `${d}%`;
+      ELASTICITIES.forEach((e, i) => {
+        const value = -e.elasticity * d;
+        const rect = document.querySelector<SVGRectElement>(`[data-bar-id="${e.id}"]`);
+        const labels = document.querySelectorAll<HTMLElement>(`[data-value-for="${e.id}"]`);
+        if (!rect) return;
+        const geom = barGeometry(i, count, value, max);
+        rect.setAttribute("y", String(geom.y));
+        rect.setAttribute("height", String(geom.height));
+        for (const label of labels) label.textContent = `${value.toFixed(1)}%`;
+      });
+    };
+
+    discount.addEventListener("input", render);
+  }
+</script>
+
+<style>
+  .elastic {
+    margin-block: var(--at-spacing-xl);
+    padding: var(--at-spacing-lg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-alt);
+  }
+
+  .elastic > h2 {
+    margin-block-start: 0;
+  }
+
+  .elastic-lede {
+    color: var(--at-text-secondary);
+    margin-block-end: var(--at-spacing-lg);
+  }
+
+  .field {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-block-end: var(--at-spacing-sm);
+  }
+
+  .field label {
+    font-weight: 600;
+    flex: 0 0 auto;
+  }
+
+  .field input[type="range"] {
+    flex: 1 1 auto;
+    max-inline-size: 20rem;
+  }
+
+  .field-value {
+    font-variant-numeric: tabular-nums;
+    min-inline-size: 3.5rem;
+    text-align: end;
+  }
+</style>

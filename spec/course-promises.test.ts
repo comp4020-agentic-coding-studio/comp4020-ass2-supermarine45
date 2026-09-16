@@ -349,6 +349,33 @@ describe("the index formula does not disagree with itself", () => {
   });
 });
 
+describe("the payload formula does not disagree with itself", () => {
+  // Week 12's capstone chart scales optimalSelect() to a cohort and runs the
+  // result through estimatedPayloadKg(). A third tested formula, alongside
+  // the standard-drink conversion and the WET/excise pair above.
+  it("computes packaged mass as total litres times the stated density", async () => {
+    const { CATALOGUE, estimatedPayloadKg, PACKAGED_DENSITY_KG_PER_L } = await import(
+      "../src/lib/index-math"
+    );
+    const cask = CATALOGUE.find((s) => s.id === "cask-4l")!;
+    const wine = CATALOGUE.find((s) => s.id === "btl-wine")!;
+    const selection = {
+      lines: [
+        { sku: cask, qty: 2 },
+        { sku: wine, qty: 3 },
+      ],
+      spend: 0,
+      drinks: 0,
+      categories: 1,
+      feasible: true,
+    };
+    // (4 L × 2) + (0.75 L × 3) = 10.25 L, × 1.05 kg/L = 10.7625 kg
+    const litres = (cask.volumeMl / 1000) * 2 + (wine.volumeMl / 1000) * 3;
+    expect(estimatedPayloadKg(selection)).toBeCloseTo(litres * PACKAGED_DENSITY_KG_PER_L, 4);
+    expect(estimatedPayloadKg(selection)).toBeCloseTo(10.7625, 4);
+  });
+});
+
 describe("the worked examples on the slides are the arithmetic the toolkit does", () => {
   // The tax figures are hand-typed into two decks and computed a second time by
   // the toolkit, and a marker who runs one against the other is the person most

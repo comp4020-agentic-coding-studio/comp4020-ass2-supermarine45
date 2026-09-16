@@ -232,6 +232,17 @@ export function optimalSelect(
   return summarise(lines.reverse(), minCategories);
 }
 
+// --- macro-event scaling ---
+
+/** Illustrative packaged density (liquid plus container), for vehicle-payload planning. */
+export const PACKAGED_DENSITY_KG_PER_L = 1.05;
+
+/** Approximate transport mass of a selection, for the week 12 capstone's payload planning. */
+export function estimatedPayloadKg(selection: Selection): number {
+  const litres = selection.lines.reduce((t, l) => t + (l.sku.volumeMl / 1000) * l.qty, 0);
+  return litres * PACKAGED_DENSITY_KG_PER_L;
+}
+
 function popcount(n: number): number {
   let c = 0;
   for (let x = n; x; x >>= 1) c += x & 1;

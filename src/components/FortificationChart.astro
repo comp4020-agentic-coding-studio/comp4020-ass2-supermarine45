@@ -1,0 +1,129 @@
+---
+// Week 6's fortification case: the same $8 wholesale wine, WET-categorized
+// up to 22% ABV under the Wine Equalisation Tax, against the volumetric
+// excise it would draw if it were reclassified as an excisable spirit past
+// that threshold. The WET bar cannot move with ABV at all — that
+// independence is exactly what a producer fortifying grape must is using.
+import BarChart from "./BarChart.astro";
+import { excisePayable, wetPayable } from "../lib/index-math";
+
+const WHOLESALE = 8;
+const VOLUME_ML = 750;
+const DEFAULT_ABV = 14;
+const MAX_ABV = 22;
+
+const wet = wetPayable(WHOLESALE);
+const exciseReference = excisePayable(VOLUME_ML, DEFAULT_ABV);
+const max = excisePayable(VOLUME_ML, MAX_ABV) * 1.25;
+
+const bars = [
+  { id: "wet", label: "Ad valorem (WET)", value: wet },
+  { id: "excise", label: "Volumetric excise (if reclassified)", value: exciseReference },
+];
+---
+
+<section class="fortify" id="fortification-chart" aria-labelledby="fortify-heading">
+  <h2 id="fortify-heading">Tax exposure as ABV rises under WET</h2>
+  <p class="fortify-lede">
+    A ${WHOLESALE.toFixed(2)} wholesale, {VOLUME_ML} mL wine, taxed as WET
+    grape wine up to {MAX_ABV}% ABV. Raise the ABV toward that ceiling: the
+    ad valorem tax does not move, because it is levied on wholesale value,
+    not alcohol content. The bar beside it is what the same alcohol would
+    cost under a volumetric excise if fortification pushed it into that
+    category instead.
+  </p>
+
+  <div class="field">
+    <label for="fortify-abv">Alcohol by volume (%)</label>
+    <input
+      id="fortify-abv"
+      type="range"
+      min="14"
+      max={MAX_ABV}
+      step="0.5"
+      value={DEFAULT_ABV}
+      aria-describedby="fortify-abv-value"
+    />
+    <span class="field-value" id="fortify-abv-value">{`${DEFAULT_ABV}%`}</span>
+  </div>
+
+  <BarChart
+    title="Tax payable under the ad valorem WET against a volumetric excise reference, as ABV rises"
+    valueLabel="Tax payable (AUD)"
+    bars={bars}
+    max={max}
+    formatValue={(v) => `$${v.toFixed(2)}`}
+  />
+</section>
+
+<script>
+  import { barGeometry } from "../lib/chart-geometry";
+  import { excisePayable } from "../lib/index-math";
+
+  const VOLUME_ML = 750;
+
+  const abv = document.getElementById("fortify-abv") as HTMLInputElement | null;
+  const abvValue = document.getElementById("fortify-abv-value");
+  const wrapper = document.querySelector<HTMLElement>("#fortification-chart .barchart");
+  const rect = document.querySelector<SVGRectElement>('[data-bar-id="excise"]');
+  const labels = document.querySelectorAll<HTMLElement>('[data-value-for="excise"]');
+
+  if (abv && abvValue && wrapper && rect) {
+    const max = Number.parseFloat(wrapper.dataset.max ?? "");
+    const count = Number.parseInt(wrapper.dataset.count ?? "", 10);
+
+    const render = () => {
+      const a = Number.parseFloat(abv.value);
+      abvValue.textContent = `${a}%`;
+      const tax = excisePayable(VOLUME_ML, a);
+      const geom = barGeometry(1, count, tax, max);
+      rect.setAttribute("y", String(geom.y));
+      rect.setAttribute("height", String(geom.height));
+      for (const label of labels) label.textContent = `$${tax.toFixed(2)}`;
+    };
+
+    abv.addEventListener("input", render);
+  }
+</script>
+
+<style>
+  .fortify {
+    margin-block: var(--at-spacing-xl);
+    padding: var(--at-spacing-lg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-alt);
+  }
+
+  .fortify > h2 {
+    margin-block-start: 0;
+  }
+
+  .fortify-lede {
+    color: var(--at-text-secondary);
+    margin-block-end: var(--at-spacing-lg);
+  }
+
+  .field {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-block-end: var(--at-spacing-sm);
+  }
+
+  .field label {
+    font-weight: 600;
+    flex: 0 0 auto;
+  }
+
+  .field input[type="range"] {
+    flex: 1 1 auto;
+    max-inline-size: 20rem;
+  }
+
+  .field-value {
+    font-variant-numeric: tabular-nums;
+    min-inline-size: 3.5rem;
+    text-align: end;
+  }
+</style>

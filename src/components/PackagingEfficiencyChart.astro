@@ -1,0 +1,109 @@
+---
+// Week 3's margin claim, on the three wine SKUs already in the toolkit's
+// catalogue: bag-in-box beats the bottle on both framings of the same
+// number, price per standard drink and its reciprocal, the course's index.
+import BarChart from "./BarChart.astro";
+import { CATALOGUE, abvToDollarIndex, standardDrinks } from "../lib/index-math";
+
+const SHORT_LABEL: Record<string, string> = {
+  "cask-4l": "Cask white (4 L)",
+  "cask-2l": "Cask red (2 L)",
+  "btl-wine": "Bottled shiraz (750 mL)",
+};
+
+const wines = CATALOGUE.filter((s) => s.category === "wine");
+
+const priceBars = wines.map((s) => {
+  const drinks = standardDrinks(s.volumeMl, s.abv);
+  return { id: s.id, label: SHORT_LABEL[s.id] ?? s.name, value: s.price / drinks };
+});
+const indexBars = wines.map((s) => ({
+  id: s.id,
+  label: SHORT_LABEL[s.id] ?? s.name,
+  value: abvToDollarIndex(s.volumeMl, s.abv, s.price),
+}));
+---
+
+<section class="pack" id="packaging-efficiency-chart" aria-labelledby="pack-heading">
+  <h2 id="pack-heading">Bag-in-box against the bottle</h2>
+  <p class="pack-lede">
+    The three wine products in the course catalogue, compared per standard
+    drink. Switch framing to see the same relationship as a cost or as an
+    index.
+  </p>
+
+  <fieldset class="pack-toggle">
+    <legend>Framing</legend>
+    <label><input type="radio" name="pack-view" value="price" checked /> Price per standard drink</label>
+    <label><input type="radio" name="pack-view" value="index" /> Standard drinks per dollar</label>
+  </fieldset>
+
+  <div id="pack-view-price">
+    <BarChart
+      title="Price per standard drink for each wine product"
+      valueLabel="Price per standard drink (AUD)"
+      bars={priceBars}
+      formatValue={(v) => `$${v.toFixed(2)}`}
+    />
+  </div>
+  <div id="pack-view-index" hidden>
+    <BarChart
+      title="Standard drinks per dollar for each wine product"
+      valueLabel="Standard drinks per dollar"
+      bars={indexBars}
+      formatValue={(v) => v.toFixed(3)}
+    />
+  </div>
+</section>
+
+<script>
+  const priceView = document.getElementById("pack-view-price");
+  const indexView = document.getElementById("pack-view-index");
+  const radios = document.querySelectorAll<HTMLInputElement>('input[name="pack-view"]');
+
+  if (priceView && indexView) {
+    for (const radio of radios) {
+      radio.addEventListener("change", () => {
+        if (!radio.checked) return;
+        priceView.hidden = radio.value !== "price";
+        indexView.hidden = radio.value !== "index";
+      });
+    }
+  }
+</script>
+
+<style>
+  .pack {
+    margin-block: var(--at-spacing-xl);
+    padding: var(--at-spacing-lg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-alt);
+  }
+
+  .pack > h2 {
+    margin-block-start: 0;
+  }
+
+  .pack-lede {
+    color: var(--at-text-secondary);
+    margin-block-end: var(--at-spacing-lg);
+  }
+
+  .pack-toggle {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin: 0 0 var(--at-spacing-md);
+    padding: 0;
+    border: 0;
+    font-size: var(--at-font-size-sm);
+  }
+
+  .pack-toggle label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: normal;
+  }
+</style>

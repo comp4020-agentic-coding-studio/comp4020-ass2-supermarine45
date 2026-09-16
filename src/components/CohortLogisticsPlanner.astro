@@ -1,0 +1,284 @@
+---
+// Week 12's capstone: the same optimalSelect() from week 10, budget scaled to
+// a cohort, run through the new estimatedPayloadKg() for the vehicle-payload
+// question the Mandatory reading's field-measured per-transaction constraint
+// sets up. The van-capacity figure is a stated planning assumption, not a
+// catalogue value, and is labelled as one.
+import BarChart from "./BarChart.astro";
+import { CATALOGUE, estimatedPayloadKg, optimalSelect } from "../lib/index-math";
+
+const MIN_CATEGORIES = 2;
+const DEFAULT_COHORT = 50;
+const DEFAULT_BUDGET_PER_PERSON = 25;
+const MAX_COHORT = 100;
+const MAX_BUDGET_PER_PERSON = 40;
+
+/** A light commercial van's usable payload, for scale — a planning assumption, not a catalogue figure. */
+const VAN_CAPACITY_KG = 800;
+
+const initialSelection = optimalSelect(
+  CATALOGUE,
+  DEFAULT_COHORT * DEFAULT_BUDGET_PER_PERSON,
+  MIN_CATEGORIES,
+);
+const initialPayload = estimatedPayloadKg(initialSelection);
+const worstCasePayload = estimatedPayloadKg(
+  optimalSelect(CATALOGUE, MAX_COHORT * MAX_BUDGET_PER_PERSON, MIN_CATEGORIES),
+);
+const max = Math.max(worstCasePayload, VAN_CAPACITY_KG) * 1.15;
+
+const bars = [
+  { id: "payload", label: "Selection payload", value: initialPayload },
+  { id: "van", label: "Van capacity (assumed)", value: VAN_CAPACITY_KG },
+];
+---
+
+<section class="cohort" id="cohort-logistics-planner" aria-labelledby="cohort-heading">
+  <h2 id="cohort-heading">Cohort payload against van capacity</h2>
+  <p class="cohort-lede">
+    The dynamic-programming selection from week 10, budget scaled to a
+    cohort, run through the packaged-density assumption above to estimate a
+    transport payload, then measured against an assumed van capacity of{" "}
+    {VAN_CAPACITY_KG} kg.
+  </p>
+
+  <div class="cohort-body">
+    <fieldset class="cohort-fields">
+      <legend>Cohort and budget</legend>
+
+      <div class="field">
+        <label for="clp-cohort">Cohort size</label>
+        <input
+          id="clp-cohort"
+          type="range"
+          min="10"
+          max={MAX_COHORT}
+          step="5"
+          value={DEFAULT_COHORT}
+          aria-describedby="clp-cohort-value"
+        />
+        <span class="field-value" id="clp-cohort-value">{DEFAULT_COHORT}</span>
+      </div>
+
+      <div class="field">
+        <label for="clp-budget">Budget per person (AUD)</label>
+        <input
+          id="clp-budget"
+          type="range"
+          min="10"
+          max={MAX_BUDGET_PER_PERSON}
+          step="1"
+          value={DEFAULT_BUDGET_PER_PERSON}
+          aria-describedby="clp-budget-value"
+        />
+        <span class="field-value" id="clp-budget-value">{`$${DEFAULT_BUDGET_PER_PERSON}`}</span>
+      </div>
+    </fieldset>
+
+    <output class="cohort-out" id="clp-out" aria-live="polite">
+      <table class="cohort-table">
+        <caption class="visually-hidden">Selection totals for the current cohort and budget</caption>
+        <tbody>
+          <tr>
+            <th scope="row">Total budget</th>
+            <td id="clp-total-budget">{`$${(DEFAULT_COHORT * DEFAULT_BUDGET_PER_PERSON).toFixed(2)}`}</td>
+          </tr>
+          <tr>
+            <th scope="row">Standard drinks</th>
+            <td id="clp-drinks">{initialSelection.feasible ? initialSelection.drinks.toFixed(1) : "—"}</td>
+          </tr>
+          <tr>
+            <th scope="row">Spend</th>
+            <td id="clp-spend">{initialSelection.feasible ? `$${initialSelection.spend.toFixed(2)}` : "—"}</td>
+          </tr>
+          <tr>
+            <th scope="row">Estimated payload</th>
+            <td id="clp-payload">{initialSelection.feasible ? `${initialPayload.toFixed(1)} kg` : "—"}</td>
+          </tr>
+          <tr>
+            <th scope="row">Van trips required</th>
+            <td id="clp-trips">
+              {initialSelection.feasible ? String(Math.ceil(initialPayload / VAN_CAPACITY_KG)) : "—"}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="cohort-verdict" id="clp-verdict"></p>
+    </output>
+  </div>
+
+  <BarChart
+    title="Estimated selection payload against assumed van capacity"
+    valueLabel="Mass (kg)"
+    bars={bars}
+    max={max}
+    formatValue={(v) => `${v.toFixed(1)} kg`}
+  />
+
+  <p class="cohort-caution">
+    The objective function here is still total standard drinks under a
+    budget and a variety floor, scaled to a cohort; payload is a logistics
+    consequence of that selection, not a separate objective. It is a
+    description of what the model produces, not a recommendation about how
+    much a cohort should buy — week 11's externality framework is where the
+    cost this objective does not price in is dealt with.
+  </p>
+</section>
+
+<script>
+  import { barGeometry } from "../lib/chart-geometry";
+  import { CATALOGUE, estimatedPayloadKg, optimalSelect } from "../lib/index-math";
+
+  const MIN_CATEGORIES = 2;
+  const VAN_CAPACITY_KG = 800;
+
+  const $ = (id: string) => document.getElementById(id);
+  const cohort = $("clp-cohort") as HTMLInputElement | null;
+  const budget = $("clp-budget") as HTMLInputElement | null;
+  const wrapper = document.querySelector<HTMLElement>("#cohort-logistics-planner .barchart");
+  const rect = document.querySelector<SVGRectElement>('[data-bar-id="payload"]');
+  const labels = document.querySelectorAll<HTMLElement>('[data-value-for="payload"]');
+
+  if (cohort && budget && wrapper && rect) {
+    const max = Number.parseFloat(wrapper.dataset.max ?? "");
+    const count = Number.parseInt(wrapper.dataset.count ?? "", 10);
+    const cohortValue = $("clp-cohort-value")!;
+    const budgetValue = $("clp-budget-value")!;
+    const verdict = $("clp-verdict")!;
+    const cell = (id: string) => $(id)!;
+
+    const render = () => {
+      const c = Number.parseInt(cohort.value, 10);
+      const b = Number.parseInt(budget.value, 10);
+      cohortValue.textContent = String(c);
+      budgetValue.textContent = `$${b}`;
+
+      const totalBudget = c * b;
+      const selection = optimalSelect(CATALOGUE, totalBudget, MIN_CATEGORIES);
+      const payload = estimatedPayloadKg(selection);
+      const trips = Math.ceil(payload / VAN_CAPACITY_KG);
+
+      cell("clp-total-budget").textContent = `$${totalBudget.toFixed(2)}`;
+      cell("clp-drinks").textContent = selection.feasible ? selection.drinks.toFixed(1) : "—";
+      cell("clp-spend").textContent = selection.feasible ? `$${selection.spend.toFixed(2)}` : "—";
+      cell("clp-payload").textContent = selection.feasible ? `${payload.toFixed(1)} kg` : "—";
+      cell("clp-trips").textContent = selection.feasible ? String(trips) : "—";
+
+      verdict.textContent = selection.feasible
+        ? `${c} people, $${totalBudget.toFixed(2)} total: the optimal selection weighs an estimated ${payload.toFixed(1)} kg packaged, requiring ${trips} van trip${trips === 1 ? "" : "s"} at ${VAN_CAPACITY_KG} kg capacity each.`
+        : `No selection satisfies ${MIN_CATEGORIES} distinct types within $${totalBudget.toFixed(2)} for ${c} people.`;
+
+      const geom = barGeometry(0, count, payload, max);
+      rect.setAttribute("y", String(geom.y));
+      rect.setAttribute("height", String(geom.height));
+      for (const label of labels) label.textContent = `${payload.toFixed(1)} kg`;
+    };
+
+    for (const el of [cohort, budget]) {
+      el.addEventListener("input", render);
+    }
+  }
+</script>
+
+<style>
+  .cohort {
+    margin-block: var(--at-spacing-xl);
+    padding: var(--at-spacing-lg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-alt);
+  }
+
+  .cohort > h2 {
+    margin-block-start: 0;
+  }
+
+  .cohort-lede {
+    color: var(--at-text-secondary);
+    margin-block-end: var(--at-spacing-lg);
+  }
+
+  .cohort-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--at-spacing-lg);
+    align-items: flex-start;
+  }
+
+  .cohort-fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--at-spacing-sm);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    flex: 1 1 16rem;
+  }
+
+  .field {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .field label {
+    font-weight: 600;
+    flex: 0 0 auto;
+    min-inline-size: 10rem;
+  }
+
+  .field input[type="range"] {
+    flex: 1 1 auto;
+  }
+
+  .field-value {
+    font-variant-numeric: tabular-nums;
+    min-inline-size: 3.5rem;
+    text-align: end;
+  }
+
+  .cohort-out {
+    flex: 1 1 16rem;
+  }
+
+  .cohort-table {
+    border-collapse: collapse;
+    inline-size: 100%;
+    font-size: var(--at-font-size-sm);
+  }
+
+  .cohort-table th,
+  .cohort-table td {
+    text-align: start;
+    padding: 0.35rem 0.5rem;
+    border-block-end: 1px solid var(--at-divider);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cohort-table td {
+    text-align: end;
+  }
+
+  .cohort-verdict {
+    margin-block-start: var(--at-spacing-sm);
+    color: var(--at-text-secondary);
+    font-size: var(--at-font-size-sm);
+  }
+
+  .cohort-caution {
+    margin-block-start: var(--at-spacing-lg);
+    padding-block-start: var(--at-spacing-md);
+    border-block-start: 1px solid var(--at-divider);
+    color: var(--at-text-secondary);
+    font-size: var(--at-font-size-sm);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>

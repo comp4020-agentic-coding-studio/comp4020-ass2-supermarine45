@@ -16,10 +16,20 @@ import { getPublishedCollection } from "astro-course-university/content";
 import SpecList from "astro-course-university/components/SpecList.astro";
 import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
 import { withBase } from "astro-theme-university/url";
+import CohortLogisticsPlanner from "../../components/CohortLogisticsPlanner.astro";
+import ElasticityResponseChart from "../../components/ElasticityResponseChart.astro";
+import EndcapLiftChart from "../../components/EndcapLiftChart.astro";
+import ExternalityHarmChart from "../../components/ExternalityHarmChart.astro";
+import FermentationYieldChart from "../../components/FermentationYieldChart.astro";
+import FortificationChart from "../../components/FortificationChart.astro";
+import PackagingEfficiencyChart from "../../components/PackagingEfficiencyChart.astro";
 import PriceDrinksScatterplot from "../../components/PriceDrinksScatterplot.astro";
 import RelatedLinks from "../../components/RelatedLinks.astro";
 import ScraperTerminal from "../../components/ScraperTerminal.astro";
+import StandardDrinkVisualizer from "../../components/StandardDrinkVisualizer.astro";
+import StoreLayoutMap from "../../components/StoreLayoutMap.astro";
 import TeachingTeam from "../../components/TeachingTeam.astro";
+import WetLoopholeChart from "../../components/WetLoopholeChart.astro";
 import { formatCourseDate } from "../../lib/dates";
 import { graphCollections, sessionLabels, siteConfig } from "../../site-config";
 
@@ -69,8 +79,18 @@ const teachers = [...new Set([...(lecture.data.teachers ?? []), ...(lab?.data.te
 
   <Content />
 
+  {week === 1 && <FermentationYieldChart />}
+  {week === 2 && <StandardDrinkVisualizer />}
+  {week === 3 && <PackagingEfficiencyChart />}
+  {week === 4 && <WetLoopholeChart />}
+  {week === 5 && <ElasticityResponseChart />}
+  {week === 6 && <FortificationChart />}
+  {week === 7 && <StoreLayoutMap />}
+  {week === 8 && <EndcapLiftChart />}
   {week === 9 && <ScraperTerminal />}
   {week === 10 && <PriceDrinksScatterplot />}
+  {week === 11 && <ExternalityHarmChart />}
+  {week === 12 && <CohortLogisticsPlanner />}
 
   {
     Lab && lab && (

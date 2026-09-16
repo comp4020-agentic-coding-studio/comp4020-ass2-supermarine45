@@ -1,0 +1,175 @@
+---
+// Week 11's one deliberate externality pause: Laslett et al. (2011)'s
+// national survey split, restated as a per-ten-people pictogram alongside
+// the percentage view. Both views show the same reported figures; only the
+// framing changes, and neither extrapolates past what the survey reports.
+import BarChart from "./BarChart.astro";
+
+const HARM_SPLIT = [
+  { id: "stranger", label: "A stranger's drinking", percent: 70 },
+  { id: "close", label: "Someone close to them", percent: 30 },
+] as const;
+
+const bars = HARM_SPLIT.map((h) => ({ id: h.id, label: h.label, value: h.percent }));
+
+const PICTOGRAM_TOTAL = 10;
+const strangerCount = Math.round((HARM_SPLIT[0].percent / 100) * PICTOGRAM_TOTAL);
+const closeCount = PICTOGRAM_TOTAL - strangerCount;
+---
+
+<section class="harm" id="externality-harm-chart" aria-labelledby="harm-heading">
+  <h2 id="harm-heading">Who respondents said the harm came from</h2>
+  <p class="harm-lede">
+    Laslett et al. (2011) surveyed Australians who reported being harmed by
+    someone else's drinking, and asked whose. Seventy per cent named a
+    stranger; thirty per cent named someone close to them. The two views
+    below present the same reported figures.
+  </p>
+
+  <fieldset class="harm-toggle">
+    <legend>View</legend>
+    <label><input type="radio" name="harm-view" value="percent" checked /> As a percentage</label>
+    <label><input type="radio" name="harm-view" value="pictogram" /> Out of every 10 people</label>
+  </fieldset>
+
+  <div id="harm-view-percent">
+    <BarChart
+      title="Share of respondents reporting harm from someone else's drinking, by who caused it"
+      valueLabel="Respondents reporting harm (%)"
+      bars={bars}
+      max={100}
+      formatValue={(v) => `${v.toFixed(0)}%`}
+    />
+  </div>
+
+  <div id="harm-view-pictogram" hidden>
+    <svg
+      viewBox="0 0 240 100"
+      class="harm-pictogram"
+      role="img"
+      aria-label={`Out of every ${PICTOGRAM_TOTAL} people who reported harm from someone else's drinking, ${strangerCount} named a stranger and ${closeCount} named someone close to them.`}
+    >
+      {
+        Array.from({ length: PICTOGRAM_TOTAL }).map((_, i) => {
+          const col = i % 5;
+          const row = Math.floor(i / 5);
+          const isStranger = i < strangerCount;
+          return (
+            <rect
+              x={12 + col * 44}
+              y={12 + row * 44}
+              width="32"
+              height="32"
+              rx="4"
+              class={isStranger ? "pictogram-cell pictogram-stranger" : "pictogram-cell pictogram-close"}
+            />
+          );
+        })
+      }
+    </svg>
+    <ul class="harm-legend">
+      <li><span class="legend-swatch legend-stranger"></span> A stranger's drinking ({strangerCount} of {PICTOGRAM_TOTAL})</li>
+      <li><span class="legend-swatch legend-close"></span> Someone close to them ({closeCount} of {PICTOGRAM_TOTAL})</li>
+    </ul>
+  </div>
+</section>
+
+<script>
+  const percentView = document.getElementById("harm-view-percent");
+  const pictogramView = document.getElementById("harm-view-pictogram");
+  const radios = document.querySelectorAll<HTMLInputElement>('input[name="harm-view"]');
+
+  if (percentView && pictogramView) {
+    for (const radio of radios) {
+      radio.addEventListener("change", () => {
+        if (!radio.checked) return;
+        percentView.hidden = radio.value !== "percent";
+        pictogramView.hidden = radio.value !== "pictogram";
+      });
+    }
+  }
+</script>
+
+<style>
+  .harm {
+    margin-block: var(--at-spacing-xl);
+    padding: var(--at-spacing-lg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-alt);
+  }
+
+  .harm > h2 {
+    margin-block-start: 0;
+  }
+
+  .harm-lede {
+    color: var(--at-text-secondary);
+    margin-block-end: var(--at-spacing-lg);
+  }
+
+  .harm-toggle {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin: 0 0 var(--at-spacing-md);
+    padding: 0;
+    border: 0;
+    font-size: var(--at-font-size-sm);
+  }
+
+  .harm-toggle label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: normal;
+  }
+
+  .harm-pictogram {
+    display: block;
+    inline-size: 100%;
+    max-inline-size: 18rem;
+    block-size: auto;
+  }
+
+  .pictogram-cell {
+    stroke: var(--at-border);
+    stroke-width: 1;
+  }
+
+  .pictogram-stranger {
+    fill: var(--at-primary);
+  }
+
+  .pictogram-close {
+    fill: var(--at-accent);
+  }
+
+  .harm-legend {
+    list-style: none;
+    margin: var(--at-spacing-sm) 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: var(--at-font-size-sm);
+    color: var(--at-text-secondary);
+  }
+
+  .legend-swatch {
+    display: inline-block;
+    inline-size: 0.85rem;
+    block-size: 0.85rem;
+    border-radius: 3px;
+    margin-inline-end: 0.35rem;
+    vertical-align: middle;
+  }
+
+  .legend-stranger {
+    background: var(--at-primary);
+  }
+
+  .legend-close {
+    background: var(--at-accent);
+  }
+</style>

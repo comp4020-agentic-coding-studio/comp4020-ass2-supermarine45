@@ -1,0 +1,228 @@
+---
+// Week 7's retail-layout claim, run through the same abvToDollarIndex the
+// toolkit computes for a shopping list — applied here to shelf placement
+// instead. The two lowest-index SKUs sit in the highest-traffic zones; the
+// two highest-index SKUs sit in the zones a shopper reaches least often.
+import { CATALOGUE, abvToDollarIndex } from "../lib/index-math";
+
+const ranked = CATALOGUE.map((s) => ({
+  ...s,
+  index: abvToDollarIndex(s.volumeMl, s.abv, s.price),
+})).sort((a, b) => b.index - a.index);
+
+const bestValue = ranked.slice(0, 2);
+const worstValue = ranked.slice(-2);
+
+const zones = [
+  { id: "entrance", label: "Entrance display", kind: "Prime", x: 40, y: 234, w: 130, h: 54, sku: worstValue[0] },
+  { id: "endcap", label: "Checkout endcap", kind: "Prime", x: 310, y: 234, w: 130, h: 54, sku: worstValue[1] },
+  { id: "aisle-a", label: "Back aisle A", kind: "Low-visibility", x: 40, y: 46, w: 190, h: 54, sku: bestValue[0] },
+  { id: "aisle-b", label: "Back aisle B", kind: "Low-visibility", x: 250, y: 46, w: 190, h: 54, sku: bestValue[1] },
+] as const;
+---
+
+<section class="layout" id="store-layout-map" aria-labelledby="layout-heading">
+  <h2 id="layout-heading">Where the index-ranked catalogue ends up on the floor</h2>
+  <p class="layout-lede">
+    The same standard-drinks-per-dollar index the toolkit computes for a
+    shopping list, applied instead to shelf placement: the two lowest-index
+    products in this catalogue occupy the entrance display and the checkout
+    endcap, and the two highest-index products sit in the two aisles
+    farthest from the door. Select a zone for its product and index.
+  </p>
+
+  <svg viewBox="0 0 480 320" class="layout-svg">
+    <title>Schematic store floor plan</title>
+    <rect x="20" y="20" width="440" height="280" class="layout-outline" />
+    <text x="240" y="16" class="layout-caption" text-anchor="middle">Back of store</text>
+    <text x="240" y="312" class="layout-caption" text-anchor="middle">Entrance / checkout</text>
+
+    {
+      zones.map((zone) => (
+        <g
+          class={zone.kind === "Prime" ? "zone zone-prime" : "zone zone-hidden"}
+          data-zone={zone.id}
+          data-sku={zone.sku.name}
+          data-index={zone.sku.index.toFixed(3)}
+          data-kind={zone.kind}
+          data-label={zone.label}
+          tabindex="0"
+          role="button"
+          aria-label={`${zone.label}, a ${zone.kind.toLowerCase()} zone: ${zone.sku.name}, index ${zone.sku.index.toFixed(3)} standard drinks per dollar`}
+        >
+          <rect x={zone.x} y={zone.y} width={zone.w} height={zone.h} rx="6" />
+          <text x={zone.x + zone.w / 2} y={zone.y + zone.h / 2 - 6} text-anchor="middle" class="zone-label">
+            {zone.label}
+          </text>
+          <text x={zone.x + zone.w / 2} y={zone.y + zone.h / 2 + 12} text-anchor="middle" class="zone-kind">
+            {zone.kind}
+          </text>
+        </g>
+      ))
+    }
+  </svg>
+
+  <output id="layout-output" for={zones.map((z) => z.id).join(" ")} aria-live="polite" class="layout-output">
+    Select a zone above to see which product occupies it.
+  </output>
+
+  <details class="layout-fallback">
+    <summary>Show zone assignments as a table</summary>
+    <table>
+      <caption>Zone, traffic level, product and index for every placement shown above</caption>
+      <thead>
+        <tr>
+          <th scope="col">Zone</th>
+          <th scope="col">Traffic</th>
+          <th scope="col">Product</th>
+          <th scope="col">Index (standard drinks / $)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          zones.map((zone) => (
+            <tr>
+              <th scope="row">{zone.label}</th>
+              <td>{zone.kind}</td>
+              <td>{zone.sku.name}</td>
+              <td>{zone.sku.index.toFixed(3)}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </details>
+</section>
+
+<script>
+  const zones = document.querySelectorAll<SVGGElement>("#store-layout-map .zone");
+  const output = document.getElementById("layout-output");
+
+  const reveal = (zone: SVGGElement) => {
+    if (!output) return;
+    const { label, kind, sku, index } = zone.dataset;
+    output.textContent = `${label} (${kind}): ${sku}, index ${index} standard drinks per dollar.`;
+    for (const z of zones) z.classList.toggle("is-active", z === zone);
+  };
+
+  for (const zone of zones) {
+    zone.addEventListener("click", () => reveal(zone));
+    zone.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        reveal(zone);
+      }
+    });
+  }
+</script>
+
+<style>
+  .layout {
+    margin-block: var(--at-spacing-xl);
+    padding: var(--at-spacing-lg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-alt);
+  }
+
+  .layout > h2 {
+    margin-block-start: 0;
+  }
+
+  .layout-lede {
+    color: var(--at-text-secondary);
+    margin-block-end: var(--at-spacing-lg);
+  }
+
+  .layout-svg {
+    display: block;
+    inline-size: 100%;
+    max-inline-size: 32rem;
+    block-size: auto;
+    margin-inline: auto;
+  }
+
+  .layout-outline {
+    fill: none;
+    stroke: var(--at-border);
+    stroke-width: 2;
+  }
+
+  .layout-caption {
+    fill: var(--at-text-secondary);
+    font-size: var(--at-font-size-sm);
+  }
+
+  .zone {
+    cursor: pointer;
+  }
+
+  .zone rect {
+    stroke: var(--at-border);
+    stroke-width: 1.5;
+    transition: stroke-width 0.15s ease;
+  }
+
+  .zone-prime rect {
+    fill: var(--at-accent);
+  }
+
+  .zone-hidden rect {
+    fill: var(--at-bg);
+  }
+
+  .zone.is-active rect {
+    stroke: var(--at-primary);
+    stroke-width: 3;
+  }
+
+  .zone:focus-visible {
+    outline: 2px solid var(--at-primary);
+    outline-offset: 2px;
+  }
+
+  .zone-label {
+    fill: var(--at-text);
+    font-size: var(--at-font-size-sm);
+    font-weight: 600;
+  }
+
+  .zone-kind {
+    fill: var(--at-text-secondary);
+    font-size: var(--at-font-size-sm);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .zone rect {
+      transition: none;
+    }
+  }
+
+  .layout-output {
+    display: block;
+    margin-block: var(--at-spacing-md) 0;
+    padding: var(--at-spacing-sm) var(--at-spacing-md);
+    border-inline-start: 3px solid var(--at-primary);
+    background: var(--at-bg);
+    color: var(--at-text);
+    min-block-size: 2.5rem;
+  }
+
+  .layout-fallback {
+    margin-block-start: var(--at-spacing-md);
+    font-size: var(--at-font-size-sm);
+  }
+
+  .layout-fallback table {
+    border-collapse: collapse;
+    margin-block-start: var(--at-spacing-sm);
+    inline-size: 100%;
+  }
+
+  .layout-fallback th,
+  .layout-fallback td {
+    border: 1px solid var(--at-divider);
+    padding: 0.4rem 0.6rem;
+    text-align: start;
+  }
+</style>

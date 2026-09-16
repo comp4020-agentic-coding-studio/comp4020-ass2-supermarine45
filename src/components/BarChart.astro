@@ -1,0 +1,181 @@
+---
+// A small bar comparison, reused by every lecture-week chart that reduces to
+// "here are a few categories, here is a number for each" — weeks 2, 3, 4, 6,
+// 8, 11 and 12 all need exactly that shape, so the SVG scaling and the
+// accessible table fallback are written once here instead of seven times.
+// A wrapping component owns its own heading, lede and <script>; this renders
+// only the chart and its table, tagged with `data-bar-id`/`data-value-for` so
+// that script can update both after a recompute. The fixed `max` and `bars`
+// count a recompute needs to reproduce the same scale are exposed as
+// `data-max`/`data-count` on the wrapper.
+import { barGeometry, CHART_H, CHART_PAD, CHART_PLOT_H, CHART_W } from "../lib/chart-geometry";
+
+export interface BarChartBar {
+  id: string;
+  label: string;
+  value: number;
+}
+
+interface Props {
+  title: string;
+  bars: BarChartBar[];
+  valueLabel: string;
+  max?: number;
+  formatValue?: (value: number) => string;
+}
+
+const {
+  title,
+  bars,
+  valueLabel,
+  max = Math.max(...bars.map((b) => b.value), 0) * 1.15 || 1,
+  formatValue = (v: number) => v.toFixed(1),
+} = Astro.props;
+
+const baselineY = CHART_PAD.top + CHART_PLOT_H;
+---
+
+<div class="barchart" data-max={max} data-count={bars.length}>
+  <svg
+    class="barchart-svg"
+    viewBox={`0 0 ${CHART_W} ${CHART_H}`}
+    role="img"
+    aria-label={`${title}. An accessible data table follows.`}
+    focusable="false"
+  >
+    <line x1={CHART_PAD.left} x2={CHART_W - CHART_PAD.right} y1={baselineY} y2={baselineY} class="barchart-axis" />
+    <text x={CHART_PAD.left - 8} y={baselineY + 4} class="barchart-tick" text-anchor="end">
+      0
+    </text>
+    <text x={CHART_PAD.left - 8} y={CHART_PAD.top + 4} class="barchart-tick" text-anchor="end">
+      {formatValue(max)}
+    </text>
+
+    {
+      bars.map((bar, i) => {
+        const rect = barGeometry(i, bars.length, bar.value, max);
+        return (
+          <g>
+            <rect
+              data-bar-id={bar.id}
+              x={rect.x}
+              y={rect.y}
+              width={rect.width}
+              height={rect.height}
+              class="barchart-bar"
+            />
+            <text
+              data-value-for={bar.id}
+              x={rect.x + rect.width / 2}
+              y={Math.max(rect.y - 6, CHART_PAD.top - 4)}
+              class="barchart-value"
+              text-anchor="middle"
+            >
+              {formatValue(bar.value)}
+            </text>
+            <text x={rect.x + rect.width / 2} y={baselineY + 18} class="barchart-label" text-anchor="middle">
+              {bar.label}
+            </text>
+          </g>
+        );
+      })
+    }
+  </svg>
+
+  <details class="barchart-table">
+    <summary>View the same data as a table</summary>
+    <table>
+      <caption class="visually-hidden">{title}</caption>
+      <thead>
+        <tr>
+          <th scope="col">Category</th>
+          <th scope="col">{valueLabel}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          bars.map((bar) => (
+            <tr>
+              <th scope="row">{bar.label}</th>
+              <td data-value-for={bar.id}>{formatValue(bar.value)}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </details>
+</div>
+
+<style>
+  .barchart {
+    margin-block-start: var(--at-spacing-md);
+  }
+
+  .barchart-svg {
+    inline-size: 100%;
+    block-size: auto;
+    max-inline-size: 30rem;
+  }
+
+  .barchart-axis {
+    stroke: var(--at-text-secondary);
+    stroke-width: 1;
+  }
+
+  .barchart-tick,
+  .barchart-label {
+    font-size: 9px;
+    fill: var(--at-text-secondary);
+  }
+
+  .barchart-bar {
+    fill: var(--at-primary);
+    transition: height 0.15s ease, y 0.15s ease;
+  }
+
+  .barchart-value {
+    font-size: 10px;
+    font-weight: 600;
+    fill: var(--at-text);
+  }
+
+  .barchart-table {
+    margin-block-start: var(--at-spacing-sm);
+  }
+
+  .barchart-table summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--at-primary);
+  }
+
+  .barchart-table table {
+    margin-block-start: var(--at-spacing-sm);
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--at-font-size-sm);
+  }
+
+  .barchart-table th,
+  .barchart-table td {
+    text-align: start;
+    padding: 0.35rem 0.5rem;
+    border-block-end: 1px solid var(--at-divider);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .barchart-bar {
+      transition: none;
+    }
+  }
+</style>

@@ -1,0 +1,160 @@
+---
+// Week 8's published lift figures, restated through week 5's own elasticities
+// rather than a new framework: %ΔQ = elasticity × %ΔP, solved for %ΔP, tells
+// a merchandiser what price cut would have moved the same volume as the
+// endcap placement did.
+import BarChart from "./BarChart.astro";
+
+const ENDCAP_LIFT = [
+  { id: "beer", label: "Beer", liftPercent: 23.2, elasticity: -0.46 },
+  { id: "wine", label: "Wine", liftPercent: 33.6, elasticity: -0.69 },
+  { id: "spirits", label: "Spirits", liftPercent: 46.1, elasticity: -0.8 },
+] as const;
+
+const bars = ENDCAP_LIFT.map((c) => ({ id: c.id, label: c.label, value: c.liftPercent }));
+const max = Math.max(...ENDCAP_LIFT.map((c) => c.liftPercent)) * 1.15;
+const equivalentCut = (c: (typeof ENDCAP_LIFT)[number]) => c.liftPercent / Math.abs(c.elasticity);
+---
+
+<section class="endcap" id="endcap-lift-chart" aria-labelledby="endcap-heading">
+  <h2 id="endcap-heading">Endcap placement lift, by category</h2>
+  <p class="endcap-lede">
+    Published lift in unit sales from endcap placement alone, Nakamura et al.
+    (2014). Select a bar to see the same lift restated as the price cut that
+    would move the same volume, using each category's elasticity from
+    Wagenaar, Salois & Komro (2009).
+  </p>
+
+  <BarChart
+    title="Endcap placement lift in unit sales, by category"
+    valueLabel="Sales lift (%)"
+    bars={bars}
+    max={max}
+    formatValue={(v) => `${v.toFixed(1)}%`}
+  />
+
+  <output id="endcap-output" for={ENDCAP_LIFT.map((c) => c.id).join(" ")} aria-live="polite" class="endcap-output">
+    Select a bar above to see its equivalent price cut.
+  </output>
+
+  <details class="endcap-fallback">
+    <summary>Show equivalent price cuts as a table</summary>
+    <table>
+      <caption>Endcap lift and the equivalent price cut for each category</caption>
+      <thead>
+        <tr>
+          <th scope="col">Category</th>
+          <th scope="col">Endcap lift</th>
+          <th scope="col">Equivalent price cut</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          ENDCAP_LIFT.map((c) => (
+            <tr>
+              <th scope="row">{c.label}</th>
+              <td>{c.liftPercent.toFixed(1)}%</td>
+              <td>{equivalentCut(c).toFixed(1)}%</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </details>
+</section>
+
+<script>
+  // Mirrors the frontmatter's ENDCAP_LIFT above; both cite Nakamura et al.
+  // (2014) for the lift figures and Wagenaar, Salois & Komro (2009) for the
+  // elasticities used to restate them as an equivalent price cut.
+  const ENDCAP_LIFT = [
+    { id: "beer", label: "Beer", liftPercent: 23.2, elasticity: -0.46 },
+    { id: "wine", label: "Wine", liftPercent: 33.6, elasticity: -0.69 },
+    { id: "spirits", label: "Spirits", liftPercent: 46.1, elasticity: -0.8 },
+  ];
+
+  const output = document.getElementById("endcap-output");
+  const container = document.getElementById("endcap-lift-chart");
+
+  if (output && container) {
+    for (const category of ENDCAP_LIFT) {
+      const rect = container.querySelector<SVGRectElement>(`[data-bar-id="${category.id}"]`);
+      if (!rect) continue;
+      rect.setAttribute("tabindex", "0");
+      rect.setAttribute("role", "button");
+      const cut = category.liftPercent / Math.abs(category.elasticity);
+      rect.setAttribute(
+        "aria-label",
+        `${category.label}: ${category.liftPercent.toFixed(1)}% endcap lift, equivalent to a ${cut.toFixed(1)}% price cut`,
+      );
+
+      const reveal = () => {
+        output.textContent = `${category.label}: a ${category.liftPercent.toFixed(1)}% endcap lift is equivalent to a ${cut.toFixed(1)}% price cut, at an elasticity of ${category.elasticity}.`;
+      };
+
+      rect.addEventListener("click", reveal);
+      rect.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          reveal();
+        }
+      });
+    }
+  }
+</script>
+
+<style>
+  .endcap {
+    margin-block: var(--at-spacing-xl);
+    padding: var(--at-spacing-lg);
+    border: 1px solid var(--at-border);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-alt);
+  }
+
+  .endcap > h2 {
+    margin-block-start: 0;
+  }
+
+  .endcap-lede {
+    color: var(--at-text-secondary);
+    margin-block-end: var(--at-spacing-lg);
+  }
+
+  .endcap-output {
+    display: block;
+    margin-block-start: var(--at-spacing-md);
+    padding: var(--at-spacing-sm) var(--at-spacing-md);
+    border-inline-start: 3px solid var(--at-primary);
+    background: var(--at-bg);
+    color: var(--at-text);
+    min-block-size: 2.5rem;
+  }
+
+  .endcap-fallback {
+    margin-block-start: var(--at-spacing-md);
+    font-size: var(--at-font-size-sm);
+  }
+
+  .endcap-fallback table {
+    border-collapse: collapse;
+    margin-block-start: var(--at-spacing-sm);
+    inline-size: 100%;
+  }
+
+  .endcap-fallback th,
+  .endcap-fallback td {
+    border: 1px solid var(--at-divider);
+    padding: 0.4rem 0.6rem;
+    text-align: start;
+  }
+
+  :global(#endcap-lift-chart .barchart-bar) {
+    cursor: pointer;
+  }
+
+  :global(#endcap-lift-chart .barchart-bar:focus-visible) {
+    outline: 2px solid var(--at-primary);
+    outline-offset: 2px;
+  }
+</style>
