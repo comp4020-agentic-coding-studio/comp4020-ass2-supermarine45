@@ -1,6 +1,6 @@
 ---
 title: The 50-Person Event Portfolio
-description:
+description: >
   The capstone synthesis: design and mathematically defend a hyper-efficient beverage inventory for a 50-person cohort, factoring in tax loopholes and physical logistics.
 week: 12
 due: 2027-06-28T12:00:00+10:00

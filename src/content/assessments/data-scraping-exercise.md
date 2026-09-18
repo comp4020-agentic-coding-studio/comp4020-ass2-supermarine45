@@ -11,9 +11,9 @@ marking:
     - name: Programmatic functionality and script efficiency
       weight: 40
     - name: Data analysis comprehension
-      weight: 20
+      weight: 30
     - name: Methodological transparency and rate-limiting ethics
-      weight: 20
+      weight: 30
 spec:
   - extraction of a minimum of 150 distinct SKUs from a nominated regional liquor retailer
   - dataset must represent a stratified sample encompassing cask wine, ready-to-drink (RTD) premixes, and distilled clear spirits
