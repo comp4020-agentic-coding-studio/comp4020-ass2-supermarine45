@@ -11,7 +11,7 @@ related:
   - assessments/event-portfolio
 ---
 
-**Core Theory:** *Spatial Optimization of High-ABV Inventory in Big-Box Liquor* (Fenn, Journal of Retailing Analytics, 2022).
+**Core reading:** *Spatial Optimization of High-ABV Inventory in Big-Box Liquor* (Fenn, Journal of Retailing Analytics, 2022).
 
 ## The Lecture
 
@@ -25,7 +25,7 @@ In this week's lab, you will quantify the spatial friction of a retail environme
 
 Your task is to map the primary pedestrian vectors from the entrance turnstile to the most mathematically optimal ABV-to-dollar SKUs identified in Week 4. You will calculate the "walking penalty"—the literal distance in meters a consumer is forced to navigate past high-margin visual merchandising before reaching tax-efficient stock. You can interact with the **Interactive Spatial Floor Plan** widget on this page to visualize how discrete zones yield vastly different efficiencies. You must account for this spatial friction when mapping the physical extraction logistics of your Week 12 Event Portfolio.
 
-## Mandatory Literature
+## Mandatory reading
 
 - [Changing the density of alcohol outlets to reduce alcohol-related problems](https://doi.org/10.1080/09595230701499191)
   — Livingston, Chikritzhs & Room, *Drug and Alcohol Review* 26(5), 2007, 557–566. 

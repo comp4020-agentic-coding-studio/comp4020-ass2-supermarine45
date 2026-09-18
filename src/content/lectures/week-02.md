@@ -11,7 +11,7 @@ related:
   - assessments/data-scraping-exercise
 ---
 
-**Core Theory:** *Standard Drink Equivalency Models in High-Volume Retail Environments* (Quaye, Health Economics Quarterly, 2017).
+**Core reading:** *Standard Drink Equivalency Models in High-Volume Retail Environments* (Quaye, Health Economics Quarterly, 2017).
 
 ## The Lecture
 
@@ -27,7 +27,7 @@ We rely strictly on calculated analysis. In this week's lab, you will not use a 
 
 Use the **ABV-to-Dollar Index Calculator** widget on this page to verify your manual working. If your hand-calculated index differs from the widget’s output, your understanding of the specific gravity multiplier is flawed. You must master this formula on a single item before you attempt to automate it across 150 SKUs in your Week 9 Data Scraping Exercise.
 
-## Mandatory Literature
+## Mandatory reading
 
 - [Understanding standard drinks and drinking guidelines](https://doi.org/10.1111/j.1465-3362.2011.00374.x)
   — Kerr & Stockwell, *Drug and Alcohol Review* 31(2), 2012, 200–205. 

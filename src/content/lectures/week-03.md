@@ -9,7 +9,7 @@ teachers:
 slides: /decks/week-03/
 ---
 
-**Core Theory:** *Spatial Geometry and Oxidation Resistance in Polyethylene Bladder Distribution* (Fenn, Supply Chain & Logistics Journal, 2018).
+**Core reading:** *Spatial Geometry and Oxidation Resistance in Polyethylene Bladder Distribution* (Fenn, Supply Chain & Logistics Journal, 2018).
 
 ## The Lecture
 
@@ -25,7 +25,7 @@ In this week's lab, you will quantify the spatial penalty of cylindrical packagi
 
 Your task is to compute the maximum number of standard drinks that can be legally loaded onto a single pallet using two different formats: cases of 750mL glass wine bottles, and blocks of 4-liter cardboard casks. You will calculate the dead-space ratio for both configurations and convert that wasted volume into a definitive financial cost per standard drink. This physical payload math forms the logistical foundation of your Week 12 Event Portfolio.
 
-## Mandatory Literature
+## Mandatory reading
 
 - [Comparative life cycle assessment of alternative systems for wine packaging in Italy](https://doi.org/10.1016/j.jclepro.2020.120888)
   — Ferrara & De Feo, *Journal of Cleaner Production* 259, 2020, 120888.

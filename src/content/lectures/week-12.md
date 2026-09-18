@@ -9,7 +9,7 @@ teachers:
 slides: /decks/week-12/
 ---
 
-**Core Theory:** *Scaling Household Purchasing Algorithms to Event Logistics* (Fenn, Journal of Applied Consumer Logistics, 2024).
+**Core reading:** *Scaling Household Purchasing Algorithms to Event Logistics* (Fenn, Journal of Applied Consumer Logistics, 2024).
 
 ## The Lecture
 
@@ -23,7 +23,7 @@ In this final workshop, you will conduct a full physical and financial audit of 
 
 Your task is to calculate the gross tonnage and spatial volume of your optimized inventory, and distribute it mathematically across a simulated convoy of standard domestic vehicles. An algorithm that successfully maximizes the standard drink yield but inadvertently exceeds the legal axle weight limit of a Toyota Camry will be penalized for logistical failure. You must prove that your inventory can physically transition from the retail floor plan (mapped in Week 7) to the event space.
 
-## Mandatory Literature
+## Mandatory reading
 
 - [Implementation of effective alcohol control strategies is needed at large sports and entertainment events](https://doi.org/10.1111/j.1753-6405.2011.00813.x)
   — Lyne & Galloway, *Australian and New Zealand Journal of Public Health* 36(1), 2012, 55–60. 

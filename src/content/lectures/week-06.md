@@ -11,7 +11,7 @@ related:
   - assessments/wet-policy-brief
 ---
 
-**Core Theory:** *Federal Excise Disparities in Distillation versus Fermentation* (O'Connor, Tax Law Review, 2018).
+**Core reading:** *Federal Excise Disparities in Distillation versus Fermentation* (O'Connor, Tax Law Review, 2018).
 
 ## The Lecture
 
@@ -27,7 +27,7 @@ Because this week directly precedes the submission of your WET Policy Brief, the
 
 You will be given the volumetric data for a theoretical 2-liter cask of cheap fermented grape must. Your task is to calculate the precise volume of 95% neutral grain spirit that can be added to the mixture before the Australian Taxation Office legally revokes its WET categorization. You will manually calculate the total tax burden of the product immediately before the threshold, and immediately after. The resulting delta is the exact financial value of the loophole. You cannot adequately draft your policy brief without understanding the scale of this cliff-edge penalty.
 
-## Mandatory Literature
+## Mandatory reading
 
 - [Estimated impacts of alternative Australian alcohol taxation structures on consumption, public health and government revenues](https://doi.org/10.5694/mja13.10605)
   — Doran, Byrnes, Cobiac, Vandenberg & Vos, *Medical Journal of Australia* 199(9), 2013, 619–622. 

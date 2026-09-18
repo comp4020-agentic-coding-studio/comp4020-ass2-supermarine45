@@ -9,7 +9,7 @@ teachers:
 slides: /decks/week-08/
 ---
 
-**Core Theory:** *Visual Merchandising and the Intoxication Index: Behavioral Biases* (Martinez, Behavioral Economics Today, 2020).
+**Core reading:** *Visual Merchandising and the Intoxication Index: Behavioral Biases* (Martinez, Behavioral Economics Today, 2020).
 
 ## The Lecture
 
@@ -25,7 +25,7 @@ This week’s lab requires an observational retail audit. You will visit a local
 
 Your task is to manually extract the price, volume, and ABV data from the items featured on this promotional display and calculate their exact standard drink efficiency. You will then compare this "promoted" efficiency against the baseline index of the hidden cask wine we modeled in Week 3. The resulting mathematical delta is what we define as the "obfuscation premium"—the exact financial penalty a consumer pays per 10g of alcohol simply because the product was placed in a high-visibility cardboard cut-out.
 
-## Mandatory Literature
+## Mandatory reading
 
 - [Sales impact of displaying alcoholic and non-alcoholic beverages in end-of-aisle locations: an observational study](https://doi.org/10.1016/j.socscimed.2014.02.032)
   — Nakamura, Pechey, Suhrcke, Jebb & Marteau, *Social Science & Medicine* 108, 2014, 68–73. 

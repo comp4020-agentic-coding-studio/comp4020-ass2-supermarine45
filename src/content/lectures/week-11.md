@@ -11,7 +11,7 @@ related:
   - assessments/event-portfolio
 ---
 
-**Core Theory:** *Public Health Externalities of Optimized Discount Liquor Purchasing* (Roberts & Lin, Journal of Medical Ethics, 2023).
+**Core reading:** *Public Health Externalities of Optimized Discount Liquor Purchasing* (Roberts & Lin, Journal of Medical Ethics, 2023).
 
 ## The Lecture
 
@@ -25,7 +25,7 @@ In this week's lab, you will step away from price optimization to model societal
 
 Your task is to integrate a "social harm coefficient" into your budget spreadsheet, balancing your financial savings against the externalized morbidity costs of high-efficiency alcohol distribution. This exercise ensures your final capstone portfolio is intellectually comprehensive, acknowledging both the microeconomic savings of tax exploitation and the macro-level externalities documented in our literature.
 
-## Mandatory Literature
+## Mandatory reading
 
 - [Surveying the range and magnitude of alcohol's harm to others in Australia](https://doi.org/10.1111/j.1360-0443.2011.03445.x)
   — Laslett, Room, Ferris, Wilkinson et al., *Addiction* 106(9), 2011, 1603–1611. 

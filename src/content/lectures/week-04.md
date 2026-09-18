@@ -11,7 +11,7 @@ related:
   - assessments/wet-policy-brief
 ---
 
-**Core Theory:** *Volumetric Taxation and the Australian Cask Wine Pricing Anomaly* (Wallace, Australian Tax Forum, 2019).
+**Core reading:** *Volumetric Taxation and the Australian Cask Wine Pricing Anomaly* (Wallace, Australian Tax Forum, 2019).
 
 ## The Lecture
 
@@ -27,7 +27,7 @@ In preparation for your WET Policy Brief assessment, this week’s lab focuses o
 
 Using the statutory tax rates provided in the lab, you will calculate the final shelf price of two items: a high-volume cask of cheap wine, and an equivalent volume of mid-strength beer. You will manually apply the 29% wholesale WET to the wine and the volumetric federal excise to the beer. By comparing the final tax burden per standard drink on both items, you will mathematically prove the existence of the subsidy. You may verify your working against the **Ad Valorem vs. Volumetric Calculator** widget provided in the course interface.
 
-## Mandatory Literature
+## Mandatory reading
 
 - [Excise and import taxes on wine versus beer and spirits: an international comparison](https://doi.org/10.1111/j.1759-3441.2010.00064.x)
   — Anderson, *Economic Papers* 29(2), 2010, 215–228. 

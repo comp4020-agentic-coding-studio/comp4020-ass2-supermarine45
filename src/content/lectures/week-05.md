@@ -9,7 +9,7 @@ teachers:
 slides: /decks/week-05/
 ---
 
-**Core Theory:** *Price Elasticity of Discount Spirits and RTDs in Suburban Markets* (Chen & Gupta, Journal of Consumer Policy, 2015).
+**Core reading:** *Price Elasticity of Discount Spirits and RTDs in Suburban Markets* (Chen & Gupta, Journal of Consumer Policy, 2015).
 
 ## The Lecture
 
@@ -23,7 +23,7 @@ In this week's lab, you will calculate the Price Elasticity of Demand (PED) for 
 
 The objective is to quantify the precise discount threshold at which an RTD temporarily eclipses the baseline economic efficiency of cask wine. You will compute this threshold manually. Understanding the mathematics of demand elasticity by hand is a strict prerequisite before we begin writing automated scripts to hunt for these loss-leader anomalies in Week 9.
 
-## Mandatory Literature
+## Mandatory reading
 
 - [Effects of beverage alcohol price and tax levels on drinking: a meta-analysis of 1003 estimates from 112 studies](https://doi.org/10.1111/j.1360-0443.2008.02438.x)
   — Wagenaar, Salois & Komro, *Addiction* 104(2), 2009, 179–190. 

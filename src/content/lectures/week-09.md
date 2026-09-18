@@ -11,7 +11,7 @@ related:
   - assessments/data-scraping-exercise
 ---
 
-**Core Theory:** *Automated Extraction of Retail Inventories: Legal and Technical Boundaries* (Kim, Data Science Quarterly, 2021).
+**Core reading:** *Automated Extraction of Retail Inventories: Legal and Technical Boundaries* (Kim, Data Science Quarterly, 2021).
 
 ## The Lecture
 
@@ -25,7 +25,7 @@ In this week's laboratory, you will abandon the manual calculator and initialize
 
 Utilizing libraries such as `BeautifulSoup4` and `requests`, you will draft a rudimentary scraping script targeting a provided, sanitized retail sandbox environment. Your objective is to programmatically extract raw HTML nodes, isolate the pricing, ABV, and volumetric strings, sanitize the variables (stripping currency symbols and extraneous whitespace), and append them to a structurally sound dataframe. You are strictly required to hardcode a `crawl-delay` variable into your `while` loops to ensure your automated requests respect standard server limits. 
 
-## Mandatory Literature
+## Mandatory reading
 
 - [The Billion Prices Project: using online prices for measurement and research](https://doi.org/10.1257/jep.30.2.151)
   — Cavallo & Rigobon, *Journal of Economic Perspectives* 30(2), 2016, 151–178. 

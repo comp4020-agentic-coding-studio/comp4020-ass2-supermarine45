@@ -12,7 +12,7 @@ related:
   - assessments/event-portfolio
 ---
 
-**Core Theory:** *Algorithmic Maximization of the Intoxication Index in Real-Time Datasets* (Quaye, Quantitative Economics, 2024).
+**Core reading:** *Algorithmic Maximization of the Intoxication Index in Real-Time Datasets* (Quaye, Quantitative Economics, 2024).
 
 ## The Lecture
 
@@ -26,7 +26,7 @@ In this week's lab, you will transition from data collection to algorithmic maxi
 
 You will also deploy the **Data Visualization Scatterplot** widget within your lab environment. By plotting "Retail Price" on the X-axis against "Total Standard Drinks" on the Y-axis, you will visually isolate the profound outlier SKUs that your algorithm has identified. Hovering over these outliers will physically demonstrate the extreme efficiency of the WET loophole compared to the baseline cluster of volumetrically taxed spirits. This visual proof is a required component of your final Capstone deck.
 
-## Mandatory Literature
+## Mandatory reading
 
 - [Knapsack Problems: Algorithms and Computer Implementations](http://www.or.deis.unibo.it/knapsack.html)
   — Martello & Toth, Wiley, 1990. 

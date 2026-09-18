@@ -9,7 +9,7 @@ teachers:
 slides: /decks/week-01/
 ---
 
-**Core Theory:** *Fermentation of Ultra-Low-Cost Sugar Washes in High-Volume Beverage Production* (Smith & Davies, Journal of Industrial Microbiology, 2020).
+**Core reading:** *Fermentation of Ultra-Low-Cost Sugar Washes in High-Volume Beverage Production* (Smith & Davies, Journal of Industrial Microbiology, 2020).
 
 ## The Lecture
 
@@ -25,7 +25,7 @@ As outlined in the course syllabus, theory without arithmetic is mere speculatio
 
 Using the **Baseline Yield Calculator** widget provided in your lab interface, you will compute the raw production cost of a 10g alcohol unit. Enter the current bulk commodity price of refined sucrose ($/kg) and the estimated thermal energy overhead of the distillation phase. The calculator will output the absolute price floor of production. Record this metric; any disagreement between your local spreadsheet and this baseline floor will fatally compromise your final Event Portfolio.
 
-## Mandatory Literature
+## Mandatory reading
 
 Every week names two kinds of reading. The core theory (above) establishes the lecture's argument. The mandatory literature below consists of published work you must extract empirical data from to ground your arithmetic. 
 
