@@ -3,7 +3,7 @@ title: Retail Data Extraction Exercise
 description:
   Extraction and analysis of retail inventory data to compute baseline ABV-to-dollar efficiencies across 150+ SKUs.
 week: 9
-due: 2027-06-26T12:00:00+10:00
+due: 2027-04-26T12:00:00+10:00
 weight: 30
 marking:
   mode: weighted

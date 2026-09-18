@@ -1,7 +1,7 @@
 ---
-title: Ethanol Fermentation & Baseline Costs
-description:
-  Establishing the chemical and economic baseline: fermentation margins and the absolute price floor of industrial ethanol before taxation.
+title: Alcohol Fermentation & Baseline Costs
+description: >
+  Establishing the chemical and economic baseline: fermentation margins and the absolute price floor of industrial alcohol before taxation.
 week: 1
 date: 2027-02-22
 teachers:
@@ -13,7 +13,7 @@ slides: /decks/week-01/
 
 ## The Lecture
 
-This week establishes the chemical and economic baseline for the entire twelve-week curriculum. In this course, ethanol ($C_2H_6O$) is never viewed biologically, socially, or culturally; it is viewed strictly fiscally. Before we can model retail optimization or exploit taxation loopholes, we must first isolate the absolute minimum cost of production before federal excises, packaging logistics, and retail margins distort the final shelf price. 
+This week establishes the chemical and economic baseline for the entire twelve-week curriculum. In this course, alcohol ($C_2H_6O$) is never viewed biologically, socially, or culturally; it is viewed strictly fiscally. Before we can model retail optimization or exploit taxation loopholes, we must first isolate the absolute minimum cost of production before federal excises, packaging logistics, and retail margins distort the final shelf price. 
 
 We will examine the molecular efficiency of industrial yeast strains—specifically *Saccharomyces cerevisiae*, when deployed in high-yield, low-cost sugar washes. By separating the raw thermodynamic cost of fermentation from the eventual retail markup, we establish the baseline price floor of alcohol production. 
 
@@ -23,7 +23,7 @@ Understanding this floor is critical. If, during your Week 9 data scraping exerc
 
 As outlined in the course syllabus, theory without arithmetic is mere speculation. You must prove the baseline cost before you can optimize against it. 
 
-Using the **Baseline Yield Calculator** widget provided in your lab interface, you will compute the raw production cost of a 10g ethanol unit. Enter the current bulk commodity price of refined sucrose ($/kg) and the estimated thermal energy overhead of the distillation phase. The calculator will output the absolute price floor of production. Record this metric; any disagreement between your local spreadsheet and this baseline floor will fatally compromise your final Event Portfolio.
+Using the **Baseline Yield Calculator** widget provided in your lab interface, you will compute the raw production cost of a 10g alcohol unit. Enter the current bulk commodity price of refined sucrose ($/kg) and the estimated thermal energy overhead of the distillation phase. The calculator will output the absolute price floor of production. Record this metric; any disagreement between your local spreadsheet and this baseline floor will fatally compromise your final Event Portfolio.
 
 ## Mandatory Literature
 

@@ -1,0 +1,15 @@
+---
+import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
+import ScheduleTable from "../../components/ScheduleTable.astro";
+import { siteConfig } from "../../site-config";
+---
+
+<ContentLayout title="Course Schedule" {...siteConfig}>
+  <p>
+    The twelve teaching weeks, grouped into the four phases of the course
+    argument. Each row pairs a lecture with its lab, and names the assessment
+    due that week, if any.
+  </p>
+
+  <ScheduleTable />
+</ContentLayout>

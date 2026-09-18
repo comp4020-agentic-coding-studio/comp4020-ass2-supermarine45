@@ -2,7 +2,7 @@
 title: Getting started
 description:
   The first lab of the semester — fixing the fiscal-molecule framing of
-  ethanol and the standard-drink metric every calculation this course makes
+  alcohol and the standard-drink metric every calculation this course makes
   depends on
 week: 1
 date: 2027-02-22
@@ -31,14 +31,14 @@ to do arithmetic in during the lab.
 
 ### In the lab
 
-**The fiscal molecule.** Ethanol (C₂H₆O) is not treated biologically in
+**The fiscal molecule.** Alcohol (C₂H₆O) is not treated biologically in
 this course; it is treated purely as an economic unit. We fix the chemical
 baseline week 1's lecture covers so that a production cost, not an assumed
 retail price, is what every later tax and margin calculation sits on top
 of.
 
 **The standard drink as currency.** In Australia, one standard drink is
-defined as exactly ten grams of pure ethanol. This lab fixes that
+defined as exactly ten grams of pure alcohol. This lab fixes that
 figure as the unit every ratio, tax, and comparison for the rest of the
 semester is denominated in — the way week 2's lecture treats it as a unit
 of account, not a serving suggestion.

@@ -1,6 +1,6 @@
 ---
 title: "Macro-Event Logistics and Capstone Synthesis"
-description:
+description: >
   Scaling algorithmic optimization to physical supply chains: payload mathematics, volumetric displacement, and economic synthesis.
 week: 12
 date: 2027-05-10

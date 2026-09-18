@@ -26,7 +26,7 @@ related:
 
 ## The brief
 
-The Australian Wine Equalisation Tax (WET) represents a profound distortion in the retail ethanol market. Your task is to draft a formal academic policy brief that deconstructs this anomaly. 
+The Australian Wine Equalisation Tax (WET) represents a profound distortion in the retail alcohol market. Your task is to draft a formal academic policy brief that deconstructs this anomaly. 
 
 You must clearly articulate the ad valorem mechanism of the WET. Specifically, how applying a 29% tax to a product's wholesale value, rather than its volumetric alcohol content, fundamentally subsidizes the mass production of high-volume, low-quality bag-in-box wine. Your analysis must bridge the gap between abstract tax legislation and physical retail behavior, demonstrating exactly how this specific loophole dictates the spatial layout and discount purchasing patterns of suburban liquor outlets. 
 

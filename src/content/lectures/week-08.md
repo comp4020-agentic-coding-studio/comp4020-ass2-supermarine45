@@ -23,7 +23,7 @@ The overarching goal of the endcap is visual obfuscation. By artificially signal
 
 This week’s lab requires an observational retail audit. You will visit a local supermarket liquor outlet and document the primary promotional endcap facing the entrance turnstile. 
 
-Your task is to manually extract the price, volume, and ABV data from the items featured on this promotional display and calculate their exact standard drink efficiency. You will then compare this "promoted" efficiency against the baseline index of the hidden cask wine we modeled in Week 3. The resulting mathematical delta is what we define as the "obfuscation premium"—the exact financial penalty a consumer pays per 10g of ethanol simply because the product was placed in a high-visibility cardboard cut-out.
+Your task is to manually extract the price, volume, and ABV data from the items featured on this promotional display and calculate their exact standard drink efficiency. You will then compare this "promoted" efficiency against the baseline index of the hidden cask wine we modeled in Week 3. The resulting mathematical delta is what we define as the "obfuscation premium"—the exact financial penalty a consumer pays per 10g of alcohol simply because the product was placed in a high-visibility cardboard cut-out.
 
 ## Mandatory Literature
 

@@ -1,6 +1,6 @@
 ---
 title: "Automated Extraction of Retail Inventories (Web Scraping)"
-description:
+description: >
   Programmatic extraction of live pricing data: DOM parsing, HTTP requests, and structural data hygiene.
 week: 9
 date: 2027-04-19

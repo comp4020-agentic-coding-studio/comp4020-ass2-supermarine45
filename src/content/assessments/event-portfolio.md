@@ -3,7 +3,7 @@ title: The 50-Person Event Portfolio
 description: >
   The capstone synthesis: design and mathematically defend a hyper-efficient beverage inventory for a 50-person cohort, factoring in tax loopholes and physical logistics.
 week: 12
-due: 2027-06-28T12:00:00+10:00
+due: 2027-05-17T12:00:00+10:00
 weight: 40
 marking:
   mode: weighted
@@ -17,7 +17,7 @@ marking:
 spec:
 - A presentation deck of at least **10 slides**.
 - A linked, fully costed budget spreadsheet listing each SKU, retail price, and standard-drink yield.
-- A mathematical optimisation of total ethanol yield subject to a minimum financial cost.
+- A mathematical optimisation of total alcohol yield subject to a minimum financial cost.
 - A clear justification of inventory choices based on WET structures and observed pricing differences.
 - A physical logistics model accounting for vehicle payload limits and volumetric capacity.
 

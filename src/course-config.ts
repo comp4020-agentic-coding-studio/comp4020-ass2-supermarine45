@@ -48,7 +48,7 @@ export const slopCourseMetaSchema = z
 // digit to your course's level (and `level` to match); keep the other three.
 export const courseMeta = slopCourseMetaSchema.parse({
   code: "SLOP4230",
-  title: "Retail Ethanol Economics",
+  title: "Retail Alcohol Economics",
   session: "Semester 1",
   year: 2027,
   level: 4,

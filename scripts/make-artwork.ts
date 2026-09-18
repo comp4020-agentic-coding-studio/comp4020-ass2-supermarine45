@@ -209,7 +209,7 @@ const cardOverlay = `  <defs>
   </defs>
   <rect width="1200" height="630" fill="url(#scrim)" />
   <text x="72" y="300" fill="#e0a53a" font-family="Public Sans, Helvetica, Arial, sans-serif" font-size="34" font-weight="600" letter-spacing="6">SLOP4230</text>
-  <text x="72" y="386" fill="${CREAM}" font-family="Public Sans, Helvetica, Arial, sans-serif" font-size="68" font-weight="600" letter-spacing="-1.5">Retail Ethanol Economics</text>
+  <text x="72" y="386" fill="${CREAM}" font-family="Public Sans, Helvetica, Arial, sans-serif" font-size="68" font-weight="600" letter-spacing="-1.5">Retail Alcohol Economics</text>
   <text x="72" y="440" fill="${CREAM}" font-family="Public Sans, Helvetica, Arial, sans-serif" font-size="28" opacity="0.82">Slop University · Semester 1, 2027</text>
   <rect x="72" y="478" width="132" height="5" fill="${GOLD}" />
 `;

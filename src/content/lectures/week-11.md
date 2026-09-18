@@ -1,7 +1,7 @@
 ---
 title: "Public Health Externalities and Bioethics"
 description:
-  Bioethical dimensions, negative societal externalities, and public health economics of hyper-efficient retail ethanol distribution.
+  Bioethical dimensions, negative societal externalities, and public health economics of hyper-efficient retail alcohol distribution.
 week: 11
 date: 2027-05-03
 teachers:
@@ -23,7 +23,7 @@ When retailers and consumers systematically drive down the financial cost per st
 
 In this week's lab, you will step away from price optimization to model societal cost. Using datasets provided by the course, you will calculate the imputed public health expenditure associated with the consumption volume of your Week 10 Event Portfolio. 
 
-Your task is to integrate a "social harm coefficient" into your budget spreadsheet, balancing your financial savings against the externalized morbidity costs of high-efficiency ethanol distribution. This exercise ensures your final capstone portfolio is intellectually comprehensive, acknowledging both the microeconomic savings of tax exploitation and the macro-level externalities documented in our literature.
+Your task is to integrate a "social harm coefficient" into your budget spreadsheet, balancing your financial savings against the externalized morbidity costs of high-efficiency alcohol distribution. This exercise ensures your final capstone portfolio is intellectually comprehensive, acknowledging both the microeconomic savings of tax exploitation and the macro-level externalities documented in our literature.
 
 ## Mandatory Literature
 

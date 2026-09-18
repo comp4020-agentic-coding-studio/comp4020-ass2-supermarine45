@@ -13,11 +13,11 @@ slides: /decks/week-03/
 
 ## The Lecture
 
-Having established the chemical price floor of ethanol in Week 1 and our standardized currency in Week 2, we now introduce the first major physical vector that distorts retail pricing: packaging logistics. 
+Having established the chemical price floor of alcohol in Week 1 and our standardized currency in Week 2, we now introduce the first major physical vector that distorts retail pricing: packaging logistics. 
 
 In industrial beverage distribution, the traditional glass bottle is a mathematically catastrophic vessel. It possesses a high tare weight, requires structural reinforcement to prevent shattering, and its cylindrical geometry creates significant dead-space voids when packed into square cartons. This translates to an immense logistical overhead, as transport vehicles end up burning fuel to move heavy glass and empty air.
 
-The Australian the bag-in-box (cask) packaging format eliminates this overhead entirely. By replacing glass with a collapsible, oxidation-resistant polyethylene bladder housed in a corrugated rectangular prism, producers achieve near-100% volumetric efficiency when stacking pallets. This lecture isolates that spatial efficiency and calculates the exact margin improvement it generates per liter of ethanol. We will demonstrate how these massive savings in physical freight are passed directly to the consumer, artificially lowering the ABV-to-dollar index of cask wine before taxation is even applied.
+The Australian the bag-in-box (cask) packaging format eliminates this overhead entirely. By replacing glass with a collapsible, oxidation-resistant polyethylene bladder housed in a corrugated rectangular prism, producers achieve near-100% volumetric efficiency when stacking pallets. This lecture isolates that spatial efficiency and calculates the exact margin improvement it generates per liter of alcohol. We will demonstrate how these massive savings in physical freight are passed directly to the consumer, artificially lowering the ABV-to-dollar index of cask wine before taxation is even applied.
 
 ## Applied Computational Lab
 

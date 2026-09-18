@@ -15,9 +15,9 @@ related:
 
 ## The Lecture
 
-Having established the baseline cost of ethanol and the logistical efficiencies of cardboard packaging, we now introduce the most significant market distortion in the Australian retail landscape: regulatory taxation. 
+Having established the baseline cost of alcohol and the logistical efficiencies of cardboard packaging, we now introduce the most significant market distortion in the Australian retail landscape: regulatory taxation. 
 
-Unlike beer and distilled spirits, which are subject to a volumetric excise (a flat federal tax applied per liter of pure alcohol), Australian wine is taxed under an *ad valorem* mechanism known as the Wine Equalisation Tax (WET). The WET applies a flat 29% tax to the *wholesale value* of the product, remaining entirely agnostic to the actual volume of ethanol contained within it. 
+Unlike beer and distilled spirits, which are subject to a volumetric excise (a flat federal tax applied per liter of pure alcohol), Australian wine is taxed under an *ad valorem* mechanism known as the Wine Equalisation Tax (WET). The WET applies a flat 29% tax to the *wholesale value* of the product, remaining entirely agnostic to the actual volume of alcohol contained within it. 
 
 This creates a highly exploitable regulatory loophole. If a producer utilizes the ultra-low-cost sugar washes from Week 1 and the ultra-cheap bag-in-box distribution from Week 3, they can aggressively minimize their wholesale price. Because the tax is a percentage of that minimized price, the federal tax burden shrinks exponentially alongside it. We will mathematically model this anomaly, demonstrating exactly how a 4-liter cask containing 80 standard drinks can legally retail for substantially less than a carton of beer containing only 20 standard drinks.
 

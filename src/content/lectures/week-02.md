@@ -15,9 +15,9 @@ related:
 
 ## The Lecture
 
-In Australia, a "standard drink" is legally defined as exactly 10 grams of pure ethanol. Outside of this classroom, that metric is deployed almost exclusively as a public health harm-reduction tool. In this course, we dispense with the sociological framing entirely. We recontextualize the 10-gram metric as our foundational economic currency; the exchange unit that allows us to compare wildly disparate retail categories.
+In Australia, a "standard drink" is legally defined as exactly 10 grams of pure alcohol. Outside of this classroom, that metric is deployed almost exclusively as a public health harm-reduction tool. In this course, we dispense with the sociological framing entirely. We recontextualize the 10-gram metric as our foundational economic currency; the exchange unit that allows us to compare wildly disparate retail categories.
 
-A 4-liter cask of cheap wine and a 700mL bottle of premium gin are functionally incomparable on a volumetric level. However, by reducing both to their total yield of 10-gram ethanol units, we establish a flat, standardized economic landscape. 
+A 4-liter cask of cheap wine and a 700mL bottle of premium gin are functionally incomparable on a volumetric level. However, by reducing both to their total yield of 10-gram alcohol units, we establish a flat, standardized economic landscape. 
 
 This lecture introduces the core algorithmic formula that underpins your entire semester: `Cost per Standard Drink = Retail Price / ((Volume in mL * (ABV% / 100) * 0.789) / 10)`. The constant `0.789` represents the specific gravity of ethanol at standard room temperature. By standardizing the currency, we expose the massive pricing disparities engineered by taxation and retail markups.
 

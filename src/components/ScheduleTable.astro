@@ -1,0 +1,122 @@
+---
+import { getPublishedCollection } from "astro-course-university/content";
+import { withBase } from "astro-theme-university/url";
+import { formatCourseDate } from "../lib/dates";
+import { sessionLabels } from "../site-config";
+
+const [lectures, sessions, assessments] = await Promise.all([
+  getPublishedCollection("lectures"),
+  getPublishedCollection("sessions"),
+  getPublishedCollection("assessments"),
+]);
+
+const labByWeek = new Map(sessions.map((s) => [Number(s.data.week), s]));
+const assessmentByWeek = new Map(assessments.map((a) => [Number(a.data.week), a]));
+const weeks = lectures.sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+const labWord = sessionLabels.singular;
+
+const PHASES = [
+  { title: "Phase I: The Chemical Baseline", start: 1, end: 3 },
+  { title: "Phase II: Regulatory Exploitation", start: 4, end: 6 },
+  { title: "Phase III: Spatial & Algorithmic Optimization", start: 7, end: 10 },
+  { title: "Phase IV: Synthesis & Ethics", start: 11, end: 12 },
+] as const;
+
+const phaseGroups = PHASES.map((phase) => ({
+  ...phase,
+  weeks: weeks.filter((lecture) => {
+    const week = Number(lecture.data.week);
+    return week >= phase.start && week <= phase.end;
+  }),
+}));
+---
+
+<div class="schedule">
+  {
+    phaseGroups.map((phase) => (
+      <section class="schedule-phase">
+        <h2>
+          {phase.title} <small>(Weeks {phase.start}–{phase.end})</small>
+        </h2>
+        <div class="schedule-scroll">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Week</th>
+                <th>Date</th>
+                <th>Lecture</th>
+                <th>{labWord}</th>
+                <th>Assessment due</th>
+              </tr>
+            </thead>
+            <tbody>
+              {phase.weeks.map((lecture) => {
+                const week = Number(lecture.data.week);
+                const lab = labByWeek.get(week);
+                const assessment = assessmentByWeek.get(week);
+                return (
+                  <tr>
+                    <td>{week}</td>
+                    <td>{formatCourseDate(lecture.data.date)}</td>
+                    <td>
+                      <a href={withBase(`/lectures/${lecture.id}/`)}>{lecture.data.title}</a>
+                    </td>
+                    <td>{lab ? lab.data.title : "—"}</td>
+                    <td>
+                      {assessment ? (
+                        <a href={withBase(`/assessments/${assessment.id}/`)}>
+                          {assessment.data.title} · {formatCourseDate(assessment.data.due)}
+                        </a>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    ))
+  }
+</div>
+
+<style>
+  .schedule {
+    display: grid;
+    gap: var(--at-spacing-xl);
+  }
+
+  .schedule-phase h2 {
+    margin-block-end: var(--at-spacing-sm);
+  }
+
+  .schedule-phase h2 small {
+    color: var(--at-text-secondary);
+    font-weight: 400;
+  }
+
+  .schedule-scroll {
+    overflow-x: auto;
+  }
+
+  .schedule-table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--at-font-size-sm);
+  }
+
+  .schedule-table td,
+  .schedule-table th {
+    padding: 0.5rem 0.75rem;
+    text-align: start;
+    border-block-end: 1px solid var(--at-divider);
+    white-space: nowrap;
+  }
+
+  .schedule-table th {
+    color: var(--at-text-secondary);
+    font-weight: 600;
+  }
+</style>
