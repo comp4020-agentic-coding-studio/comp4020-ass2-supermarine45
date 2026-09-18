@@ -1,25 +1,24 @@
 ---
 title: WET Policy Brief
 description:
-  A 1,500-word APA-formatted analysis of the Wine Equalisation Tax's
-  economic and spatial impact on discount purchasing
+  An academic policy brief deconstructing how the Wine Equalisation Tax structurally incentivizes the production of high-volume, low-cost cask wine.
 week: 6
 due: 2027-04-05T12:00:00+10:00
 weight: 30
 marking:
   mode: weighted
   criteria:
-    - name: Economic rigor and correct application of tax mechanics
+    - name: Economic precision and correct application of tax mechanics
       weight: 50
-    - name: Structural coherence and argumentation
-      weight: 33
-    - name: Deadpan academic tone and formatting
-      weight: 17
+    - name: Structural coherence of the market argument
+      weight: 25
+    - name: Adherence to academic formatting and tone
+      weight: 25
 spec:
-  - 1,500 words, exclusive of references, strictly conforming to APA academic formatting
-  - the WET's ad valorem mechanism explained correctly, per week 4
-  - modelling of how the 29% wholesale tax incentivises high-volume, low-quality bag-in-box wine
-  - citations from at least three health-economics or tax-law journals
+  - maximum 1,500 words, exclusive of reference list (in APA format)
+  - brief explanation of the WET's ad valorem mechanism as established in Week 4
+  - clear mathematical and logical reasoning of how a 29% wholesale tax incentivizes bag-in-box distribution
+  - active citation of peer-reviewed health-economics or tax-law journals
 related:
   - lectures/week-04
   - lectures/week-06
@@ -27,12 +26,12 @@ related:
 
 ## The brief
 
-A formal academic policy brief analyzing the economic and spatial impact
-of the Australian Wine Equalisation Tax (WET) on suburban discount
-purchasing behaviors. You must model how the 29% wholesale tax
-incentivizes the production of high-volume, low-quality bag-in-box wine.
+The Australian Wine Equalisation Tax (WET) represents a profound distortion in the retail ethanol market. Your task is to draft a formal academic policy brief that deconstructs this anomaly. 
+
+You must clearly articulate the ad valorem mechanism of the WET. Specifically, how applying a 29% tax to a product's wholesale value, rather than its volumetric alcohol content, fundamentally subsidizes the mass production of high-volume, low-quality bag-in-box wine. Your analysis must bridge the gap between abstract tax legislation and physical retail behavior, demonstrating exactly how this specific loophole dictates the spatial layout and discount purchasing patterns of suburban liquor outlets. 
+
+We are not looking for a general essay on drinking culture. We are looking for a precise, mathematically literate critique of a regulatory framework. 
 
 ## What you submit
 
-A 1,500-word document, strictly conforming to APA academic formatting.
-Must cite at least three health-economics or tax-law journals.
+You will submit a single PDF document of 1,500 words (excluding your reference list). The manuscript must strictly adhere to standard APA academic formatting. To prove your argument is grounded in current regulatory reality rather than assumption, your bibliography must incorporate and actively utilize at peer-reviewed papers. Ensure you have reviewed the `spec` list above before uploading your file.

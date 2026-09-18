@@ -1,6 +1,7 @@
 ---
 import Card from "astro-theme-university/components/Card.astro";
 import CardGrid from "astro-theme-university/components/CardGrid.astro";
+import Icon from "astro-theme-university/components/Icon.astro";
 import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
 import { withBase } from "astro-theme-university/url";
 import heroImage from "../assets/images/hero-home.svg";
@@ -19,7 +20,7 @@ import { sessionLabels, siteConfig } from "../site-config";
     {courseMeta.tags.map((tag) => <li>{tag}</li>)}
   </ul>
 
-  <h2>Welcome</h2>
+  <h2><Icon name="home-simple" size="1.2em" style="vertical-align: -0.15em; margin-inline-end: 0.4rem;" /> Welcome</h2>
   <p class="lede">
     Welcome to {courseMeta.code}. Over twelve weeks this course takes a
     single number — the alcohol-by-volume-to-price ratio of a product on a
@@ -37,7 +38,7 @@ import { sessionLabels, siteConfig } from "../site-config";
     you would rather see the arithmetic before reading about it.
   </p>
 
-  <h2>What you will do</h2>
+  <h2><Icon name="compass" size="1.2em" style="vertical-align: -0.15em; margin-inline-end: 0.4rem;" /> What you will do</h2>
   <p>
     You will treat the bottle shop as a dataset, and you will do so with
     citations. Each week pairs a chemical, fiscal, or spatial question —
@@ -55,7 +56,7 @@ import { sessionLabels, siteConfig } from "../site-config";
     is not a shopping list; it is an index you can defend.
   </p>
 
-  <h2>Who it is for</h2>
+  <h2><Icon name="group" size="1.2em" style="vertical-align: -0.15em; margin-inline-end: 0.4rem;" /> Who it is for</h2>
   <p>
     This course is for anyone who has stood in a bottle shop aisle doing
     rough unit-price arithmetic in their head and suspected there was a
@@ -66,7 +67,7 @@ import { sessionLabels, siteConfig } from "../site-config";
     to acknowledge each other.
   </p>
 
-  <h2>Where to go next</h2>
+  <h2><Icon name="arrow-up-right" size="1.2em" style="vertical-align: -0.15em; margin-inline-end: 0.4rem;" /> Where to go next</h2>
   <CardGrid columns={2}>
     <Card title="Lecture" href="/lectures/">
       <p>

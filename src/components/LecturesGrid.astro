@@ -16,6 +16,7 @@ import CardGrid from "astro-theme-university/components/CardGrid.astro";
 import { getPublishedCollection } from "astro-course-university/content";
 import { withBase } from "astro-theme-university/url";
 import { formatCourseDate } from "../lib/dates";
+import { WEEKS_WITH_DIAGRAM } from "../lib/week-diagrams";
 import { sessionLabels } from "../site-config";
 
 const [lectures, sessions] = await Promise.all([
@@ -39,6 +40,11 @@ const labWord = sessionLabels.singular.toLowerCase();
                 Week {lecture.data.week}: {lecture.data.title}
               </a>
             </h2>
+            {WEEKS_WITH_DIAGRAM.has(Number(lecture.data.week)) && (
+              <p class="at-card-badges">
+                <span class="at-card-badge">Interactive diagram</span>
+              </p>
+            )}
             {lecture.data.description && <p>{lecture.data.description}</p>}
             {lab && (
               <p class="week-card-lab">

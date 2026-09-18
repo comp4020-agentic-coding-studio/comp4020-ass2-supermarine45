@@ -1,4 +1,5 @@
 ---
+import Icon from "astro-theme-university/components/Icon.astro";
 import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
 import { withBase } from "astro-theme-university/url";
 import BasketOptimiser from "../../components/BasketOptimiser.astro";
@@ -9,25 +10,20 @@ import { siteConfig } from "../../site-config";
 
 <ContentLayout
   title="Toolkit"
-  description="Three instruments the course builds and uses: the index calculation, the two tax structures, and the constrained selection."
   {...siteConfig}
 >
   <p>
-    Everything below is arithmetic you will do by hand in the labs before you
-    do it at scale. The tools are here so you can check a single row against
-    your own working — a disagreement between your spreadsheet and this page
-    is worth finding in week 9 rather than in a submitted portfolio.
-  </p>
-  <p>
-    They are ordered the way the semester is: the unit first, then what
-    distorts it, then what to do about it under a constraint.
+
+The tools below replicate the manual arithmetic you will perform in your weekly labs before scaling those calculations into real-life datasets. We provide these tools strictly for verification purposes. You are expected to check your own working against our expected baseline. Discovering a mathematical discrepancy between your local spreadsheet and this page is a problem you want to solve in Week 9, not upon receiving a graded Event Portfolio.
+
+The tools are sequenced to mirror the logic of the twelve-week curriculum: we begin by defining the basic economic unit of alcohol, introduce the regulatory constraints that distort its retail price, and finally model how to mathematically optimize for it under these logistical constraints.
   </p>
 
   <IndexCalculator />
   <TaxComparator />
   <BasketOptimiser />
 
-  <h2>What these do not do</h2>
+  <h2><Icon name="prohibition" size="1.2em" style="vertical-align: -0.15em; margin-inline-end: 0.4rem;" /> What these do not do</h2>
   <p>
     None of these tools reads a live price. Week 9 is where you build the thing
     that does, against a catalogue you chose in week 1, under the crawl-delay
@@ -35,7 +31,7 @@ import { siteConfig } from "../../site-config";
     this page is a figure you are responsible for.
   </p>
 
-  <h2>The toolchain behind them</h2>
+  <h2><Icon name="tools" size="1.2em" style="vertical-align: -0.15em; margin-inline-end: 0.4rem;" /> The toolchain behind them</h2>
   <p>
     To successfully complete the quantitative modeling in this course, students must
     become proficient with the following industry-standard toolkits:

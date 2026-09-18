@@ -3,11 +3,27 @@
 // through a greedy ranking and through the constrained dynamic program, so the
 // point at which greedy stops being optimal is something a student produces
 // rather than something they are told.
-import { CATALOGUE } from "../lib/index-math";
+import Icon from "astro-theme-university/components/Icon.astro";
+import BarChart from "./BarChart.astro";
+import { CATALOGUE, greedySelect, optimalSelect } from "../lib/index-math";
+
+const MAX_BUDGET = 400;
+const MIN_VARIETY = 1;
+const initialGreedy = greedySelect(CATALOGUE, 200, 3);
+const initialOptimal = optimalSelect(CATALOGUE, 200, 3);
+const worstCaseOptimal = optimalSelect(CATALOGUE, MAX_BUDGET, MIN_VARIETY);
+const bars = [
+  { id: "greedy", label: "Greedy", value: initialGreedy.drinks },
+  { id: "optimal", label: "Dynamic programming", value: initialOptimal.feasible ? initialOptimal.drinks : 0 },
+];
+const chartMax = Math.max(worstCaseOptimal.drinks, initialGreedy.drinks) * 1.15;
 ---
 
 <section class="tool" id="basket-optimiser" aria-labelledby="basket-optimiser-heading">
-  <h2 id="basket-optimiser-heading">Constrained selection</h2>
+  <h2 id="basket-optimiser-heading">
+    <Icon name="simple-cart" size="1.2em" style="vertical-align: -0.15em; margin-inline-end: 0.4rem;" />
+    Constrained selection
+  </h2>
   <p class="tool-lede">
     A fixed budget and a minimum number of distinct types, over a worked
     catalogue of {CATALOGUE.length} products. Greedy ranking against the
@@ -52,6 +68,14 @@ import { CATALOGUE } from "../lib/index-math";
     </output>
   </div>
 
+  <BarChart
+    title="Greedy against dynamic-programming selection"
+    valueLabel="Standard drinks"
+    bars={bars}
+    max={chartMax}
+    formatValue={(v) => v.toFixed(1)}
+  />
+
   <p class="tool-caution">
     The objective function here is total standard drinks, because that is the
     quantity week 10's formulation maximises. It is a description of what the
@@ -61,6 +85,7 @@ import { CATALOGUE } from "../lib/index-math";
 </section>
 
 <script>
+  import { barGeometry } from "../lib/chart-geometry";
   import { CATALOGUE, greedySelect, optimalSelect } from "../lib/index-math";
 
   const $ = (id: string) => document.getElementById(id);
@@ -72,6 +97,14 @@ import { CATALOGUE } from "../lib/index-math";
     const verdict = $("bo-verdict")!;
     const lines = $("bo-lines")!;
     const cell = (id: string) => $(id)!;
+
+    const wrapper = document.querySelector<HTMLElement>("#basket-optimiser .barchart");
+    const greedyRect = document.querySelector<SVGRectElement>('[data-bar-id="greedy"]');
+    const greedyLabels = document.querySelectorAll<HTMLElement>('[data-value-for="greedy"]');
+    const optimalRect = document.querySelector<SVGRectElement>('[data-bar-id="optimal"]');
+    const optimalLabels = document.querySelectorAll<HTMLElement>('[data-value-for="optimal"]');
+    const chartMax = wrapper ? Number.parseFloat(wrapper.dataset.max ?? "") : Number.NaN;
+    const chartCount = wrapper ? Number.parseInt(wrapper.dataset.count ?? "", 10) : Number.NaN;
 
     const render = () => {
       const b = Number.parseInt(budget.value, 10);
@@ -88,6 +121,19 @@ import { CATALOGUE } from "../lib/index-math";
       cell("bo-o-d").textContent = o.feasible ? o.drinks.toFixed(1) : "—";
       cell("bo-o-s").textContent = o.feasible ? `$${o.spend.toFixed(2)}` : "—";
       cell("bo-o-c").textContent = o.feasible ? String(o.categories) : "—";
+
+      if (greedyRect && optimalRect && Number.isFinite(chartMax) && Number.isFinite(chartCount)) {
+        const greedyGeom = barGeometry(0, chartCount, g.drinks, chartMax);
+        greedyRect.setAttribute("y", String(greedyGeom.y));
+        greedyRect.setAttribute("height", String(greedyGeom.height));
+        for (const label of greedyLabels) label.textContent = g.drinks.toFixed(1);
+
+        const optimalValue = o.feasible ? o.drinks : 0;
+        const optimalGeom = barGeometry(1, chartCount, optimalValue, chartMax);
+        optimalRect.setAttribute("y", String(optimalGeom.y));
+        optimalRect.setAttribute("height", String(optimalGeom.height));
+        for (const label of optimalLabels) label.textContent = optimalValue.toFixed(1);
+      }
 
       if (!o.feasible) {
         verdict.textContent = `No selection satisfies ${v} distinct types within $${b}. The constraint set is infeasible, which is a result rather than an error — the cheapest product in each type already exceeds the budget.`;

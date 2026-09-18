@@ -2,11 +2,29 @@
 // Weeks 4 and 6 in one control: the same product costed under an ad valorem
 // tax and a volumetric one, both expressed per standard drink, which is the
 // only unit in which the two structures are comparable at all.
-import { EXCISE_PER_LAL, WET_RATE } from "../lib/index-math";
+import Icon from "astro-theme-university/components/Icon.astro";
+import BarChart from "./BarChart.astro";
+import { EXCISE_PER_LAL, excisePayable, wetPayable, WET_RATE } from "../lib/index-math";
+
+const initialWet = wetPayable(7.0);
+const initialExcise = excisePayable(4000, 10.5, EXCISE_PER_LAL);
+const bars = [
+  { id: "wet", label: "Ad valorem (WET)", value: initialWet },
+  { id: "ex", label: "Volumetric excise", value: initialExcise },
+];
+
+// A generous fixed ceiling for the sparkline, since the two number fields
+// above are unbounded: a bulk, spirit-strength product (4 L at 40% ABV)
+// taxed at the field's own rate, so realistic entries stay legible without
+// the axis moving under a reader's typing.
+const chartMax = Math.max(excisePayable(4000, 40, EXCISE_PER_LAL), wetPayable(50)) * 1.15;
 ---
 
 <section class="tool" id="tax-comparator" aria-labelledby="tax-comparator-heading">
-  <h2 id="tax-comparator-heading">Tax regime comparator</h2>
+  <h2 id="tax-comparator-heading">
+    <Icon name="coins-swap" size="1.2em" style="vertical-align: -0.15em; margin-inline-end: 0.4rem;" />
+    Tax regime comparator
+  </h2>
   <p class="tool-lede">
     One product, costed under the {Math.round(WET_RATE * 100)}% ad valorem Wine
     Equalisation Tax and under a volumetric excise per litre of pure alcohol.
@@ -52,9 +70,18 @@ import { EXCISE_PER_LAL, WET_RATE } from "../lib/index-math";
       <p class="tool-note" id="tc-note"></p>
     </output>
   </div>
+
+  <BarChart
+    title="Tax payable under each regime for the entered product"
+    valueLabel="Tax payable (AUD)"
+    bars={bars}
+    max={chartMax}
+    formatValue={(v) => `$${v.toFixed(2)}`}
+  />
 </section>
 
 <script>
+  import { barGeometry } from "../lib/chart-geometry";
   import { excisePayable, litresOfAlcohol, standardDrinks, wetPayable } from "../lib/index-math";
 
   const $ = (id: string) => document.getElementById(id);
@@ -68,6 +95,14 @@ import { EXCISE_PER_LAL, WET_RATE } from "../lib/index-math";
     const ex = $("tc-ex")!;
     const exSd = $("tc-ex-sd")!;
     const note = $("tc-note")!;
+
+    const wrapper = document.querySelector<HTMLElement>("#tax-comparator .barchart");
+    const wetRect = document.querySelector<SVGRectElement>('[data-bar-id="wet"]');
+    const wetLabels = document.querySelectorAll<HTMLElement>('[data-value-for="wet"]');
+    const exRect = document.querySelector<SVGRectElement>('[data-bar-id="ex"]');
+    const exLabels = document.querySelectorAll<HTMLElement>('[data-value-for="ex"]');
+    const chartMax = wrapper ? Number.parseFloat(wrapper.dataset.max ?? "") : Number.NaN;
+    const chartCount = wrapper ? Number.parseInt(wrapper.dataset.count ?? "", 10) : Number.NaN;
 
     const render = () => {
       const v = Number.parseFloat(volume.value);
@@ -86,6 +121,18 @@ import { EXCISE_PER_LAL, WET_RATE } from "../lib/index-math";
       wetSd.textContent = `${(100 * (wetTax / drinks)).toFixed(1)}c`;
       ex.textContent = `$${exTax.toFixed(2)}`;
       exSd.textContent = `${(100 * (exTax / drinks)).toFixed(1)}c`;
+
+      if (wetRect && exRect && Number.isFinite(chartMax) && Number.isFinite(chartCount)) {
+        const wetGeom = barGeometry(0, chartCount, wetTax, chartMax);
+        wetRect.setAttribute("y", String(wetGeom.y));
+        wetRect.setAttribute("height", String(wetGeom.height));
+        for (const label of wetLabels) label.textContent = `$${wetTax.toFixed(2)}`;
+
+        const exGeom = barGeometry(1, chartCount, exTax, chartMax);
+        exRect.setAttribute("y", String(exGeom.y));
+        exRect.setAttribute("height", String(exGeom.height));
+        for (const label of exLabels) label.textContent = `$${exTax.toFixed(2)}`;
+      }
 
       const lals = litresOfAlcohol(v, a);
       const ratio = exTax / wetTax;

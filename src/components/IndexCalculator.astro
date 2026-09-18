@@ -2,15 +2,29 @@
 // The course's central calculation, made operable. Week 2 fixes the unit,
 // week 9 scrapes the inputs, week 10 optimises over the output; this is the
 // single-row version a student checks their own arithmetic against.
-import { CATALOGUE } from "../lib/index-math";
+import Icon from "astro-theme-university/components/Icon.astro";
+import BarChart from "./BarChart.astro";
+import { abvToDollarIndex, CATALOGUE } from "../lib/index-math";
 
 const presets = CATALOGUE.filter((s) =>
   ["cask-4l", "btl-wine", "beer-6", "spirit-700", "rtd-10"].includes(s.id),
 );
+
+const catalogueIndices = CATALOGUE.map((s) => abvToDollarIndex(s.volumeMl, s.abv, s.price));
+const catalogueAverageIndex = catalogueIndices.reduce((a, b) => a + b, 0) / catalogueIndices.length;
+const initialIndex = abvToDollarIndex(4000, 10.5, 14.5);
+const chartMax = Math.max(...catalogueIndices, initialIndex) * 1.15;
+const bars = [
+  { id: "this", label: "This product", value: initialIndex },
+  { id: "avg", label: "Catalogue average", value: catalogueAverageIndex },
+];
 ---
 
 <section class="tool" id="index-calculator" aria-labelledby="index-calculator-heading">
-  <h2 id="index-calculator-heading">Index calculator</h2>
+  <h2 id="index-calculator-heading">
+    <Icon name="calculator" size="1.2em" style="vertical-align: -0.15em; margin-inline-end: 0.4rem;" />
+    Index calculator
+  </h2>
   <p class="tool-lede">
     One product in, its standard-drink count and ABV-to-dollar index out. The
     conversion is week 2's, applied exactly.
@@ -57,9 +71,18 @@ const presets = CATALOGUE.filter((s) =>
       <p class="tool-note" id="ic-note"></p>
     </output>
   </div>
+
+  <BarChart
+    title="This product's index against the catalogue average"
+    valueLabel="Index (standard drinks per dollar)"
+    bars={bars}
+    max={chartMax}
+    formatValue={(v) => v.toFixed(3)}
+  />
 </section>
 
 <script>
+  import { barGeometry } from "../lib/chart-geometry";
   import { standardDrinks, abvToDollarIndex } from "../lib/index-math";
 
   const $ = (id: string) => document.getElementById(id);
@@ -72,6 +95,12 @@ const presets = CATALOGUE.filter((s) =>
     const index = $("ic-index")!;
     const ppsd = $("ic-ppsd")!;
     const note = $("ic-note")!;
+
+    const wrapper = document.querySelector<HTMLElement>("#index-calculator .barchart");
+    const rect = document.querySelector<SVGRectElement>('[data-bar-id="this"]');
+    const labels = document.querySelectorAll<HTMLElement>('[data-value-for="this"]');
+    const chartMax = wrapper ? Number.parseFloat(wrapper.dataset.max ?? "") : Number.NaN;
+    const chartCount = wrapper ? Number.parseInt(wrapper.dataset.count ?? "", 10) : Number.NaN;
 
     const render = () => {
       const v = Number.parseFloat(volume.value);
@@ -88,6 +117,13 @@ const presets = CATALOGUE.filter((s) =>
       index.textContent = idx.toFixed(3);
       ppsd.textContent = `$${(p / drinks).toFixed(2)}`;
       note.textContent = `${drinks.toFixed(1)} standard drinks at $${p.toFixed(2)}. The index is the reciprocal of the price per standard drink.`;
+
+      if (rect && Number.isFinite(chartMax) && Number.isFinite(chartCount)) {
+        const geom = barGeometry(0, chartCount, idx, chartMax);
+        rect.setAttribute("y", String(geom.y));
+        rect.setAttribute("height", String(geom.height));
+        for (const label of labels) label.textContent = idx.toFixed(3);
+      }
     };
 
     for (const el of [volume, abv, price]) el.addEventListener("input", render);
